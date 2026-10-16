@@ -1685,8 +1685,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+   
     bukaMenu(false);
 });
+</script>
 
 <!-- Script utama: tema, navbar, dan dropdown header -->
 <script src="assets/js/script.js" defer></script>
@@ -1697,12 +1699,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- Data armada -->
 <script src="assets/js/data.js" defer></script>
 
+<!-- Tahun otomatis -->
 <script>
-    const tahun = document.getElementById("current-year");
+    document.addEventListener("DOMContentLoaded", function () {
+        const tahun = document.getElementById("current-year");
 
-    if (tahun) {
-        tahun.textContent = new Date().getFullYear();
-    }
+        if (tahun) {
+            tahun.textContent = new Date().getFullYear();
+        }
+    });
 </script>
 
 </body>
