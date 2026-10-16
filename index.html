@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 
@@ -16,7 +17,6 @@
     <meta property="og:locale" content="id_ID">
     <meta property="og:title" content="Putra Utama Group | Rental Mobil Aceh">
     <meta property="og:description" content="Rental mobil Aceh dengan pilihan armada lengkap, harga kompetitif, dan layanan profesional.">
-
     <meta property="og:image" content="https://putrarentalgroup.vercel.app/assets/images/thumbnail.jpeg">
     <meta property="og:image:secure_url" content="https://putrarentalgroup.vercel.app/assets/images/thumbnail.jpeg">
     <meta property="og:image:type" content="image/jpeg">
@@ -24,25 +24,14 @@
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://putrarentalgroup.vercel.app/">
 
-    <meta name="twitter:card" content="summary_large_image">https://putrarentalgroup.vercel.app/
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Putra Utama Group | Rental Mobil Aceh">
     <meta name="twitter:description" content="Rental mobil Aceh dengan pilihan armada lengkap.">
     <meta name="twitter:image" content="https://putrarentalgroup.vercel.app/assets/images/thumbnail.jpeg">
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://putrarentalgroup.vercel.app/">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Putra Utama Group | Rental Mobil Premium Aceh</title>
-    <meta name="description" content="Rental mobil Aceh untuk perjalanan bisnis, wisata, dan keluarga. Pilihan Toyota Zenix, Alphard, Fortuner, Innova, dan armada lainnya.">
-    <meta name="theme-color" content="#0f0f11">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://example.com/">
-
     <link rel="icon" href="assets/images/logo.png" type="image/png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -78,6 +67,7 @@
         };
     </script>
 </head>
+
 
 <body class="bg-brand-light text-slate-900 antialiased transition-colors duration-300 dark:bg-brand-dark dark:text-zinc-100">
 
@@ -1697,22 +1687,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bukaMenu(false);
 });
+
+<!-- Script utama: tema, navbar, dan dropdown header -->
+<script src="assets/js/script.js" defer></script>
+
+<!-- Script kalkulator reservasi -->
+<script src="assets/js/booking.js" defer></script>
+
+<!-- Data armada -->
+<script src="assets/js/data.js" defer></script>
+
+<script>
+    const tahun = document.getElementById("current-year");
+
+    if (tahun) {
+        tahun.textContent = new Date().getFullYear();
+    }
 </script>
-    
-    <script src="assets/js/script.js" defer></script>
-    <script src="assets/js/booking.js" defer></script>
-    <script src="assets/js/data.js" defer></script>
 
-    <script>
-        document.getElementById("current-year").textContent =
-            new Date().getFullYear();
-
-        document.querySelectorAll("[data-car]").forEach((link) => {
-            link.addEventListener("click", () => {
-                const carSelect = document.getElementById("calc-mobil");
-                if (carSelect) carSelect.value = link.dataset.car;
-            });
-        });
-    </script>
 </body>
 </html>
+
