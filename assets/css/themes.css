@@ -1,0 +1,480 @@
+@charset "UTF-8";
+/* ==========================================================================
+   PUTRA UTAMA GROUP - THEME & TAILWIND ARCHITECTURE
+   File: assets/css/themes.css
+   Engine: Tailwind CSS (Base, Components, Utilities)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TAILWIND DIRECTIVES
+   -------------------------------------------------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   2. DESIGN TOKENS & THEME VARIABLES (CSS CUSTOM PROPERTIES)
+   -------------------------------------------------------------------------- */
+@layer base {
+    :root {
+        /* Color Palette: Brand (Light Mode Default) */
+        --brand-gold-50: #fffbeb;
+        --brand-gold-100: #fef3c7;
+        --brand-gold-200: #fde68a;
+        --brand-gold-300: #fcd34d;
+        --brand-gold-400: #fbbf24;
+        --brand-gold-500: #f59e0b; /* Primary Amber */
+        --brand-gold-600: #d97706; /* Primary Gold */
+        --brand-gold-700: #b45309;
+        --brand-gold-800: #92400e;
+        --brand-gold-900: #78350f;
+
+        /* Color Palette: Surface/Neutral (Light Mode Default) */
+        --surface-50: #f8fafc;
+        --surface-100: #f1f5f9;
+        --surface-200: #e2e8f0;
+        --surface-300: #cbd5e1;
+        --surface-400: #94a3b8;
+        --surface-500: #64748b;
+        --surface-600: #475569;
+        --surface-700: #334155;
+        --surface-800: #1e293b;
+        --surface-900: #0f172a;
+        --surface-950: #020617;
+
+        /* Semantic Colors */
+        --color-success: #25D366; /* WhatsApp Green */
+        --color-success-hover: #1EBE55;
+        --color-danger: #dc2626;
+        --color-danger-hover: #b91c1c;
+        --color-info: #0284c7;
+        --color-warning: #ea580c;
+
+        /* Theme Mappings - Light */
+        --bg-body: var(--surface-50);
+        --bg-card: var(--surface-100);
+        --bg-nav: rgba(255, 255, 255, 0.85);
+        --text-base: var(--surface-900);
+        --text-muted: var(--surface-500);
+        --border-subtle: var(--surface-200);
+        --border-strong: var(--surface-300);
+
+        /* Shadows */
+        --shadow-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-elevation-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-elevation-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-elevation-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --shadow-glow-amber: 0 0 20px rgba(245, 158, 11, 0.3);
+        --shadow-glow-amber-strong: 0 0 35px rgba(245, 158, 11, 0.6);
+        --shadow-glow-green: 0 0 20px rgba(37, 211, 102, 0.3);
+
+        /* Typography Scaling */
+        --text-xs: 0.75rem;
+        --text-sm: 0.875rem;
+        --text-base: 1rem;
+        --text-lg: 1.125rem;
+        --text-xl: 1.25rem;
+        --text-2xl: 1.5rem;
+        --text-3xl: 1.875rem;
+        --text-4xl: 2.25rem;
+        --text-5xl: 3rem;
+        --text-6xl: 3.75rem;
+        
+        /* Layout Metrics */
+        --nav-height: 80px;
+        --nav-height-mobile: 64px;
+        --container-max: 1280px;
+    }
+
+    /* Dark Mode Overrides */
+    .dark {
+        --bg-body: #0a0a0c;
+        --bg-card: #121214;
+        --bg-nav: rgba(10, 10, 12, 0.85);
+        --text-base: var(--surface-50);
+        --text-muted: var(--surface-400);
+        --border-subtle: rgba(255, 255, 255, 0.05);
+        --border-strong: rgba(255, 255, 255, 0.15);
+
+        --shadow-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+        --shadow-elevation-2: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+        --shadow-elevation-3: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+        --shadow-elevation-4: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. GLOBAL RESET & BASE TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: var(--nav-height);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        background-color: var(--bg-body);
+        color: var(--text-base);
+        font-family: 'Inter', system-ui, sans-serif;
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Outfit', system-ui, sans-serif;
+        color: var(--text-base);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+    }
+
+    ::selection {
+        background-color: var(--brand-gold-500);
+        color: #ffffff;
+        text-shadow: none;
+    }
+
+    /* Scrollbar Styling Configuration */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: var(--bg-body);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--border-strong);
+        border-radius: 9999px;
+        border: 2px solid var(--bg-body);
+        transition: background-color 0.3s ease;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--brand-gold-500);
+    }
+
+    /* Mencegah highlight biru pada mobile Webkit */
+    a, button, input, select, textarea, [tabindex] {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. COMPONENT LAYER (Reusable UI Patterns)
+   -------------------------------------------------------------------------- */
+@layer components {
+    /* Form Elements Configuration */
+    .input-premium {
+        @apply w-full bg-slate-50 dark:bg-[#121214] border border-slate-200 dark:border-white/5 
+               text-slate-900 dark:text-white rounded-xl p-4 outline-none 
+               focus:ring-2 focus:ring-brand-amber focus:border-brand-amber 
+               transition-all shadow-inner font-semibold;
+    }
+
+    /* Glassmorphism Classes */
+    .glass-nav {
+        background-color: var(--bg-nav);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .glass-panel {
+        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-subtle);
+    }
+
+    /* Button Variants */
+    .btn-primary {
+        @apply px-8 py-4 bg-brand-gold text-white font-black uppercase tracking-wider 
+               rounded-xl shadow-neon hover:shadow-neon-hover hover:-translate-y-1 
+               transition-all duration-300 text-center flex justify-center items-center gap-2;
+    }
+
+    .btn-outline {
+        @apply px-8 py-4 bg-transparent border-2 border-brand-amber text-brand-amber 
+               font-bold uppercase tracking-wider rounded-xl hover:bg-brand-amber 
+               hover:text-brand-dark transition-all duration-300 text-center;
+    }
+
+    .btn-whatsapp {
+        @apply px-8 py-4 bg-[#25D366] text-white font-black uppercase tracking-widest 
+               rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_35px_rgba(37,211,102,0.6)]
+               hover:bg-[#1ebe55] hover:-translate-y-1 transition-all duration-300 
+               flex items-center justify-center gap-2;
+    }
+
+    /* Fleet Card Architecture */
+    .fleet-card {
+        @apply bg-slate-50 dark:bg-[#121214] rounded-3xl overflow-hidden 
+               border border-slate-200 dark:border-white/5 
+               hover:shadow-2xl hover:border-brand-amber/50 
+               flex flex-col relative group transition-all duration-400;
+        transform: translateZ(0); /* Hardware Acceleration for smooth hover */
+    }
+
+    .fleet-card-image-wrap {
+        @apply relative h-64 flex items-center justify-center p-6;
+        background: linear-gradient(180deg, var(--surface-200) 0%, var(--surface-100) 100%);
+    }
+
+    .dark .fleet-card-image-wrap {
+        background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+    }
+
+    /* Accordion Components */
+    .accordion-item {
+        @apply bg-slate-50 dark:bg-brand-dark border border-slate-200 
+               dark:border-white/5 rounded-2xl overflow-hidden shadow-sm 
+               transition-all duration-300;
+    }
+
+    .accordion-header {
+        @apply flex items-center justify-between p-6 cursor-pointer font-bold 
+               text-lg text-slate-900 dark:text-white outline-none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. UTILITIES LAYER (Specific Hacks & Enhancements)
+   -------------------------------------------------------------------------- */
+@layer utilities {
+    .shadow-neon {
+        box-shadow: var(--shadow-glow-amber);
+    }
+    .shadow-neon-hover {
+        box-shadow: var(--shadow-glow-amber-strong);
+    }
+    .shadow-green {
+        box-shadow: var(--shadow-glow-green);
+    }
+
+    .text-gradient-gold {
+        background: linear-gradient(to right, var(--brand-gold-400), var(--brand-gold-600));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   6. ADVANCED FORM CONTROLS OVERRIDE
+   -------------------------------------------------------------------------- */
+/* Select Dropdown Normalization */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Date and Time Picker UI Injection */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+    background-color: var(--surface-200);
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(0.9);
+    opacity: 0.5;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.dark input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Remove Spinner Buttons on Number Input */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* --------------------------------------------------------------------------
+   7. KEYFRAME ANIMATIONS & COMPLEX TRANSITIONS
+   -------------------------------------------------------------------------- */
+/* Dynamic Image Overlay Gradients */
+.card-img-overlay::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 10;
+    transition: background 0.4s ease, height 0.4s ease;
+}
+
+.dark .card-img-overlay::after {
+    background: linear-gradient(to top, rgba(18,18,20,0.95) 0%, transparent 100%);
+}
+
+.group:hover .card-img-overlay::after {
+    height: 65%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+}
+
+.dark .group:hover .card-img-overlay::after {
+    background: linear-gradient(to top, rgba(18,18,20,1) 0%, transparent 100%);
+}
+
+/* Smooth Accordion Mechanics */
+details > summary {
+    list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] summary ~ * {
+    animation: slideDownAccordion 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-origin: top;
+}
+
+@keyframes slideDownAccordion {
+    0% { opacity: 0; transform: translateY(-10px) scaleY(0.95); }
+    100% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Floating Elements (Hero Section) */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(1deg); }
+    50% { transform: translateY(-20px) rotate(0deg); }
+    75% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Pulse Glow (Background Orbs) */
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+}
+
+/* Slide Up Fade In (Staggered Content) */
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+    opacity: 0;
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Continuous Slow Spin (Decorative Ornaments) */
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 24s linear infinite;
+    transform-origin: center center;
+}
+
+/* --------------------------------------------------------------------------
+   8. ACCESSIBILITY (A11Y) & SYSTEM PREFERENCES
+   -------------------------------------------------------------------------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus States for Keyboard Navigation */
+*:focus-visible {
+    outline: 2px solid var(--brand-gold-500);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+    
+    .animate-float, .animate-spin-slow, .animate-pulse-glow, .animate-slide-up {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+    
+    .glass-nav, footer, .floating-widget, button, iframe {
+        display: none !important;
+    }
+    
+    .fleet-card {
+        page-break-inside: avoid;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+    }
+    
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}
