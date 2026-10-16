@@ -227,9 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contactMenu.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
                 setContactMenu(false);
-            });
-        });
-    }
+          
 
     
     const contactDropdown = document.getElementById("contactDropdown");
