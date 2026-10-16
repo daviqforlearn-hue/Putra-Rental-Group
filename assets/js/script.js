@@ -1,83 +1,258 @@
-/**
- * UI & State Management Controller
- * Putra Utama Group - Production Ready
- */
+document.addEventListener("DOMContentLoaded", () => {
+    "use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-    // === 1. THEME MANAGEMENT (Dark/Light Mode) ===
-    const htmlElement = document.documentElement;
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
-    
-    // Check local storage or system preference
-    const checkTheme = () => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
+    const html = document.documentElement;
+
+    // ==================================================
+    // 1. THEME MANAGEMENT - DARK / LIGHT MODE
+    // ==================================================
+
+    const themeButtons = [
+        document.getElementById("theme-toggle"),
+        document.getElementById("mobile-theme-toggle")
+    ].filter(Boolean);
+
+    function updateThemeButtons() {
+        const isDark = html.classList.contains("dark");
+
+        themeButtons.forEach(button => {
+            const moonIcon = button.querySelector(".fa-moon");
+            const sunIcon = button.querySelector(".fa-sun");
+
+            button.setAttribute("aria-pressed", String(isDark));
+            button.setAttribute(
+                "aria-label",
+                isDark ? "Aktifkan mode terang" : "Aktifkan mode gelap"
+            );
+            button.setAttribute(
+                "title",
+                isDark ? "Beralih ke mode terang" : "Beralih ke mode gelap"
+            );
+
+            if (moonIcon) {
+                moonIcon.classList.toggle("hidden", isDark);
+                moonIcon.classList.toggle("inline-block", !isDark);
+            }
+
+            if (sunIcon) {
+                sunIcon.classList.toggle("hidden", !isDark);
+                sunIcon.classList.toggle("inline-block", isDark);
+            }
+        });
+
+        html.style.colorScheme = isDark ? "dark" : "light";
+    }
+
+    function setTheme(theme, save = true) {
+        const isDark = theme === "dark";
+
+        html.classList.toggle("dark", isDark);
+
+        if (save) {
+            try {
+                localStorage.setItem("theme", isDark ? "dark" : "light");
+            } catch (error) {
+                // Tema tetap bekerja jika localStorage tidak tersedia.
+            }
         }
-    };
 
-    // Initialize Theme
-    checkTheme();
+        updateThemeButtons();
+    }
 
-    // Toggle logic
-    const toggleTheme = () => {
-        if (htmlElement.classList.contains('dark')) {
-            htmlElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            htmlElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
+    function initializeTheme() {
+        let savedTheme = null;
+
+        try {
+            savedTheme = localStorage.getItem("theme");
+        } catch (error) {
+            // Gunakan preferensi sistem jika penyimpanan tidak tersedia.
         }
-    };
 
-    // Bind events
-    if(themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-    if(mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
-
-
-    // === 2. NAVBAR SCROLL EFFECT ===
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            navbar.classList.add('shadow-md');
-            // Menambah blur & mengubah transparansi background
-            navbar.classList.replace('bg-white/80', 'bg-white/95');
-            navbar.classList.replace('dark:bg-brand-dark/80', 'dark:bg-brand-dark/95');
+        if (savedTheme === "dark" || savedTheme === "light") {
+            setTheme(savedTheme, false);
         } else {
-            navbar.classList.remove('shadow-md');
-            navbar.classList.replace('bg-white/95', 'bg-white/80');
-            navbar.classList.replace('dark:bg-brand-dark/95', 'dark:bg-brand-dark/80');
+            const prefersDark = window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+            setTheme(prefersDark ? "dark" : "light", false);
+        }
+    }
+
+    initializeTheme();
+
+    themeButtons.forEach(button => {
+        button.addEventListener("click", event => {
+            event.preventDefault();
+
+            const isCurrentlyDark = html.classList.contains("dark");
+
+            setTheme(isCurrentlyDark ? "light" : "dark");
+        });
+    });
+
+
+    // ==================================================
+    // 2. NAVBAR SCROLL EFFECT
+    // ==================================================
+
+    const navbar = document.getElementById("navbar");
+
+    function updateNavbar() {
+        if (!navbar) return;
+
+        navbar.classList.toggle("shadow-md", window.scrollY > 20);
+    }
+
+    window.addEventListener("scroll", updateNavbar, {
+        passive: true
+    });
+
+    updateNavbar();
+
+
+    // ==================================================
+    // 3. MOBILE NAVIGATION MENU
+    // ==================================================
+
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileMenuIcon = document.getElementById("mobile-menu-icon");
+
+    function setMobileMenu(isOpen) {
+        if (!mobileMenu || !mobileMenuBtn) return;
+
+        mobileMenu.classList.toggle("hidden", !isOpen);
+
+        mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+        mobileMenuBtn.setAttribute(
+            "aria-label",
+            isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"
+        );
+
+        if (mobileMenuIcon) {
+            mobileMenuIcon.classList.toggle("fa-bars", !isOpen);
+            mobileMenuIcon.classList.toggle("fa-xmark", isOpen);
+        }
+    }
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", event => {
+            event.stopPropagation();
+
+            const isOpen =
+                mobileMenuBtn.getAttribute("aria-expanded") === "true";
+
+            setMobileMenu(!isOpen);
+        });
+
+        mobileMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                setMobileMenu(false);
+            });
+        });
+
+        // Tutup menu jika pengguna mengeklik di luar menu.
+        document.addEventListener("click", event => {
+            const isOpen =
+                mobileMenuBtn.getAttribute("aria-expanded") === "true";
+
+            if (
+                isOpen &&
+                !mobileMenu.contains(event.target) &&
+                !mobileMenuBtn.contains(event.target)
+            ) {
+                setMobileMenu(false);
+            }
+        });
+    }
+
+
+    // ==================================================
+    // 4. DROPDOWN HUBUNGI KAMI DESKTOP
+    // ==================================================
+
+    const contactButton = document.getElementById("desktopContactToggle");
+    const contactMenu = document.getElementById("desktopContactMenu");
+    const contactArrow = document.getElementById("desktopContactArrow");
+
+    function setContactMenu(isOpen) {
+        if (!contactButton || !contactMenu) return;
+
+        contactButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+        contactMenu.classList.toggle("invisible", !isOpen);
+        contactMenu.classList.toggle("visible", isOpen);
+
+        contactMenu.classList.toggle("pointer-events-none", !isOpen);
+        contactMenu.classList.toggle("pointer-events-auto", isOpen);
+
+        contactMenu.classList.toggle("opacity-0", !isOpen);
+        contactMenu.classList.toggle("opacity-100", isOpen);
+
+        contactMenu.classList.toggle("translate-y-2", !isOpen);
+        contactMenu.classList.toggle("translate-y-0", isOpen);
+
+        if (contactArrow) {
+            contactArrow.classList.toggle("rotate-180", isOpen);
+        }
+    }
+
+    if (contactButton && contactMenu) {
+        contactButton.addEventListener("click", event => {
+            event.stopPropagation();
+
+            const isOpen =
+                contactButton.getAttribute("aria-expanded") === "true";
+
+            setContactMenu(!isOpen);
+        });
+
+        document.addEventListener("click", event => {
+            if (
+                !contactButton.contains(event.target) &&
+                !contactMenu.contains(event.target)
+            ) {
+                setContactMenu(false);
+            }
+        });
+
+        contactMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                setContactMenu(false);
+            });
+        });
+    }
+
+
+    // ==================================================
+    // 5. KEYBOARD ACCESSIBILITY
+    // ==================================================
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            setMobileMenu(false);
+            setContactMenu(false);
         }
     });
 
 
-    // === 3. MOBILE MENU TOGGLE ===
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    let isMenuOpen = false;
+    // ==================================================
+    // 6. RESPONSIVE WINDOW HANDLING
+    // ==================================================
 
-    if(mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
-            }
-        });
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) {
+            setMobileMenu(false);
+        }
 
-        // Close menu when clicking a link inside it
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                isMenuOpen = false;
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
-            });
-        });
-    }
+        updateNavbar();
+    });
+
 });
