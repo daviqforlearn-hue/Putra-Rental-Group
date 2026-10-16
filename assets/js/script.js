@@ -171,21 +171,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    
     // ==================================================
-    // 4. DROPDOWN HUBUNGI KAMI DESKTOP
+    // 4. DROPDOWN HUBUNGI KAMI - MENU MENGAMBANG
     // ==================================================
 
-    const contactButton = document.getElementById("desktopContactToggle");
-    const contactMenu = document.getElementById("desktopContactMenu");
-    const contactArrow = document.getElementById("desktopContactArrow");
+    const contactDropdown = document.getElementById("contactDropdown");
+    const contactButton = document.getElementById("contactToggle");
+    const contactMenu = document.getElementById("contactMenu");
+    const contactArrow = document.getElementById("contactArrow");
 
     function setContactMenu(isOpen) {
         if (!contactButton || !contactMenu) return;
 
-        contactButton.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
+        contactButton.setAttribute("aria-expanded", String(isOpen));
+        contactMenu.setAttribute("aria-hidden", String(!isOpen));
 
         contactMenu.classList.toggle("invisible", !isOpen);
         contactMenu.classList.toggle("visible", isOpen);
@@ -196,8 +196,11 @@ document.addEventListener("DOMContentLoaded", () => {
         contactMenu.classList.toggle("opacity-0", !isOpen);
         contactMenu.classList.toggle("opacity-100", isOpen);
 
-        contactMenu.classList.toggle("translate-y-2", !isOpen);
+        contactMenu.classList.toggle("translate-y-3", !isOpen);
         contactMenu.classList.toggle("translate-y-0", isOpen);
+
+        contactMenu.classList.toggle("scale-95", !isOpen);
+        contactMenu.classList.toggle("scale-100", isOpen);
 
         if (contactArrow) {
             contactArrow.classList.toggle("rotate-180", isOpen);
@@ -205,7 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (contactButton && contactMenu) {
-        contactButton.addEventListener("click", event => {
+        contactButton.addEventListener("click", function (event) {
+            event.preventDefault();
             event.stopPropagation();
 
             const isOpen =
@@ -214,21 +218,26 @@ document.addEventListener("DOMContentLoaded", () => {
             setContactMenu(!isOpen);
         });
 
-        document.addEventListener("click", event => {
-            if (
-                !contactButton.contains(event.target) &&
-                !contactMenu.contains(event.target)
-            ) {
+        document.addEventListener("click", function (event) {
+            const clickedOutside = contactDropdown
+                ? !contactDropdown.contains(event.target)
+                : !contactButton.contains(event.target) &&
+                  !contactMenu.contains(event.target);
+
+            if (clickedOutside) {
                 setContactMenu(false);
             }
         });
 
-        contactMenu.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
+        contactMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
                 setContactMenu(false);
             });
         });
+
+        setContactMenu(false);
     }
+    // Akhir dropdown Hubungi Kami
 
 
     // ==================================================
