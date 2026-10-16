@@ -176,6 +176,62 @@ document.addEventListener("DOMContentLoaded", () => {
     // 4. DROPDOWN HUBUNGI KAMI - MENU MENGAMBANG
     // ==================================================
 
+    const contactButton = document.getElementById("desktopContactToggle");
+    const contactMenu = document.getElementById("desktopContactMenu");
+    const contactArrow = document.getElementById("desktopContactArrow");
+
+    function setContactMenu(isOpen) {
+        if (!contactButton || !contactMenu) return;
+
+        contactButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+        contactMenu.classList.toggle("invisible", !isOpen);
+        contactMenu.classList.toggle("visible", isOpen);
+
+        contactMenu.classList.toggle("pointer-events-none", !isOpen);
+        contactMenu.classList.toggle("pointer-events-auto", isOpen);
+
+        contactMenu.classList.toggle("opacity-0", !isOpen);
+        contactMenu.classList.toggle("opacity-100", isOpen);
+
+        contactMenu.classList.toggle("translate-y-2", !isOpen);
+        contactMenu.classList.toggle("translate-y-0", isOpen);
+
+        if (contactArrow) {
+            contactArrow.classList.toggle("rotate-180", isOpen);
+        }
+    }
+
+    if (contactButton && contactMenu) {
+        contactButton.addEventListener("click", event => {
+            event.stopPropagation();
+
+            const isOpen =
+                contactButton.getAttribute("aria-expanded") === "true";
+
+            setContactMenu(!isOpen);
+        });
+
+        document.addEventListener("click", event => {
+            if (
+                !contactButton.contains(event.target) &&
+                !contactMenu.contains(event.target)
+            ) {
+                setContactMenu(false);
+            }
+        });
+
+        contactMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                setContactMenu(false);
+            });
+        });
+    }
+
+    
     const contactDropdown = document.getElementById("contactDropdown");
     const contactButton = document.getElementById("contactToggle");
     const contactMenu = document.getElementById("contactMenu");
