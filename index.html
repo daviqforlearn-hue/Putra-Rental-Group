@@ -1,8 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-
-
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 
@@ -91,7 +86,7 @@
         <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
             <a href="#beranda" class="flex items-center gap-3" aria-label="Putra Utama Group - Beranda">
-                <img src="assets/images/logo.png" alt="Logo Putra Utama Group" class="h-11 w-auto object-contain">
+                <img src="assets/images/logo.png" alt="Logo Putra Utama Group" class="h-21 w-auto object-contain">
                 <span class="font-heading text-lg font-extrabold tracking-tight text-brand-gold dark:text-brand-amber sm:text-xl">
                     PUTRA UTAMA GROUP
                 </span>
@@ -1197,11 +1192,107 @@
         </div>
     </footer>
 
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/6285210601055" target="_blank" rel="noopener noreferrer" aria-label="Hubungi Putra Utama Group melalui WhatsApp" class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-3xl text-white shadow-xl transition hover:scale-105 hover:bg-green-600">
-        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-    </a>
+   <!-- TOMBOL TOGGLE HUBUNGI KAMI -->
+<div class="relative inline-block" id="contactDropdown">
+    <button
+        type="button"
+        id="contactToggle"
+        aria-expanded="false"
+        aria-controls="contactMenu"
+        class="flex items-center gap-2 rounded-full bg-brand-gold px-5 py-3 font-semibold text-white shadow-lg transition hover:bg-brand-amber"
+    >
+        <i class="fas fa-headset"></i>
+        <span>Hubungi Kami</span>
+        <i id="contactArrow" class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+    </button>
 
+    <!-- MENU KONTAK -->
+    <div
+        id="contactMenu"
+        class="invisible absolute right-0 z-50 mt-3 w-60 translate-y-2 rounded-2xl border border-gray-200 bg-white p-2 opacity-0 shadow-2xl transition-all duration-300 dark:border-gray-700 dark:bg-gray-900"
+    >
+        <a
+            href="https://wa.me/6285210601055"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-700 transition hover:bg-green-50 hover:text-green-600 dark:text-gray-200 dark:hover:bg-gray-800"
+        >
+            <i class="fab fa-whatsapp w-5 text-lg text-green-500"></i>
+            <span class="font-medium">WhatsApp</span>
+        </a>
+
+        <a
+            href="https://www.instagram.com/@putama.rentcar.aceh/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600 dark:text-gray-200 dark:hover:bg-gray-800"
+        >
+            <i class="fab fa-instagram w-5 text-lg text-pink-500"></i>
+            <span class="font-medium">Instagram</span>
+        </a>
+
+        <a
+            href="https://www.tiktok.com/@putama.rentcar.aceh"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-700 transition hover:bg-gray-100 hover:text-black dark:text-gray-200 dark:hover:bg-gray-800"
+        >
+            <i class="fab fa-tiktok w-5 text-lg"></i>
+            <span class="font-medium">TikTok</span>
+        </a>
+
+        <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=putamarentcar@gmail.com&su=Informasi%20Rental%20Mobil"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-700 transition hover:bg-red-50 hover:text-red-600 dark:text-gray-200 dark:hover:bg-gray-800"
+        >
+            <i class="fas fa-envelope w-5 text-lg text-red-500"></i>
+            <span class="font-medium">Gmail</span>
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("contactToggle");
+    const menu = document.getElementById("contactMenu");
+    const arrow = document.getElementById("contactArrow");
+
+    function bukaMenu(buka) {
+        toggle.setAttribute("aria-expanded", String(buka));
+
+        if (buka) {
+            menu.classList.remove("invisible", "opacity-0", "translate-y-2");
+            menu.classList.add("visible", "opacity-100", "translate-y-0");
+            arrow.classList.add("rotate-180");
+        } else {
+            menu.classList.add("invisible", "opacity-0", "translate-y-2");
+            menu.classList.remove("visible", "opacity-100", "translate-y-0");
+            arrow.classList.remove("rotate-180");
+        }
+    }
+
+    toggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        const sedangBuka = toggle.getAttribute("aria-expanded") === "true";
+        bukaMenu(!sedangBuka);
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!document.getElementById("contactDropdown").contains(event.target)) {
+            bukaMenu(false);
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            bukaMenu(false);
+        }
+    });
+});
+</script>
+    
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/booking.js" defer></script>
 
