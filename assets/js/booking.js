@@ -198,5 +198,85 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open(url, "_blank", "noopener,noreferrer");
     });
 
+      // Klik mobil di katalog untuk memilihnya di kalkulator.
+    const bookingCarNames = {
+        "zenix": "Toyota Zenix Q HEV",
+        "alphard": "Toyota Alphard",
+        "fortuner": "Toyota Fortuner",
+        "innova-reborn": "Toyota Innova Reborn",
+        "hiace": "Toyota Hiace Premio",
+        "hilux": "Toyota Hilux 4x4",
+        "avanza": "Toyota Avanza",
+        "avanza-old": "Toyota Avanza Old",
+        "brio": "Honda Brio",
+        "agya": "Toyota Agya",
+        "pajero": "Mitsubishi Pajero Sport"
+    };
+
+    function pilihMobilDariKatalog(carId) {
+        const car = typeof carsData !== "undefined"
+            ? carsData.find(item => item.id === carId)
+            : null;
+
+        if (!car) {
+            console.warn("Data mobil tidak ditemukan:", carId);
+            return;
+        }
+
+        const namaPilihan = bookingCarNames[car.id] || car.name;
+        const normalize = value =>
+            String(value || "").trim().toLowerCase();
+
+        // Cari pilihan mobil yang sudah tersedia.
+        let option = Array.from(fields.car.options).find(item =>
+            normalize(item.value) === normalize(namaPilihan) ||
+            normalize(item.textContent) === normalize(namaPilihan) ||
+            normalize(item.value) === normalize(car.name) ||
+            normalize(item.textContent) === normalize(car.name) ||
+            normalize(item.value) === normalize(car.dataCar) ||
+            normalize(item.textContent) === normalize(car.dataCar)
+        );
+
+        // Jika belum tersedia, tambahkan pilihan mobil tersebut.
+        if (!option) {
+            option = new Option(car.name, namaPilihan);
+            fields.car.add(option);
+        }
+
+        fields.car.value = option.value;
+
+        // Perbarui estimasi dan ringkasan reservasi.
+        calculateEstimate();
+
+        // Pindahkan pelanggan ke kalkulator.
+        const calculator = document.getElementById("booking-calculator");
+
+        if (calculator) {
+            const target = calculator.closest("section") || calculator;
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        // Beri fokus ke pilihan mobil.
+        fields.car.focus();
+    }
+
+    // Event delegation: menangani klik pada gambar atau nama mobil.
+    document.addEventListener("click", function (event) {
+        const target = event.target.closest("[data-book-car]");
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        const carId = target.getAttribute("data-book-car");
+
+        pilihMobilDariKatalog(carId);
+    });
+
     calculateEstimate();
 });
+
