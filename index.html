@@ -1733,16 +1733,367 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <p class="text-xs leading-5 text-gray-600 dark:text-gray-400">
                                     Harga akhir mengikuti durasi, ketersediaan armada, dan konfirmasi admin. Tour Sabang serta layanan bandara menggunakan harga konfirmasi admin.
                                 </p>
-                            </div>
-                        </div>
-                    </div>
+                            <script>
+(() => {
+  const NOMOR_ADMIN = "6285210601055";
 
-                </div>
-            </aside>
+  const daftarMobil = {
+    vip: [
+      { id: "alphard", nama: "Toyota Alphard VIP", harga: null },
+      { id: "fortuner", nama: "Toyota Fortuner 2.8 GR Sport", harga: 1600000 },
+      { id: "pajero", nama: "Mitsubishi Pajero Sport Dakar", harga: 1600000 },
+      { id: "zenix", nama: "Toyota Innova Zenix Q HEV", harga: 1500000 },
+      { id: "hiace", nama: "Toyota HiAce Premio", harga: 1400000 },
+      { id: "reborn", nama: "Toyota Innova Reborn", harga: 850000 },
+      { id: "avanza", nama: "Toyota New Avanza / Veloz", harga: 750000 },
+      { id: "avanza-lama", nama: "Toyota Avanza Old", harga: null },
+      { id: "hilux", nama: "Toyota Hilux 4x4", harga: null },
+      { id: "brio", nama: "Honda Brio", harga: 600000 },
+      { id: "agya", nama: "Toyota Agya", harga: 550000 }
+    ],
+    lepas: [
+      { id: "reborn-matic", nama: "Toyota Innova Reborn Matic", harga: 550000 },
+      { id: "reborn-manual", nama: "Toyota Innova Reborn Manual", harga: 500000 },
+      { id: "avanza-veloz", nama: "Toyota New Avanza / Veloz", harga: 400000 },
+      { id: "avanza-lama", nama: "Toyota Avanza Old", harga: 350000 },
+      { id: "brio", nama: "Honda Brio", harga: 350000 },
+      { id: "agya", nama: "Toyota Agya", harga: 300000 }
+    ]
+  };
 
-        </div>
-    </div>
-</section>
+  const form = document.getElementById("formReservasi");
+  const jenisPaket = document.getElementById("jenisPaket");
+  const mobil = document.getElementById("mobil");
+  const durasi = document.getElementById("durasi");
+  const satuanDurasi = document.getElementById("satuanDurasi");
+  const pilihanSopir = document.getElementById("pilihanSopir");
+  const opsiSopir = document.getElementById("opsiSopir");
+  const bagianWilayahSopir = document.getElementById("bagianWilayahSopir");
+  const wilayahSopir = document.getElementById("wilayahSopir");
+  const bagianMobil = document.getElementById("bagianMobil");
+  const bagianDurasi = document.getElementById("bagianDurasi");
+  const bagianTujuan = document.getElementById("bagianTujuan");
+  const infoPaketKhusus = document.getElementById("infoPaketKhusus");
+  const tombolWhatsApp = document.getElementById("kirimWhatsApp");
+
+  const tombolPaket = {
+    vip: document.getElementById("pilihVip"),
+    lepas: document.getElementById("pilihLepasKunci"),
+    tour: document.getElementById("pilihTourSabang"),
+    bandara: document.getElementById("pilihBandara")
+  };
+
+  const rupiah = angka => new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0
+  }).format(angka);
+
+  const namaPaket = {
+    vip: "Paket VIP (Sopir + BBM All-In)",
+    lepas: "Paket Lepas Kunci",
+    tour: "Tour Sabang",
+    bandara: "Antar Jemput Bandara SIM"
+  };
+
+  const mobilTerpilih = () => {
+    if (!daftarMobil[jenisPaket.value]) return null;
+    return daftarMobil[jenisPaket.value].find(item => item.id === mobil.value) || null;
+  };
+
+  const jumlahHari = () => {
+    return Math.max(1, Number(durasi.value) || 1) *
+      Number(satuanDurasi.value);
+  };
+
+  const sopirLepasKunci = () =>
+    jenisPaket.value === "lepas" && opsiSopir.value === "ya";
+
+  const paketHargaKonfirmasi = () =>
+    jenisPaket.value === "tour" || jenisPaket.value === "bandara";
+
+  function perbaruiTombolPaket() {
+    Object.entries(tombolPaket).forEach(([key, tombol]) => {
+      const aktif = jenisPaket.value === key;
+
+      tombol.classList.toggle("border-amber-400", aktif);
+      tombol.classList.toggle("bg-amber-400/10", aktif);
+      tombol.classList.toggle("border-slate-700", !aktif);
+      tombol.classList.toggle("bg-slate-900", !aktif);
+    });
+  }
+
+  function isiDaftarMobil() {
+    const paket = jenisPaket.value;
+    mobil.innerHTML = "";
+
+    if (paket === "tour" || paket === "bandara") {
+      const option = document.createElement("option");
+      option.value = "konfirmasi";
+      option.textContent = paket === "tour"
+        ? "Mobil Tour Sabang — Konfirmasi Admin"
+        : "Mobil Antar Jemput Bandara SIM — Konfirmasi Admin";
+      mobil.appendChild(option);
+    } else {
+      const daftar = daftarMobil[paket];
+
+      const awal = document.createElement("option");
+      awal.value = "";
+      awal.textContent = "-- Pilih Mobil --";
+      mobil.appendChild(awal);
+
+      daftar.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.harga === null
+          ? ${item.nama} — Hubungi Admin
+          : ${item.nama} — ${rupiah(item.harga)}/hari;
+        mobil.appendChild(option);
+      });
+    }
+
+    perbaruiTampilanForm();
+    perbaruiRingkasan();
+  }
+
+  function perbaruiTampilanForm() {
+    const paket = jenisPaket.value;
+    const paketKhusus = paketHargaKonfirmasi();
+    const vip = paket === "vip";
+    const lepas = paket === "lepas";
+
+    pilihanSopir.classList.toggle("hidden", !lepas);
+    bagianWilayahSopir.classList.toggle("hidden", !sopirLepasKunci());
+
+    bagianMobil.classList.toggle("hidden", false);
+    bagianDurasi.classList.toggle("hidden", paket === "bandara");
+    bagianTujuan.classList.toggle("hidden", paket === "bandara");
+
+    durasi.required = paket !== "bandara";
+    satuanDurasi.required = paket !== "bandara";
+    mobil.required = !paketKhusus;
+
+    infoPaketKhusus.classList.toggle("hidden", !paketKhusus);
+
+    if (paket === "tour") {
+      document.getElementById("judulInfoKhusus").textContent = "Paket Tour Sabang";
+      document.getElementById("deskripsiInfoKhusus").textContent =
+        "Harga paket wisata, kebutuhan perjalanan, dan ketentuan lainnya akan dikonfirmasi langsung oleh admin.";
+    } else if (paket === "bandara") {
+      document.getElementById("judulInfoKhusus").textContent = "Antar Jemput Bandara SIM";
+      document.getElementById("deskripsiInfoKhusus").textContent =
+        "Harga layanan antar jemput Bandara Sultan Iskandar Muda dikonfirmasi langsung oleh admin. Isi tanggal, jam, dan lokasi penjemputan pada catatan.";
+    }
+
+    if (vip) {
+      opsiSopir.value = "tidak";
+    }
+
+    perbaruiTombolPaket();
+  }
+
+  function perbaruiRingkasan() {
+    const paket = jenisPaket.value;
+    const item = mobilTerpilih();
+    const hari = jumlahHari();
+    const vip = paket === "vip";
+    const lepasDenganSopir = sopirLepasKunci();
+    const tarifSopir = lepasDenganSopir ? Number(wilayahSopir.value) : 0;
+    const khusus = paketHargaKonfirmasi();
+
+    document.getElementById("ringkasanPaket").textContent = namaPaket[paket];
+
+    document.getElementById("ringkasanMobil").textContent =
+      khusus
+        ? (paket === "tour" ? "Mobil Tour Sabang" : "Layanan Bandara SIM")
+        : item ? item.nama : "Belum dipilih";
+
+    document.getElementById("ringkasanDurasi").textContent =
+      paket === "bandara" ? "Sesuai kebutuhan" : ${hari} hari;
+
+    document.getElementById("ringkasanTarif").textContent =
+      khusus
+        ? "Konfirmasi Admin"
+        : item
+          ? item.harga === null ? "Hubungi Admin" : rupiah(item.harga)
+          : "-";
+
+    document.getElementById("barisSopir").classList.toggle(
+      "hidden",
+      !lepasDenganSopir
+    );
+
+    document.getElementById("ringkasanSopir").textContent =
+      rupiah(tarifSopir);
+
+    document.getElementById("ringkasanFasilitas").textContent =
+      vip
+        ? "Sopir + BBM termasuk"
+        : lepasDenganSopir
+          ? "Sopir tambahan; BBM tidak termasuk"
+          : paket === "lepas"
+            ? "Tanpa sopir; BBM tidak termasuk"
+            : "Sesuai konfirmasi admin";
+
+    const hargaDiketahui =
+      item && item.harga !== null && !khusus;
+
+    const total = hargaDiketahui
+      ? (item.harga + tarifSopir) * hari
+      : null;
+
+    document.getElementById("totalHarga").textContent =
+      khusus || (item && item.harga === null)
+        ? "Konfirmasi Admin"
+        : item ? rupiah(total) : rupiah(0);
+
+    document.getElementById("keteranganHarga").textContent =
+      khusus
+        ? "Harga paket ini dikonfirmasi langsung oleh admin."
+        : !item
+          ? "Pilih mobil untuk melihat estimasi harga."
+          : item.harga === null
+            ? "Tarif mobil belum tersedia. Silakan hubungi admin."
+            : vip
+              ? "Total sudah mencakup mobil, sopir, dan BBM sesuai paket VIP."
+              : lepasDenganSopir
+                ? "Total mobil dan sopir. BBM tidak termasuk."
+                : "Total tarif mobil lepas kunci. BBM tidak termasuk.";
+
+    tombolWhatsApp.disabled = true;
+    tombolWhatsApp.dataset.siapan = "false";
+  }
+
+  Object.entries(tombolPaket).forEach(([paket, tombol]) => {
+    tombol.addEventListener("click", () => {
+      jenisPaket.value = paket;
+      isiDaftarMobil();
+    });
+  });
+
+  jenisPaket.addEventListener("change", isiDaftarMobil);
+
+  opsiSopir.addEventListener("change", () => {
+    perbaruiTampilanForm();
+    perbaruiRingkasan();
+  });
+
+  [
+    mobil,
+    durasi,
+    satuanDurasi,
+    wilayahSopir
+  ].forEach(elemen => {
+    elemen.addEventListener("change", perbaruiRingkasan);
+    elemen.addEventListener("input", perbaruiRingkasan);
+  });
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const item = mobilTerpilih();
+
+    if (!paketHargaKonfirmasi() && !item) {
+      mobil.focus();
+      return;
+    }
+
+    perbaruiRingkasan();
+    tombolWhatsApp.disabled = false;
+    tombolWhatsApp.dataset.siapan = "true";
+  });
+
+  tombolWhatsApp.addEventListener("click", () => {
+    if (
+      tombolWhatsApp.dataset.siapan !== "true" ||
+      !form.reportValidity()
+    ) return;
+
+    const paket = jenisPaket.value;
+    const item = mobilTerpilih();
+    const hari = jumlahHari();
+    const vip = paket === "vip";
+    const lepasDenganSopir = sopirLepasKunci();
+    const khusus = paketHargaKonfirmasi();
+    const tarifSopir = lepasDenganSopir
+      ? Number(wilayahSopir.value)
+      : 0;
+
+    if (!khusus && !item) return;
+
+    const total = !khusus && item && item.harga !== null
+      ? (item.harga + tarifSopir) * hari
+      : null;
+
+    const nilaiWilayah = lepasDenganSopir
+      ? (tarifSopir === 200000 ? "Dalam Kota" : "Luar Kota")
+      : "-";
+
+    const pesan = [
+      "Halo Putra Utama Group, saya ingin melakukan reservasi.",
+      "",
+      Paket: ${namaPaket[paket]},
+      `Mobil/Layanan: ${khusus
+        ? (paket === "tour" ? "Tour Sabang" : "Antar Jemput Bandara SIM")
+        : item.nama}`,
+      Tanggal mulai: ${document.getElementById("tanggal").value},
+      Jam mulai: ${document.getElementById("jam").value},
+      Durasi: ${paket === "bandara" ? "Sesuai kebutuhan" : hari + " hari"},
+      Tujuan/lokasi penjemputan: ${document.getElementById("tujuan").value || "-"},
+      Nama pemesan: ${document.getElementById("nama").value},
+      Nomor WhatsApp: ${document.getElementById("kontak").value},
+      `Sopir: ${vip
+        ? "Sudah termasuk paket VIP"
+        : lepasDenganSopir
+          ? "Tambahan sopir"
+          : paket === "lepas"
+            ? "Tidak menggunakan sopir"
+            : "Sesuai konfirmasi admin"}`,
+      ...(lepasDenganSopir
+        ? [
+            Wilayah sopir: ${nilaiWilayah},
+            Biaya sopir per hari: ${rupiah(tarifSopir)}
+          ]
+        : []),
+      `BBM: ${vip
+        ? "Sudah termasuk paket VIP"
+        : paket === "lepas"
+          ? "Tidak termasuk"
+          : "Konfirmasi admin"}`,
+      `Tarif mobil/paket: ${khusus
+        ? "Konfirmasi admin"
+        : item.harga === null
+          ? "Konfirmasi admin"
+          : rupiah(item.harga) + "/hari"}`,
+      `Estimasi total: ${total === null
+        ? "Mohon konfirmasi harga kepada admin"
+        : rupiah(total)}`,
+      Catatan tambahan: ${document.getElementById("catatan").value.trim() || "-"},
+      "",
+      "Mohon informasi ketersediaan dan rincian harga. Terima kasih."
+    ].join("\n");
+
+    window.open(
+      https://wa.me/${NOMOR_ADMIN}?text=${encodeURIComponent(pesan)},
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
+
+  const tanggal = document.getElementById("tanggal");
+  const sekarang = new Date();
+
+  tanggal.min = [
+    sekarang.getFullYear(),
+    String(sekarang.getMonth() + 1).padStart(2, "0"),
+    String(sekarang.getDate()).padStart(2, "0")
+  ].join("-");
+
+  isiDaftarMobil();
+})();
+</script>
 
         <!-- SYARAT DAN KETENTUAN -->
         <section id="kebijakan" class="bg-gray-50 py-20 dark:bg-[#18181b]">
