@@ -1181,270 +1181,262 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 
 <!-- RESERVASI -->
-<section id="reservasi" class="scroll-mt-24 bg-gray-50 py-16 dark:bg-brand-dark sm:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section id="reservasi" class="py-20 bg-slate-950 text-white">
+    <div class="max-w-6xl mx-auto px-4">
 
-        <div class="mx-auto mb-12 max-w-3xl text-center">
-            <span class="text-sm font-bold uppercase tracking-[0.2em] text-brand-amber">Reservasi Online</span>
-            <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Pesan Mobil Sekarang
+        <div class="text-center mb-12">
+            <p class="text-amber-400 uppercase tracking-[0.3em] text-sm font-semibold mb-3">
+                Booking Rental Mobil
+            </p>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
+                Kalkulator Reservasi
             </h2>
-            <p class="mt-4 text-base leading-7 text-gray-600 dark:text-gray-400">
-                Pilih paket rental, isi data perjalanan, dan lihat estimasi harga sebelum melanjutkan reservasi.
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Pilih paket rental sesuai kebutuhan perjalanan Anda. Paket VIP sudah termasuk supir dan BBM, sedangkan paket Lepas Kunci menyediakan pilihan menggunakan supir atau tidak.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
+        <!-- PILIHAN PAKET -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+
+            <button type="button" id="pilihVip"
+                class="paket-btn border-2 border-amber-400 bg-amber-400/10 rounded-2xl p-6 text-left transition">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-2xl">Paket VIP</span>
+                    <span class="text-amber-400 text-xl">★</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-4">
+                    Rental mobil untuk perjalanan dalam kota maupun luar kota. Supir dan BBM sudah termasuk dalam harga paket.
+                </p>
+                <span class="text-amber-400 font-semibold">Supir + BBM All-In</span>
+            </button>
+
+            <button type="button" id="pilihLepasKunci"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-6 text-left transition">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-2xl">Lepas Kunci</span>
+                    <span class="text-slate-500 text-xl">◆</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-4">
+                    Rental mobil tanpa supir secara default. Anda dapat memilih tambahan supir dalam kota atau luar kota.
+                </p>
+                <span class="text-amber-400 font-semibold">Pilihan Dengan atau Tanpa Supir</span>
+            </button>
+
+            <button type="button" id="pilihTourSabang"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-6 text-left transition">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-2xl">Tour Sabang All-In</span>
+                    <span class="text-amber-400 text-xl">✦</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-4">
+                    Paket perjalanan wisata Sabang. Isi detail perjalanan dan tanyakan harga langsung kepada admin.
+                </p>
+                <span class="text-amber-400 font-semibold">Harga Konfirmasi Admin</span>
+            </button>
+
+            <button type="button" id="pilihBandara"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-6 text-left transition">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-2xl">Antar Jemput Bandara SIM</span>
+                    <span class="text-amber-400 text-xl">✈</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-4">
+                    Layanan penjemputan dari atau pengantaran menuju Bandara Sultan Iskandar Muda.
+                </p>
+                <span class="text-amber-400 font-semibold">Harga Konfirmasi Admin</span>
+            </button>
+
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
 
             <!-- FORM RESERVASI -->
-            <div class="lg:col-span-2">
-                <form id="formReservasi"
-                    class="space-y-8 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8">
+            <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+                <form id="formReservasi" class="space-y-5">
 
-                    <!-- PILIHAN PAKET -->
                     <div>
-                        <h3 class="mb-5 text-lg font-bold text-gray-900 dark:text-white">
-                            1. Pilih Paket Rental
-                        </h3>
-
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-                            <label data-paket-card class="relative flex cursor-pointer flex-col rounded-2xl border-2 border-gray-200 p-5 transition hover:border-brand-amber dark:border-gray-700">
-                                <input type="radio" name="paket" id="paketAllIn" value="allin"
-                                    class="absolute right-4 top-4 h-5 w-5 accent-amber-500" required>
-                                <span class="pr-8 text-base font-extrabold text-gray-900 dark:text-white">Paket All-In</span>
-                                <span class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                    Mobil, supir, dan BBM termasuk dalam harga paket. Supir tidak dikenakan biaya tambahan.
-                                </span>
-                                <span class="mt-4 text-xs font-semibold text-brand-amber">Harga dihitung otomatis</span>
-                            </label>
-
-                            <label data-paket-card class="relative flex cursor-pointer flex-col rounded-2xl border-2 border-gray-200 p-5 transition hover:border-brand-amber dark:border-gray-700">
-                                <input type="radio" name="paket" id="paketLepasKunci" value="lepas"
-                                    class="absolute right-4 top-4 h-5 w-5 accent-amber-500" required>
-                                <span class="pr-8 text-base font-extrabold text-gray-900 dark:text-white">Lepas Kunci</span>
-                                <span class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                    Harga mobil dihitung otomatis. Supir menjadi pilihan tambahan, untuk dalam kota atau luar kota.
-                                </span>
-                                <span class="mt-4 text-xs font-semibold text-brand-amber">Harga dihitung otomatis</span>
-                            </label>
-
-                            <label data-paket-card class="relative flex cursor-pointer flex-col rounded-2xl border-2 border-gray-200 p-5 transition hover:border-brand-amber dark:border-gray-700">
-                                <input type="radio" name="paket" id="paketTourSabang" value="tour"
-                                    class="absolute right-4 top-4 h-5 w-5 accent-amber-500" required>
-                                <span class="pr-8 text-base font-extrabold text-gray-900 dark:text-white">Tour Sabang All-In</span>
-                                <span class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                    Isi kebutuhan wisata Sabang. Rincian harga dikonfirmasi langsung oleh admin.
-                                </span>
-                                <span class="mt-4 text-xs font-semibold text-brand-amber">Konfirmasi harga melalui WhatsApp</span>
-                            </label>
-
-                            <label data-paket-card class="relative flex cursor-pointer flex-col rounded-2xl border-2 border-gray-200 p-5 transition hover:border-brand-amber dark:border-gray-700">
-                                <input type="radio" name="paket" id="paketBandara" value="bandara"
-                                    class="absolute right-4 top-4 h-5 w-5 accent-amber-500" required>
-                                <span class="pr-8 text-base font-extrabold text-gray-900 dark:text-white">Antar Jemput Bandara SIM</span>
-                                <span class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                    Pilih layanan penjemputan atau pengantaran Bandara Sultan Iskandar Muda.
-                                </span>
-                                <span class="mt-4 text-xs font-semibold text-brand-amber">Konfirmasi harga melalui WhatsApp</span>
-                            </label>
-
-                        </div>
+                        <label for="jenisPaket" class="block text-sm text-slate-300 mb-2">
+                            Paket Rental
+                        </label>
+                        <select id="jenisPaket" required
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <option value="vip">Paket VIP dengan Supir dan BBM (All-In)</option>
+                            <option value="lepas">Paket Lepas Kunci</option>
+                            <option value="tour">Paket Tour Sabang All-In</option>
+                            <option value="bandara">Antar Jemput Bandara SIM</option>
+                        </select>
                     </div>
 
-                    <div class="border-t border-gray-200 dark:border-gray-800"></div>
-
-                    <!-- ARMADA -->
+                    <!-- PILIH MOBIL -->
                     <div id="bagianMobil">
-                        <h3 class="mb-5 text-lg font-bold text-gray-900 dark:text-white">
-                            2. Pilih Armada
-                        </h3>
+                        <label for="mobil" class="block text-sm text-slate-300 mb-2">
+                            Pilih Mobil
+                        </label>
+                        <select id="mobil" required
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        </select>
+                    </div>
 
+                    <!-- TANGGAL DAN JAM: TETAP MENGGUNAKAN TANGGAL MULAI -->
+                    <div class="grid sm:grid-cols-2 gap-5">
                         <div>
-                            <label for="mobil" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Daftar Mobil
+                            <label for="tanggal" class="block text-sm text-slate-300 mb-2">
+                                Tanggal Mulai
                             </label>
+                            <input type="date" id="tanggal" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        </div>
+                        <div>
+                            <label for="jam" class="block text-sm text-slate-300 mb-2">
+                                Jam Mulai
+                            </label>
+                            <input type="time" id="jam" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        </div>
+                    </div>
 
-                            <select id="mobil" name="mobil" required
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                                <option value="">Pilih paket terlebih dahulu</option>
+                    <!-- DURASI VIP DAN LEPAS KUNCI -->
+                    <div id="bagianDurasi" class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="durasi" class="block text-sm text-slate-300 mb-2">
+                                Durasi
+                            </label>
+                            <input type="number" id="durasi" min="1" value="1" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        </div>
+                        <div>
+                            <label for="satuanDurasi" class="block text-sm text-slate-300 mb-2">
+                                Satuan Durasi
+                            </label>
+                            <select id="satuanDurasi" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                                <option value="1">Hari</option>
+                                <option value="7">Minggu</option>
+                                <option value="30">Bulan</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- JADWAL RENTAL -->
-                    <div id="bagianJadwal">
-                        <div class="mb-5 border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                                3. Jadwal Perjalanan
-                            </h3>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-
-                            <div id="bagianDurasi">
-                                <label for="durasi" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Durasi Rental
-                                </label>
-                                <select id="durasi" name="durasi" required
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                                    <option value="">Pilih durasi</option>
-                                    <option value="1">1 hari</option>
-                                    <option value="2">2 hari</option>
-                                    <option value="3">3 hari</option>
-                                    <option value="4">4 hari</option>
-                                    <option value="5">5 hari</option>
-                                    <option value="6">6 hari</option>
-                                    <option value="7">7 hari</option>
-                                    <option value="lainnya">Lebih dari 7 hari</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="tanggalMulai" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Tanggal Mulai
-                                </label>
-                                <input type="date" id="tanggalMulai" name="tanggalMulai" required
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                            </div>
-
-                            <div>
-                                <label for="tanggalSelesai" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Tanggal Selesai
-                                </label>
-                                <input type="date" id="tanggalSelesai" name="tanggalSelesai" required
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                            </div>
-
-                            <div>
-                                <label for="jamJemput" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Jam Penjemputan
-                                </label>
-                                <input type="time" id="jamJemput" name="jamJemput" required
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- PILIHAN SUPIR LEPAS KUNCI -->
-                    <div id="bagianSupir" class="hidden">
-                        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="mb-5 text-lg font-bold text-gray-900 dark:text-white">
-                                4. Pilihan Supir
-                            </h3>
-                        </div>
+                    <!-- OPSI SUPIR LEPAS KUNCI -->
+                    <div id="pilihanSopir" class="hidden space-y-5">
 
                         <div>
-                            <label for="opsiSupir" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Apakah membutuhkan supir?
+                            <label for="opsiSopir" class="block text-sm text-slate-300 mb-2">
+                                Apakah Membutuhkan Supir?
                             </label>
-
-                            <select id="opsiSupir" name="opsiSupir"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                                <option value="tidak">Tidak, lepas kunci</option>
-                                <option value="dalam">Ya, supir dalam kota — Rp200.000/hari</option>
-                                <option value="luar">Ya, supir luar kota — Rp250.000/hari</option>
+                            <select id="opsiSopir"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                                <option value="tidak">Tidak, Lepas Kunci</option>
+                                <option value="ya">Ya, Menggunakan Supir</option>
                             </select>
+                        </div>
 
-                            <p class="mt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                                Biaya supir tambahan hanya berlaku untuk paket Lepas Kunci. Paket All-In sudah termasuk supir dan BBM.
+                        <div id="bagianWilayahSopir" class="hidden">
+                            <label for="wilayahSopir" class="block text-sm text-slate-300 mb-2">
+                                Wilayah Perjalanan Supir
+                            </label>
+                            <select id="wilayahSopir"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                                <option value="200000">Dalam Kota — Rp200.000/hari</option>
+                                <option value="250000">Luar Kota — Rp250.000/hari</option>
+                            </select>
+                            <p class="text-xs text-slate-500 mt-2">
+                                Biaya supir ditambahkan ke tarif mobil per hari. Jika memilih Lepas Kunci tanpa supir, tidak ada biaya tambahan supir.
                             </p>
                         </div>
+
                     </div>
 
-                    <!-- TUJUAN ALL-IN DAN LEPAS KUNCI -->
+                    <!-- TUJUAN VIP DAN LEPAS KUNCI -->
                     <div id="bagianTujuan">
-                        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="mb-5 text-lg font-bold text-gray-900 dark:text-white">
-                                Tujuan Perjalanan
-                            </h3>
-                        </div>
-
-                        <label for="tujuan" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                            Alamat Penjemputan dan Tujuan
+                        <label for="tujuan" class="block text-sm text-slate-300 mb-2">
+                            Tujuan Perjalanan
                         </label>
-                        <textarea id="tujuan" name="tujuan" rows="3"
-                            placeholder="Masukkan alamat penjemputan dan tujuan perjalanan..."
-                            class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white"></textarea>
+                        <input type="text" id="tujuan" required
+                            placeholder="Contoh: Banda Aceh, Sabang, Lhokseumawe"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                     </div>
 
                     <!-- DETAIL TOUR SABANG -->
                     <div id="bagianTour" class="hidden space-y-5">
-                        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                                Detail Tour Sabang All-In
+
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-400 mb-2">
+                                Detail Paket Tour Sabang All-In
                             </h3>
-                            <p class="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                Paket tour beserta supir. Harga akhir dikonfirmasi oleh admin melalui WhatsApp.
+                            <p class="text-sm text-slate-400">
+                                Harga paket Tour Sabang dikonfirmasi langsung oleh admin melalui WhatsApp.
                             </p>
                         </div>
 
                         <div>
-                            <label for="lokasiJemputTour" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="lokasiJemputTour" class="block text-sm text-slate-300 mb-2">
                                 Lokasi Penjemputan
                             </label>
-                            <input type="text" id="lokasiJemputTour" name="lokasiJemputTour"
+                            <input type="text" id="lokasiJemputTour" required
                                 placeholder="Contoh: Banda Aceh atau Bandara SIM"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
                         <div>
-                            <label for="durasiTour" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="durasiTour" class="block text-sm text-slate-300 mb-2">
                                 Durasi Tour
                             </label>
-                            <select id="durasiTour" name="durasiTour"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                            <select id="durasiTour" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                                 <option value="">Pilih durasi tour</option>
                                 <option value="1 hari">1 hari</option>
                                 <option value="2 hari 1 malam">2 hari 1 malam</option>
                                 <option value="3 hari 2 malam">3 hari 2 malam</option>
-                                <option value="Lainnya">Durasi lainnya</option>
+                                <option value="Durasi lainnya">Durasi lainnya</option>
                             </select>
                         </div>
 
                         <div>
-                            <label for="jumlahPesertaTour" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="jumlahPesertaTour" class="block text-sm text-slate-300 mb-2">
                                 Jumlah Peserta
                             </label>
-                            <input type="number" id="jumlahPesertaTour" name="jumlahPesertaTour" min="1" value="1"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                            <input type="number" id="jumlahPesertaTour" min="1" value="1" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
                         <div>
-                            <label for="detailTour" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Destinasi atau Permintaan Khusus
+                            <label for="detailTour" class="block text-sm text-slate-300 mb-2">
+                                Destinasi Wisata atau Permintaan Khusus
                             </label>
-                            <textarea id="detailTour" name="detailTour" rows="3"
-                                placeholder="Isi destinasi wisata dan kebutuhan lainnya..."
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white"></textarea>
+                            <textarea id="detailTour" rows="3"
+                                placeholder="Tuliskan destinasi atau kebutuhan perjalanan lainnya"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></textarea>
                         </div>
 
-                        <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/30">
-                            <p class="text-sm leading-6 text-amber-800 dark:text-amber-300">
-                                Harga Tour Sabang All-In tidak dihitung oleh kalkulator. Tekan tombol konfirmasi untuk mengirim permintaan harga langsung kepada admin.
+                        <div class="rounded-xl border border-amber-400/30 bg-amber-400/5 p-4">
+                            <p class="text-sm text-amber-300">
+                                Harga Tour Sabang All-In tidak dihitung oleh kalkulator. Silakan kirim detail perjalanan untuk mendapatkan harga dari admin.
                             </p>
                         </div>
+
                     </div>
 
-                    <!-- DETAIL ANTAR JEMPUT BANDARA -->
+                    <!-- DETAIL ANTAR JEMPUT BANDARA SIM -->
                     <div id="bagianBandara" class="hidden space-y-5">
-                        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-400 mb-2">
                                 Detail Antar Jemput Bandara SIM
                             </h3>
-                            <p class="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                                Isi detail perjalanan. Harga layanan dikonfirmasi langsung oleh admin.
+                            <p class="text-sm text-slate-400">
+                                Harga layanan dikonfirmasi langsung oleh admin melalui WhatsApp.
                             </p>
                         </div>
 
                         <div>
-                            <label for="arahBandara" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="arahBandara" class="block text-sm text-slate-300 mb-2">
                                 Jenis Layanan
                             </label>
-                            <select id="arahBandara" name="arahBandara"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                                <option value="">Pilih layanan</option>
+                            <select id="arahBandara" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                                <option value="">Pilih jenis layanan</option>
                                 <option value="Jemput dari Bandara SIM">Jemput dari Bandara SIM</option>
                                 <option value="Antar ke Bandara SIM">Antar ke Bandara SIM</option>
                                 <option value="Antar Jemput Pulang-Pergi">Antar Jemput Pulang-Pergi</option>
@@ -1452,156 +1444,131 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
 
                         <div>
-                            <label for="lokasiBandara" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="lokasiBandara" class="block text-sm text-slate-300 mb-2">
                                 Alamat Penjemputan atau Tujuan
                             </label>
-                            <input type="text" id="lokasiBandara" name="lokasiBandara"
-                                placeholder="Masukkan alamat lengkap"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                            <input type="text" id="lokasiBandara" required
+                                placeholder="Masukkan alamat lengkap penjemputan atau tujuan"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
                         <div>
-                            <label for="nomorPenerbangan" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="nomorPenerbangan" class="block text-sm text-slate-300 mb-2">
                                 Nomor Penerbangan
                             </label>
-                            <input type="text" id="nomorPenerbangan" name="nomorPenerbangan"
+                            <input type="text" id="nomorPenerbangan"
                                 placeholder="Opsional jika tersedia"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
                         <div>
-                            <label for="jumlahPenumpangBandara" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                            <label for="jumlahPenumpangBandara" class="block text-sm text-slate-300 mb-2">
                                 Jumlah Penumpang
                             </label>
-                            <input type="number" id="jumlahPenumpangBandara" name="jumlahPenumpangBandara" min="1" value="1"
-                                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                            <input type="number" id="jumlahPenumpangBandara" min="1" value="1" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
-                        <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/30">
-                            <p class="text-sm leading-6 text-amber-800 dark:text-amber-300">
-                                Tarif antar jemput Bandara SIM langsung dikonfirmasi oleh admin melalui WhatsApp.
+                        <div class="rounded-xl border border-amber-400/30 bg-amber-400/5 p-4">
+                            <p class="text-sm text-amber-300">
+                                Tarif Antar Jemput Bandara SIM tidak dihitung oleh kalkulator. Kirim permintaan Anda untuk mendapatkan harga dari admin.
                             </p>
                         </div>
+
                     </div>
 
                     <!-- DATA PEMESAN -->
-                    <div>
-                        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
-                            <h3 class="mb-5 text-lg font-bold text-gray-900 dark:text-white">
-                                5. Data Pemesan
-                            </h3>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="nama" class="block text-sm text-slate-300 mb-2">
+                                Nama Pemesan
+                            </label>
+                            <input type="text" id="nama" required
+                                placeholder="Nama lengkap"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
 
-                        <div class="space-y-5">
-                            <div>
-                                <label for="nama" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Nama Lengkap
-                                </label>
-                                <input type="text" id="nama" name="nama" required autocomplete="name"
-                                    placeholder="Masukkan nama lengkap"
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                            </div>
-
-                            <div>
-                                <label for="kontak" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Nomor WhatsApp Pemesan
-                                </label>
-                                <input type="tel" id="kontak" name="kontak" required autocomplete="tel"
-                                    placeholder="Contoh: 08xxxxxxxxxx"
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                            </div>
-
-                            <div>
-                                <label for="catatan" class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Catatan Tambahan
-                                </label>
-                                <textarea id="catatan" name="catatan" rows="3"
-                                    placeholder="Permintaan tambahan (opsional)"
-                                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-brand-amber dark:border-gray-700 dark:bg-gray-800 dark:text-white"></textarea>
-                            </div>
+                        <div>
+                            <label for="kontak" class="block text-sm text-slate-300 mb-2">
+                                Nomor WhatsApp Pemesan
+                            </label>
+                            <input type="tel" id="kontak" required
+                                placeholder="08xxxxxxxxxx"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
                     </div>
 
-                    <!-- TOMBOL KALKULATOR: ALL-IN DAN LEPAS KUNCI -->
-                    <button type="submit" id="btnHitungHarga"
-                        class="hidden w-full items-center justify-center rounded-xl bg-brand-amber px-6 py-4 text-base font-bold text-gray-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-amber-400/30">
-                        Hitung Estimasi Harga
+                    <div>
+                        <label for="catatan" class="block text-sm text-slate-300 mb-2">
+                            Catatan Tambahan
+                        </label>
+                        <textarea id="catatan" rows="3"
+                            placeholder="Permintaan khusus (opsional)"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" id="hitungReservasi"
+                        class="w-full rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-4 transition">
+                        Hitung Estimasi Reservasi
                     </button>
 
-                    <!-- TOMBOL WHATSAPP: TOUR SABANG DAN BANDARA -->
-                    <button type="button" id="btnKonfirmasiAdmin"
-                        class="hidden w-full items-center justify-center gap-3 rounded-xl bg-green-600 px-6 py-4 text-base font-bold text-white shadow-lg transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/30">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .15 5.35.15 11.93c0 2.1.55 4.15 1.6 5.96L.05 24l6.27-1.64a11.93 11.93 0 0 0 5.75 1.47h.01c6.58 0 11.93-5.35 11.93-11.93a11.86 11.86 0 0 0-3.49-8.42ZM12.08 21.8h-.01a9.88 9.88 0 0 1-5.03-1.37l-.36-.21-3.72.97.99-3.63-.24-.37a9.87 9.87 0 0 1-1.51-5.26c0-5.45 4.43-9.88 9.89-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.89 6.99c0 5.46-4.43 9.89-9.89 9.89Zm5.42-7.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.08 4.5.71.31 1.26.5 1.69.64.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.13-.27-.2-.57-.35Z"/>
-                        </svg>
-                        Konfirmasi Harga melalui WhatsApp
-                    </button>
-
-                    <!-- TOMBOL WHATSAPP SETELAH KALKULATOR -->
-                    <button type="button" id="btnLanjutWhatsApp"
-                        class="hidden w-full items-center justify-center gap-3 rounded-xl bg-green-600 px-6 py-4 text-base font-bold text-white shadow-lg transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/30">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .15 5.35.15 11.93c0 2.1.55 4.15 1.6 5.96L.05 24l6.27-1.64a11.93 11.93 0 0 0 5.75 1.47h.01c6.58 0 11.93-5.35 11.93-11.93a11.86 11.86 0 0 0-3.49-8.42ZM12.08 21.8h-.01a9.88 9.88 0 0 1-5.03-1.37l-.36-.21-3.72.97.99-3.63-.24-.37a9.87 9.87 0 0 1-1.51-5.26c0-5.45 4.43-9.88 9.89-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.89 6.99c0 5.46-4.43 9.89-9.89 9.89Zm5.42-7.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.08 4.5.71.31 1.26.5 1.69.64.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.13-.27-.2-.57-.35Z"/>
-                        </svg>
-                        Lanjutkan Reservasi melalui WhatsApp
-                    </button>
-
-                    <p id="pesanTombol" class="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-                        Pilih paket untuk menampilkan proses reservasi yang sesuai.
-                    </p>
                 </form>
             </div>
 
-            <!-- RINGKASAN DAN KALKULATOR -->
-            <aside class="lg:sticky lg:top-28">
-                <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+            <!-- RINGKASAN RESERVASI -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 h-fit">
+                <h3 class="text-xl font-bold mb-6">Ringkasan Reservasi</h3>
 
-                    <div class="bg-gray-900 p-6 dark:bg-gray-800">
-                        <h3 class="text-lg font-extrabold text-white">Ringkasan Reservasi</h3>
-                        <p class="mt-1 text-sm text-gray-400">Periksa detail pesanan Anda.</p>
+                <div class="space-y-4 text-sm">
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Paket</span>
+                        <span id="ringkasanPaket" class="text-right font-medium">Paket VIP</span>
                     </div>
 
-                    <div class="space-y-5 p-6">
-
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Paket</span>
-                            <span id="ringkasanPaket" class="text-right text-sm font-bold text-gray-900 dark:text-white">Belum dipilih</span>
-                        </div>
-
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Armada</span>
-                            <span id="ringkasanMobil" class="text-right text-sm font-bold text-gray-900 dark:text-white">Belum dipilih</span>
-                        </div>
-
-                        <div class="flex items-start justify-between gap-4">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Durasi</span>
-                            <span id="ringkasanDurasi" class="text-right text-sm font-bold text-gray-900 dark:text-white">-</span>
-                        </div>
-
-                        <div id="barisSopir" class="hidden flex items-start justify-between gap-4">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Biaya Supir</span>
-                            <span id="ringkasanSopir" class="text-right text-sm font-bold text-gray-900 dark:text-white">Rp0</span>
-                        </div>
-
-                        <div class="border-t border-dashed border-gray-300 dark:border-gray-700"></div>
-
-                        <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Estimasi Biaya</p>
-                            <p id="totalHarga" class="mt-2 text-2xl font-extrabold text-brand-amber">Rp0</p>
-                            <p id="keteranganHarga" class="mt-2 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                                Pilih paket, armada, dan durasi untuk melihat estimasi harga.
-                            </p>
-                        </div>
-
-                        <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-800">
-                            <p id="ringkasanFasilitas" class="text-xs leading-5 text-gray-600 dark:text-gray-400">
-                                Paket All-In sudah termasuk supir dan BBM. Lepas Kunci dapat menggunakan supir tambahan dengan biaya terpisah.
-                            </p>
-                        </div>
-
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Mobil / Layanan</span>
+                        <span id="ringkasanMobil" class="text-right font-medium">Belum dipilih</span>
                     </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Durasi</span>
+                        <span id="ringkasanDurasi" class="text-right font-medium">1 hari</span>
+                    </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Tarif mobil/hari</span>
+                        <span id="ringkasanTarif" class="text-right font-medium">-</span>
+                    </div>
+
+                    <div id="barisSopir" class="hidden flex justify-between gap-4">
+                        <span class="text-slate-400">Biaya sopir/hari</span>
+                        <span id="ringkasanSopir" class="text-right font-medium">Rp0</span>
+                    </div>
+
+                    <div class="border-t border-slate-700 pt-5">
+                        <p class="text-slate-400 mb-2">Estimasi Total</p>
+                        <p id="totalHarga" class="text-3xl font-bold text-amber-400">Rp0</p>
+                        <p id="keteranganHarga" class="text-xs text-slate-500 mt-2">
+                            Pilih mobil untuk melihat estimasi harga.
+                        </p>
+                    </div>
+
+                    <p id="ringkasanFasilitas" class="text-xs text-slate-400 leading-relaxed">
+                        Paket VIP sudah termasuk supir dan BBM.
+                    </p>
+
                 </div>
-            </aside>
+
+                <button type="button" id="kirimWhatsApp" disabled
+                    class="w-full mt-7 rounded-xl bg-green-600 hover:bg-green-500 disabled:bg-slate-700 disabled:text-slate-400 text-white font-bold py-4 transition">
+                    Lanjutkan via WhatsApp
+                </button>
+
+                <p id="statusReservasi" class="text-xs text-slate-500 mt-4 leading-relaxed">
+                    Pilih paket dan lengkapi formulir reservasi.
+                </p>
+            </div>
 
         </div>
     </div>
@@ -1614,7 +1581,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const NOMOR_ADMIN = "6285210601055";
 
     const daftarMobil = {
-        allin: [
+        vip: [
             { id: "alphard", nama: "Toyota Alphard VIP", harga: null },
             { id: "fortuner", nama: "Toyota Fortuner 2.8 GR Sport", harga: 1600000 },
             { id: "pajero", nama: "Mitsubishi Pajero Sport Dakar", harga: 1600000 },
@@ -1638,474 +1605,481 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const namaPaket = {
-        allin: "Paket All-In",
+        vip: "Paket VIP dengan Sopir dan BBM (All-In)",
         lepas: "Paket Lepas Kunci",
-        tour: "Tour Sabang All-In",
+        tour: "Paket Tour Sabang All-In",
         bandara: "Antar Jemput Bandara SIM"
     };
 
     const form = document.getElementById("formReservasi");
-    const inputMobil = document.getElementById("mobil");
-    const inputDurasi = document.getElementById("durasi");
-    const tanggalMulai = document.getElementById("tanggalMulai");
-    const tanggalSelesai = document.getElementById("tanggalSelesai");
-    const jamJemput = document.getElementById("jamJemput");
+    const jenisPaket = document.getElementById("jenisPaket");
+    const mobil = document.getElementById("mobil");
+    const durasi = document.getElementById("durasi");
+    const satuanDurasi = document.getElementById("satuanDurasi");
+    const opsiSopir = document.getElementById("opsiSopir");
+    const wilayahSopir = document.getElementById("wilayahSopir");
+
     const bagianMobil = document.getElementById("bagianMobil");
     const bagianDurasi = document.getElementById("bagianDurasi");
-    const bagianSupir = document.getElementById("bagianSupir");
+    const pilihanSopir = document.getElementById("pilihanSopir");
+    const bagianWilayahSopir = document.getElementById("bagianWilayahSopir");
     const bagianTujuan = document.getElementById("bagianTujuan");
     const bagianTour = document.getElementById("bagianTour");
     const bagianBandara = document.getElementById("bagianBandara");
-    const opsiSupir = document.getElementById("opsiSupir");
-    const btnHitungHarga = document.getElementById("btnHitungHarga");
-    const btnKonfirmasiAdmin = document.getElementById("btnKonfirmasiAdmin");
-    const btnLanjutWhatsApp = document.getElementById("btnLanjutWhatsApp");
 
-    let hargaSudahDihitung = false;
-    let hasilPerhitungan = null;
+    const hitungReservasi = document.getElementById("hitungReservasi");
+    const kirimWhatsApp = document.getElementById("kirimWhatsApp");
 
-    const ambilPaket = () =>
-        document.querySelector('input[name="paket"]:checked')?.value || "";
+    let reservasiSiapDikirim = false;
 
-    const rupiah = angka =>
-        new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            maximumFractionDigits: 0
-        }).format(angka);
+    const tombolPaket = {
+        vip: document.getElementById("pilihVip"),
+        lepas: document.getElementById("pilihLepasKunci"),
+        tour: document.getElementById("pilihTourSabang"),
+        bandara: document.getElementById("pilihBandara")
+    };
 
-    const pilihMobil = () => {
-        const paket = ambilPaket();
-        return daftarMobil[paket]?.find(item => item.id === inputMobil.value) || null;
+    const rupiah = angka => new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(angka);
+
+    const paketTerpilih = () => jenisPaket.value;
+
+    const paketKhusus = () =>
+        jenisPaket.value === "tour" || jenisPaket.value === "bandara";
+
+    const mobilTerpilih = () => {
+        const daftar = daftarMobil[jenisPaket.value];
+        if (!daftar) return null;
+        return daftar.find(item => item.id === mobil.value) || null;
     };
 
     const jumlahHari = () => {
-        const nilai = inputDurasi.value;
-        return /^\d+$/.test(nilai) ? Number(nilai) : null;
+        const jumlah = Math.max(1, Number(durasi.value) || 1);
+        return jumlah * Number(satuanDurasi.value || 1);
     };
 
-    const tarifSupirPerHari = () => {
-        if (opsiSupir.value === "dalam") return 200000;
-        if (opsiSupir.value === "luar") return 250000;
-        return 0;
-    };
+    const labelDurasi = () => {
+        const jumlah = Math.max(1, Number(durasi.value) || 1);
+        const satuan = satuanDurasi.value;
 
-    const paketKhusus = () => {
-        const paket = ambilPaket();
-        return paket === "tour" || paket === "bandara";
-    };
-
-    function setFieldRequired(id, required) {
-        const elemen = document.getElementById(id);
-        if (elemen) elemen.required = required;
-    }
-
-    function setFieldEnabled(id, enabled) {
-        const elemen = document.getElementById(id);
-        if (elemen) elemen.disabled = !enabled;
-    }
-
-    function setTampilanPaket() {
-        const paket = ambilPaket();
-        const khusus = paketKhusus();
-        const paketAllIn = paket === "allin";
-        const paketLepas = paket === "lepas";
-        const paketTour = paket === "tour";
-        const paketBandara = paket === "bandara";
-
-        bagianMobil.classList.toggle("hidden", khusus);
-        bagianDurasi.classList.toggle("hidden", khusus);
-        bagianSupir.classList.toggle("hidden", !paketLepas);
-        bagianTujuan.classList.toggle("hidden", khusus);
-        bagianTour.classList.toggle("hidden", !paketTour);
-        bagianBandara.classList.toggle("hidden", !paketBandara);
-
-        setFieldRequired("mobil", !khusus);
-        setFieldRequired("durasi", !khusus);
-        setFieldRequired("tujuan", paketAllIn || paketLepas);
-
-        setFieldRequired("lokasiJemputTour", paketTour);
-        setFieldRequired("durasiTour", paketTour);
-        setFieldRequired("jumlahPesertaTour", paketTour);
-
-        setFieldRequired("arahBandara", paketBandara);
-        setFieldRequired("lokasiBandara", paketBandara);
-        setFieldRequired("jumlahPenumpangBandara", paketBandara);
-
-        btnHitungHarga.classList.toggle("hidden", khusus);
-        btnHitungHarga.classList.toggle("flex", !khusus);
-        btnKonfirmasiAdmin.classList.toggle("hidden", !khusus);
-        btnKonfirmasiAdmin.classList.toggle("flex", khusus);
-        btnLanjutWhatsApp.classList.add("hidden");
-        btnLanjutWhatsApp.classList.remove("flex");
-
-        document.querySelectorAll("[data-paket-card]").forEach(kartu => {
-            const radio = kartu.querySelector('input[name="paket"]');
-            const aktif = radio && radio.checked;
-
-            kartu.classList.toggle("border-amber-400", Boolean(aktif));
-            kartu.classList.toggle("bg-amber-50", Boolean(aktif));
-            kartu.classList.toggle("dark:bg-amber-950/20", Boolean(aktif));
-        });
-
-        if (paketAllIn) {
-            document.getElementById("pesanTombol").textContent =
-                "Tekan Hitung Estimasi Harga terlebih dahulu. Setelah hasil keluar, Anda bisa memilih untuk melanjutkan reservasi ke WhatsApp.";
-        } else if (paketLepas) {
-            document.getElementById("pesanTombol").textContent =
-                "Harga mobil dan pilihan supir akan dihitung terlebih dahulu. WhatsApp baru dibuka setelah Anda menekan tombol lanjutan.";
-        } else if (paketTour || paketBandara) {
-            document.getElementById("pesanTombol").textContent =
-                "Harga paket ini dikonfirmasi langsung oleh admin. Tekan tombol untuk mengirim detail permintaan melalui WhatsApp.";
-        } else {
-            document.getElementById("pesanTombol").textContent =
-                "Pilih paket untuk menampilkan proses reservasi yang sesuai.";
+        if (satuan === "7") {
+            return `${jumlah} minggu (${jumlahHari()} hari)`;
         }
 
-        hargaSudahDihitung = false;
-        hasilPerhitungan = null;
+        if (satuan === "30") {
+            return `${jumlah} bulan (${jumlahHari()} hari)`;
+        }
+
+        return `${jumlah} hari`;
+    };
+
+    const menggunakanSopir = () =>
+        jenisPaket.value === "lepas" && opsiSopir.value === "ya";
+
+    const biayaSopirPerHari = () =>
+        menggunakanSopir() ? Number(wilayahSopir.value) : 0;
+
+    function aturGrup(element, tampil) {
+        if (!element) return;
+
+        element.classList.toggle("hidden", !tampil);
+
+        element.querySelectorAll("input, select, textarea").forEach(field => {
+            field.disabled = !tampil;
+        });
+    }
+
+    function perbaruiTampilanPaket() {
+        const paket = paketTerpilih();
+        const vip = paket === "vip";
+        const lepas = paket === "lepas";
+        const tour = paket === "tour";
+        const bandara = paket === "bandara";
+        const khusus = tour || bandara;
+
+        aturGrup(bagianMobil, !khusus);
+        aturGrup(bagianDurasi, !khusus);
+        aturGrup(pilihanSopir, lepas);
+        aturGrup(bagianTujuan, vip || lepas);
+        aturGrup(bagianTour, tour);
+        aturGrup(bagianBandara, bandara);
+
+        // Paket VIP sudah All-In, sehingga tidak ada biaya supir tambahan.
+        // Pilihan supir tambahan hanya tersedia pada paket Lepas Kunci.
+        const tampilWilayah = lepas && opsiSopir.value === "ya";
+        bagianWilayahSopir.classList.toggle("hidden", !tampilWilayah);
+        wilayahSopir.disabled = !tampilWilayah;
+
+        Object.entries(tombolPaket).forEach(([key, tombol]) => {
+            const aktif = paket === key;
+
+            tombol.classList.toggle("border-amber-400", aktif);
+            tombol.classList.toggle("bg-amber-400/10", aktif);
+            tombol.classList.toggle("border-slate-700", !aktif);
+            tombol.classList.toggle("bg-slate-900", !aktif);
+        });
+
+        if (khusus) {
+            hitungReservasi.textContent = "Konfirmasi Harga via WhatsApp";
+            hitungReservasi.classList.remove("bg-amber-400", "hover:bg-amber-300", "text-slate-950");
+            hitungReservasi.classList.add("bg-green-600", "hover:bg-green-500", "text-white");
+            document.getElementById("statusReservasi").textContent =
+                "Harga paket ini dikonfirmasi langsung oleh admin melalui WhatsApp.";
+        } else {
+            hitungReservasi.textContent = "Hitung Estimasi Reservasi";
+            hitungReservasi.classList.remove("bg-green-600", "hover:bg-green-500", "text-white");
+            hitungReservasi.classList.add("bg-amber-400", "hover:bg-amber-300", "text-slate-950");
+            document.getElementById("statusReservasi").textContent =
+                "Hitung estimasi harga terlebih dahulu sebelum melanjutkan ke WhatsApp.";
+        }
+
+        reservasiSiapDikirim = false;
+        kirimWhatsApp.disabled = true;
+
+        isiDaftarMobil();
         perbaruiRingkasan();
     }
 
     function isiDaftarMobil() {
-        const paket = ambilPaket();
-        inputMobil.replaceChildren();
+        const paket = paketTerpilih();
+        const daftar = daftarMobil[paket];
+
+        mobil.innerHTML = "";
 
         const pilihanAwal = document.createElement("option");
         pilihanAwal.value = "";
-        pilihanAwal.textContent = paket
-            ? "-- Pilih Mobil --"
-            : "Pilih paket terlebih dahulu";
+        pilihanAwal.textContent = "-- Pilih Mobil --";
+        mobil.appendChild(pilihanAwal);
 
-        inputMobil.appendChild(pilihanAwal);
-
-        if (daftarMobil[paket]) {
-            daftarMobil[paket].forEach(item => {
+        if (daftar) {
+            daftar.forEach(item => {
                 const option = document.createElement("option");
                 option.value = item.id;
                 option.textContent = item.harga === null
-                    ? `${item.nama} — Konfirmasi Admin`
+                    ? `${item.nama} — Hubungi Admin`
                     : `${item.nama} — ${rupiah(item.harga)}/hari`;
-                inputMobil.appendChild(option);
+
+                mobil.appendChild(option);
             });
         }
 
-        setTampilanPaket();
         perbaruiRingkasan();
     }
 
     function perbaruiRingkasan() {
-        const paket = ambilPaket();
-        const item = pilihMobil();
-        const hari = jumlahHari();
+        const paket = paketTerpilih();
+        const item = mobilTerpilih();
         const khusus = paketKhusus();
-        const supirTambahan = paket === "lepas" ? tarifSupirPerHari() : 0;
+        const hari = jumlahHari();
+        const biayaSopir = biayaSopirPerHari();
 
         document.getElementById("ringkasanPaket").textContent =
             namaPaket[paket] || "Belum dipilih";
 
         document.getElementById("ringkasanMobil").textContent =
-            khusus
-                ? (paket === "tour" ? "Tour Sabang" : paket === "bandara" ? "Layanan Bandara SIM" : "-")
-                : item ? item.nama : "Belum dipilih";
+            paket === "tour"
+                ? "Paket Tour Sabang"
+                : paket === "bandara"
+                    ? "Layanan Bandara SIM"
+                    : item
+                        ? item.nama
+                        : "Belum dipilih";
 
         document.getElementById("ringkasanDurasi").textContent =
-            khusus
-                ? (paket === "tour"
-                    ? (document.getElementById("durasiTour").value || "Belum dipilih")
-                    : "Sesuai kebutuhan")
-                : hari
-                    ? `${hari} hari`
-                    : inputDurasi.value === "lainnya"
-                        ? "Lebih dari 7 hari"
-                        : "-";
+            paket === "tour"
+                ? (document.getElementById("durasiTour").value || "Belum dipilih")
+                : paket === "bandara"
+                    ? "Sesuai kebutuhan"
+                    : labelDurasi();
 
-        document.getElementById("barisSopir").classList.toggle(
-            "hidden",
-            paket !== "lepas" || opsiSupir.value === "tidak"
-        );
+        document.getElementById("ringkasanTarif").textContent =
+            khusus
+                ? "Konfirmasi Admin"
+                : !item
+                    ? "-"
+                    : item.harga === null
+                        ? "Hubungi Admin"
+                        : rupiah(item.harga);
+
+        const barisSopir = document.getElementById("barisSopir");
+        barisSopir.classList.toggle("hidden", !menggunakanSopir());
 
         document.getElementById("ringkasanSopir").textContent =
-            paket === "lepas" && opsiSupir.value !== "tidak" && hari
-                ? rupiah(supirTambahan * hari)
+            menggunakanSopir()
+                ? rupiah(biayaSopir)
                 : rupiah(0);
-
-        document.getElementById("ringkasanFasilitas").textContent =
-            paket === "allin"
-                ? "Supir dan BBM sudah termasuk harga paket. Tidak ada biaya supir tambahan."
-                : paket === "lepas"
-                    ? opsiSupir.value === "tidak"
-                        ? "Lepas kunci. Supir tidak ditambahkan ke perhitungan."
-                        : "Biaya mobil dan supir dihitung terpisah. BBM tidak termasuk."
-                    : paket === "tour"
-                        ? "Tour Sabang All-In. Harga dikonfirmasi oleh admin."
-                        : paket === "bandara"
-                            ? "Antar Jemput Bandara SIM. Harga dikonfirmasi oleh admin."
-                            : "Pilih paket untuk melihat fasilitas.";
 
         if (khusus) {
             document.getElementById("totalHarga").textContent = "Konfirmasi Admin";
             document.getElementById("keteranganHarga").textContent =
-                "Harga tidak dihitung otomatis. Silakan kirim permintaan kepada admin melalui WhatsApp.";
+                "Harga langsung dikonfirmasi oleh admin melalui WhatsApp.";
+
+            document.getElementById("ringkasanFasilitas").textContent =
+                paket === "tour"
+                    ? "Paket Tour Sabang All-In. Harga dan rincian perjalanan dikonfirmasi oleh admin."
+                    : "Antar Jemput Bandara SIM. Harga layanan dikonfirmasi oleh admin.";
+
             return;
         }
 
         if (!item) {
             document.getElementById("totalHarga").textContent = rupiah(0);
             document.getElementById("keteranganHarga").textContent =
-                "Pilih armada dan durasi untuk melihat estimasi biaya.";
-            return;
-        }
+                "Pilih mobil untuk melihat estimasi harga.";
 
-        if (!hari) {
-            document.getElementById("totalHarga").textContent =
-                item.harga === null ? "Konfirmasi Admin" : "Pilih Durasi";
-            document.getElementById("keteranganHarga").textContent =
-                inputDurasi.value === "lainnya"
-                    ? "Durasi di atas 7 hari perlu dikonfirmasi kepada admin."
-                    : "Pilih durasi rental untuk menghitung estimasi.";
+            document.getElementById("ringkasanFasilitas").textContent =
+                paket === "vip"
+                    ? "Paket VIP sudah termasuk supir dan BBM."
+                    : opsiSopir.value === "ya"
+                        ? "Lepas Kunci dengan tambahan supir sesuai wilayah."
+                        : "Lepas Kunci tanpa biaya tambahan supir.";
+
             return;
         }
 
         if (item.harga === null) {
-            document.getElementById("totalHarga").textContent = "Konfirmasi Admin";
+            document.getElementById("totalHarga").textContent = "Hubungi Admin";
             document.getElementById("keteranganHarga").textContent =
-                "Harga armada ini perlu dikonfirmasi kepada admin.";
-            return;
+                "Tarif mobil belum tersedia. Silakan konfirmasi langsung kepada admin.";
+        } else {
+            // Harga VIP sudah termasuk supir dan BBM.
+            // Biaya supir tambahan hanya berlaku jika paket Lepas Kunci memilih supir.
+            const total = (item.harga + (paket === "lepas" ? biayaSopir : 0)) * hari;
+
+            document.getElementById("totalHarga").textContent = rupiah(total);
+            document.getElementById("keteranganHarga").textContent =
+                paket === "vip"
+                    ? `${rupiah(item.harga)} × ${hari} hari. Supir dan BBM sudah termasuk.`
+                    : menggunakanSopir()
+                        ? `Tarif mobil + ${rupiah(biayaSopir)} biaya supir per hari × ${hari} hari. BBM tidak termasuk.`
+                        : `${rupiah(item.harga)} × ${hari} hari. Tanpa biaya tambahan supir. BBM tidak termasuk.`;
         }
 
-        const total = (item.harga + supirTambahan) * hari;
-
-        document.getElementById("totalHarga").textContent = rupiah(total);
-        document.getElementById("keteranganHarga").textContent =
-            paket === "allin"
-                ? `${rupiah(item.harga)} × ${hari} hari. Supir dan BBM sudah termasuk.`
-                : opsiSupir.value === "tidak"
-                    ? `${rupiah(item.harga)} × ${hari} hari. BBM tidak termasuk.`
-                    : `${rupiah(item.harga)} mobil + ${rupiah(supirTambahan)} supir per hari × ${hari} hari. BBM tidak termasuk.`;
-    }
-
-    function validasiTanggal() {
-        if (tanggalMulai.value && tanggalSelesai.value) {
-            if (tanggalSelesai.value < tanggalMulai.value) {
-                tanggalSelesai.setCustomValidity("Tanggal selesai tidak boleh lebih awal dari tanggal mulai.");
-                tanggalSelesai.reportValidity();
-                return false;
-            }
-        }
-
-        tanggalSelesai.setCustomValidity("");
-        return true;
+        document.getElementById("ringkasanFasilitas").textContent =
+            paket === "vip"
+                ? "Supir dan BBM sudah termasuk dalam tarif VIP. Tidak ada biaya supir tambahan."
+                : menggunakanSopir()
+                    ? `Menggunakan supir ${Number(wilayahSopir.value) === 200000 ? "dalam kota" : "luar kota"}. Biaya supir dihitung terpisah dari tarif mobil.`
+                    : "Lepas kunci tanpa supir. BBM tidak termasuk.";
     }
 
     function buatPesanWhatsApp() {
-        const paket = ambilPaket();
+        const paket = paketTerpilih();
         const khusus = paketKhusus();
-        const item = pilihMobil();
+        const item = mobilTerpilih();
         const hari = jumlahHari();
-        const supirTambahan = paket === "lepas" ? tarifSupirPerHari() : 0;
 
-        let tarifMobil = item && item.harga !== null ? item.harga : null;
-        let total = tarifMobil !== null && hari !== null
-            ? (tarifMobil + supirTambahan) * hari
-            : null;
+        const nama = document.getElementById("nama").value.trim();
+        const kontak = document.getElementById("kontak").value.trim();
+        const tanggal = document.getElementById("tanggal").value;
+        const jam = document.getElementById("jam").value;
+        const catatan = document.getElementById("catatan").value.trim() || "-";
 
         const pesan = [
             "Halo Putra Utama Group, saya ingin melakukan reservasi.",
             "",
-            `Paket: ${namaPaket[paket] || "-"}`,
-            `Nama pemesan: ${document.getElementById("nama").value.trim()}`,
-            `Nomor WhatsApp pemesan: ${document.getElementById("kontak").value.trim()}`,
-            `Tanggal mulai: ${tanggalMulai.value || "-"}`,
-            `Tanggal selesai: ${tanggalSelesai.value || "-"}`,
-            `Jam penjemputan: ${jamJemput.value || "-"}`,
-            `Armada: ${khusus ? (paket === "tour" ? "Tour Sabang All-In" : "Antar Jemput Bandara SIM") : item ? item.nama : "-"}`,
-            `Durasi: ${paket === "tour"
-                ? (document.getElementById("durasiTour").value || "-")
-                : khusus
-                    ? "Sesuai kebutuhan"
-                    : hari
-                        ? `${hari} hari`
-                        : inputDurasi.value === "lainnya"
-                            ? "Lebih dari 7 hari"
-                            : "-"}`,
-            "",
-            ...(paket === "allin" || paket === "lepas"
-                ? [
-                    `Tujuan perjalanan: ${document.getElementById("tujuan").value.trim() || "-"}`,
-                    `Pilihan supir: ${paket === "allin"
-                        ? "Termasuk paket All-In"
-                        : opsiSupir.value === "tidak"
-                            ? "Lepas kunci tanpa supir"
-                            : opsiSupir.value === "dalam"
-                                ? "Supir dalam kota"
-                                : "Supir luar kota"}`,
-                    `Tarif supir tambahan: ${paket === "lepas" && opsiSupir.value !== "tidak"
-                        ? `${rupiah(supirTambahan)}/hari`
-                        : "Tidak ada biaya tambahan"}`,
-                    `Tarif mobil: ${tarifMobil === null ? "Konfirmasi admin" : `${rupiah(tarifMobil)}/hari`}`,
-                    `Estimasi total: ${total === null ? "Konfirmasi admin" : rupiah(total)}`,
-                    `BBM: ${paket === "allin" ? "Termasuk paket" : "Tidak termasuk"}`
-                ]
-                : paket === "tour"
-                    ? [
-                        `Lokasi penjemputan tour: ${document.getElementById("lokasiJemputTour").value.trim()}`,
-                        `Durasi tour: ${document.getElementById("durasiTour").value}`,
-                        `Jumlah peserta: ${document.getElementById("jumlahPesertaTour").value}`,
-                        `Destinasi atau permintaan khusus: ${document.getElementById("detailTour").value.trim() || "-"}`,
-                        "Harga: Mohon konfirmasi langsung kepada admin"
-                    ]
-                    : [
-                        `Jenis layanan: ${document.getElementById("arahBandara").value}`,
-                        `Alamat penjemputan atau tujuan: ${document.getElementById("lokasiBandara").value.trim()}`,
-                        `Nomor penerbangan: ${document.getElementById("nomorPenerbangan").value.trim() || "-"}`,
-                        `Jumlah penumpang: ${document.getElementById("jumlahPenumpangBandara").value}`,
-                        "Harga: Mohon konfirmasi langsung kepada admin"
-                    ]),
-            "",
-            `Catatan tambahan: ${document.getElementById("catatan").value.trim() || "-"}`,
+            `Paket: ${namaPaket[paket]}`,
+            `Nama pemesan: ${nama}`,
+            `Nomor WhatsApp pemesan: ${kontak}`,
+            `Tanggal mulai: ${tanggal}`,
+            `Jam mulai: ${jam}`
+        ];
+
+        if (paket === "vip" || paket === "lepas") {
+            const tarifSopir = biayaSopirPerHari();
+            const total = item && item.harga !== null
+                ? (item.harga + (paket === "lepas" ? tarifSopir : 0)) * hari
+                : null;
+
+            pesan.push(
+                `Mobil: ${item ? item.nama : "-"}`,
+                `Durasi: ${labelDurasi()}`,
+                `Tujuan perjalanan: ${document.getElementById("tujuan").value.trim()}`,
+                `Tarif mobil per hari: ${item && item.harga !== null ? rupiah(item.harga) : "Konfirmasi Admin"}`,
+                `Pilihan supir: ${paket === "vip"
+                    ? "Sudah termasuk dalam paket VIP"
+                    : menggunakanSopir()
+                        ? "Menggunakan supir"
+                        : "Lepas kunci tanpa supir"}`
+            );
+
+            if (paket === "vip") {
+                pesan.push(
+                    "Biaya supir tambahan: Tidak ada, sudah termasuk paket",
+                    "BBM: Sudah termasuk paket VIP"
+                );
+            } else {
+                pesan.push(
+                    `Wilayah supir: ${menggunakanSopir()
+                        ? Number(wilayahSopir.value) === 200000
+                            ? "Dalam Kota"
+                            : "Luar Kota"
+                        : "Tidak menggunakan supir"}`,
+                    `Biaya supir per hari: ${menggunakanSopir() ? rupiah(tarifSopir) : "Rp0"}`,
+                    "BBM: Tidak termasuk"
+                );
+            }
+
+            pesan.push(
+                `Estimasi total: ${total === null ? "Mohon konfirmasi harga kepada admin" : rupiah(total)}`
+            );
+        }
+
+        if (paket === "tour") {
+            pesan.push(
+                "Layanan: Tour Sabang All-In",
+                `Lokasi penjemputan: ${document.getElementById("lokasiJemputTour").value.trim()}`,
+                `Durasi tour: ${document.getElementById("durasiTour").value}`,
+                `Jumlah peserta: ${document.getElementById("jumlahPesertaTour").value}`,
+                `Destinasi atau permintaan khusus: ${document.getElementById("detailTour").value.trim() || "-"}`,
+                "Harga: Mohon konfirmasi langsung kepada admin melalui WhatsApp."
+            );
+        }
+
+        if (paket === "bandara") {
+            pesan.push(
+                "Layanan: Antar Jemput Bandara SIM",
+                `Jenis layanan: ${document.getElementById("arahBandara").value}`,
+                `Alamat penjemputan atau tujuan: ${document.getElementById("lokasiBandara").value.trim()}`,
+                `Nomor penerbangan: ${document.getElementById("nomorPenerbangan").value.trim() || "-"}`,
+                `Jumlah penumpang: ${document.getElementById("jumlahPenumpangBandara").value}`,
+                "Harga: Mohon konfirmasi langsung kepada admin melalui WhatsApp."
+            );
+        }
+
+        pesan.push(
+            `Catatan tambahan: ${catatan}`,
             "",
             khusus
-                ? "Mohon informasi harga, ketersediaan, dan rincian layanan. Terima kasih."
-                : "Mohon konfirmasi ketersediaan armada dan detail reservasi. Terima kasih."
-        ];
+                ? "Mohon konfirmasi harga dan ketersediaan layanan. Terima kasih."
+                : "Mohon konfirmasi ketersediaan mobil dan ketentuan reservasi. Terima kasih."
+        );
 
         return pesan.join("\n");
     }
 
     function bukaWhatsApp() {
-        if (!form.reportValidity() || !validasiTanggal()) return;
+        const pesan = buatPesanWhatsApp();
+        const url = `https://wa.me/${NOMOR_ADMIN}?text=${encodeURIComponent(pesan)}`;
 
-        const url = `https://wa.me/6285210601055?text=${encodeURIComponent(buatPesanWhatsApp())}`;
         window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    document.querySelectorAll('input[name="paket"]').forEach(radio => {
-        radio.addEventListener("change", () => {
-            isiDaftarMobil();
-            btnLanjutWhatsApp.classList.add("hidden");
-            btnLanjutWhatsApp.classList.remove("flex");
+    // Pemilihan paket melalui kartu.
+    Object.entries(tombolPaket).forEach(([paket, tombol]) => {
+        tombol.addEventListener("click", () => {
+            jenisPaket.value = paket;
+            perbaruiTampilanPaket();
         });
     });
 
-    inputMobil.addEventListener("change", () => {
-        hargaSudahDihitung = false;
-        hasilPerhitungan = null;
-        btnLanjutWhatsApp.classList.add("hidden");
-        btnLanjutWhatsApp.classList.remove("flex");
+    // Pemilihan paket melalui dropdown.
+    jenisPaket.addEventListener("change", perbaruiTampilanPaket);
+
+    // Tampilkan wilayah supir hanya ketika paket Lepas Kunci memakai supir.
+    opsiSopir.addEventListener("change", () => {
+        const tampilWilayah =
+            jenisPaket.value === "lepas" && opsiSopir.value === "ya";
+
+        bagianWilayahSopir.classList.toggle("hidden", !tampilWilayah);
+        wilayahSopir.disabled = !tampilWilayah;
+
+        reservasiSiapDikirim = false;
+        kirimWhatsApp.disabled = true;
         perbaruiRingkasan();
     });
 
-    [inputDurasi, opsiSupir].forEach(elemen => {
+    [
+        mobil,
+        durasi,
+        satuanDurasi,
+        wilayahSopir,
+        document.getElementById("durasiTour")
+    ].forEach(elemen => {
         elemen.addEventListener("change", () => {
-            hargaSudahDihitung = false;
-            hasilPerhitungan = null;
-            btnLanjutWhatsApp.classList.add("hidden");
-            btnLanjutWhatsApp.classList.remove("flex");
+            reservasiSiapDikirim = false;
+            kirimWhatsApp.disabled = true;
+            perbaruiRingkasan();
+        });
+
+        elemen.addEventListener("input", () => {
+            reservasiSiapDikirim = false;
+            kirimWhatsApp.disabled = true;
             perbaruiRingkasan();
         });
     });
 
-    tanggalMulai.addEventListener("change", () => {
-        tanggalSelesai.min = tanggalMulai.value;
-        validasiTanggal();
-    });
-
-    tanggalSelesai.addEventListener("change", validasiTanggal);
-
-    document.getElementById("durasiTour").addEventListener("change", perbaruiRingkasan);
-
-    form.addEventListener("submit", event => {
-        event.preventDefault();
-
-        const paket = ambilPaket();
-
-        if (!paket) {
-            alert("Silakan pilih paket rental terlebih dahulu.");
-            return;
-        }
-
-        if (paket === "tour" || paket === "bandara") {
-            return;
-        }
-
-        if (!form.reportValidity() || !validasiTanggal()) return;
-
-        const item = pilihMobil();
-        const hari = jumlahHari();
-
-        if (!item) {
-            alert("Silakan pilih armada terlebih dahulu.");
-            inputMobil.focus();
-            return;
-        }
-
-        if (!hari) {
-            alert("Untuk durasi lebih dari 7 hari, silakan pilih durasi yang tersedia atau hubungi admin untuk konfirmasi harga.");
-            inputDurasi.focus();
-            return;
-        }
-
-        if (item.harga === null) {
-            perbaruiRingkasan();
-            alert("Harga armada ini perlu dikonfirmasi admin. Tekan tombol WhatsApp untuk meminta informasi harga.");
-            hasilPerhitungan = { hargaKonfirmasi: true };
-        } else {
-            const tarifSupir = paket === "lepas" ? tarifSupirPerHari() : 0;
-            hasilPerhitungan = {
-                total: (item.harga + tarifSupir) * hari,
-                tarifMobil: item.harga,
-                tarifSupir,
-                hari
-            };
-        }
-
-        hargaSudahDihitung = true;
-        perbaruiRingkasan();
-
-        btnLanjutWhatsApp.classList.remove("hidden");
-        btnLanjutWhatsApp.classList.add("flex");
-
-        btnLanjutWhatsApp.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    });
-
-    btnKonfirmasiAdmin.addEventListener("click", () => {
-        const paket = ambilPaket();
-
-        if (paket !== "tour" && paket !== "bandara") return;
-        if (!form.reportValidity() || !validasiTanggal()) return;
-
-        bukaWhatsApp();
-    });
-
-    btnLanjutWhatsApp.addEventListener("click", () => {
-        const paket = ambilPaket();
-
-        if (paket !== "allin" && paket !== "lepas") return;
-        if (!hargaSudahDihitung || !hasilPerhitungan) {
-            alert("Silakan hitung estimasi harga terlebih dahulu.");
-            return;
-        }
-
-        bukaWhatsApp();
-    });
-
+    // Tanggal mulai tidak menambahkan tanggal selesai.
+    const inputTanggal = document.getElementById("tanggal");
     const sekarang = new Date();
-    const tanggalHariIni = [
+
+    inputTanggal.min = [
         sekarang.getFullYear(),
         String(sekarang.getMonth() + 1).padStart(2, "0"),
         String(sekarang.getDate()).padStart(2, "0")
     ].join("-");
 
-    tanggalMulai.min = tanggalHariIni;
-    tanggalSelesai.min = tanggalHariIni;
+    // Kalkulator VIP dan Lepas Kunci.
+    // Tour Sabang dan Bandara SIM langsung menghubungi admin untuk konfirmasi harga.
+    form.addEventListener("submit", event => {
+        event.preventDefault();
 
-    perbaruiRingkasan();
+        if (!form.reportValidity()) return;
+
+        const paket = paketTerpilih();
+
+        if (paket === "tour" || paket === "bandara") {
+            bukaWhatsApp();
+            return;
+        }
+
+        const item = mobilTerpilih();
+
+        if (!item) {
+            mobil.focus();
+            alert("Silakan pilih mobil terlebih dahulu.");
+            return;
+        }
+
+        if (item.harga === null) {
+            perbaruiRingkasan();
+            reservasiSiapDikirim = true;
+            kirimWhatsApp.disabled = false;
+
+            document.getElementById("statusReservasi").textContent =
+                "Harga mobil perlu dikonfirmasi admin. Tekan Lanjutkan via WhatsApp untuk meminta informasi harga.";
+            return;
+        }
+
+        perbaruiRingkasan();
+
+        reservasiSiapDikirim = true;
+        kirimWhatsApp.disabled = false;
+
+        document.getElementById("statusReservasi").textContent =
+            "Estimasi harga sudah dihitung. Tekan Lanjutkan via WhatsApp untuk mengirim reservasi ke admin.";
+
+        kirimWhatsApp.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+
+    // Mengirim hasil reservasi ke WhatsApp admin.
+    kirimWhatsApp.addEventListener("click", () => {
+        if (!reservasiSiapDikirim || !form.reportValidity()) return;
+
+        bukaWhatsApp();
+    });
+
+    // Inisialisasi awal.
+    perbaruiTampilanPaket();
 })();
 </script>
+        
         <!-- SYARAT DAN KETENTUAN -->
         <section id="kebijakan" class="bg-gray-50 py-20 dark:bg-[#18181b]">
             <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
