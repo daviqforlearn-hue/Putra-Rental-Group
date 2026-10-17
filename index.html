@@ -1184,93 +1184,160 @@ Update
         
     <section id="reservasi" class="py-20 bg-slate-950 text-white">
     <div class="max-w-6xl mx-auto px-4">
+
         <div class="text-center mb-12">
-            <p class="text-amber-400 uppercase tracking-[0.3em] text-sm font-semibold mb-3">Booking Rental Mobil</p>
-            <h2 class="text-3xl md:text-5xl font-bold mb-4">Kalkulator Reservasi</h2>
-            <p class="text-slate-400 max-w-2xl mx-auto">Pilih paket All-In, lepas kunci, Tour Sabang, atau antar jemput Bandara Sultan Iskandar Muda (SIM).</p>
+            <p class="text-amber-400 uppercase tracking-[0.3em] text-sm font-semibold mb-3">
+                Booking Rental Mobil
+            </p>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
+                Kalkulator Reservasi
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Pilih Paket All-In, Lepas Kunci, Tour Sabang, atau Antar Jemput Bandara SIM.
+            </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <button type="button" id="pilihVip" class="paket-btn border-2 border-amber-400 bg-amber-400/10 rounded-2xl p-6 text-left transition">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-2xl font-bold">Paket All-In</span>
-                    <span class="text-amber-400 text-xl">★</span>
-                </div>
-                <p class="text-slate-300 text-sm mb-4">Mobil, supir, dan BBM sudah termasuk dalam harga paket.</p>
-                <span class="text-amber-400 font-semibold">Supir + BBM Termasuk</span>
+        <!-- DAFTAR PAKET RENTAL -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+            <button type="button" data-paket="vip"
+                class="paket-btn border-2 border-amber-400 bg-amber-400/10 rounded-2xl p-5 text-left transition">
+                <h3 class="text-xl font-bold mb-3">Paket All-In</h3>
+                <p class="text-slate-300 text-sm mb-4">
+                    Mobil, supir, dan BBM sudah termasuk.
+                </p>
+                <span class="text-amber-400 font-semibold text-sm">
+                    Harga Paket
+                </span>
             </button>
 
-            <button type="button" id="pilihLepasKunci" class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-6 text-left transition">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-2xl font-bold">Lepas Kunci</span>
-                    <span class="text-slate-500 text-xl">◆</span>
-                </div>
-                <p class="text-slate-300 text-sm mb-4">Sewa mobil tanpa supir. Supir bisa ditambahkan dengan biaya terpisah.</p>
-                <span class="text-amber-400 font-semibold">Pilihan Supir Opsional</span>
+            <button type="button" data-paket="lepas"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
+                <h3 class="text-xl font-bold mb-3">Lepas Kunci</h3>
+                <p class="text-slate-300 text-sm mb-4">
+                    Sewa mobil dengan pilihan menggunakan supir atau tanpa supir.
+                </p>
+                <span class="text-amber-400 font-semibold text-sm">
+                    Supir Opsional
+                </span>
             </button>
+
+            <button type="button" data-paket="sabang"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
+                <h3 class="text-xl font-bold mb-3">Tour Sabang</h3>
+                <p class="text-slate-300 text-sm mb-4">
+                    Paket perjalanan wisata ke Sabang.
+                </p>
+                <span class="text-amber-400 font-semibold text-sm">
+                    Konfirmasi Admin
+                </span>
+            </button>
+
+            <button type="button" data-paket="bandara"
+                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
+                <h3 class="text-xl font-bold mb-3">Antar Jemput Bandara SIM</h3>
+                <p class="text-slate-300 text-sm mb-4">
+                    Layanan antar jemput Bandara Sultan Iskandar Muda.
+                </p>
+                <span class="text-amber-400 font-semibold text-sm">
+                    Konfirmasi Admin
+                </span>
+            </button>
+
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- FORM RESERVASI -->
             <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+
                 <form id="formReservasi" class="space-y-5">
+
+                    <!-- PAKET RENTAL -->
                     <div>
-                        <label for="jenisPaket" class="block text-sm text-slate-300 mb-2">Paket Rental</label>
-                        <select id="jenisPaket" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        <label for="jenisPaket" class="block text-sm text-slate-300 mb-2">
+                            Paket Rental
+                        </label>
+                        <select id="jenisPaket" required
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                             <option value="vip">Paket All-In (Mobil, Supir, BBM)</option>
                             <option value="lepas">Paket Lepas Kunci</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="jenisPerjalanan" class="block text-sm text-slate-300 mb-2">Jenis Perjalanan</label>
-                        <select id="jenisPerjalanan" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
-                            <option value="rental">Rental Mobil Reguler</option>
                             <option value="sabang">Tour Sabang — Konfirmasi Admin</option>
                             <option value="bandara">Antar Jemput Bandara SIM — Konfirmasi Admin</option>
                         </select>
                     </div>
 
+                    <!-- UNIT MOBIL -->
                     <div>
-                        <label for="mobil" class="block text-sm text-slate-300 mb-2">Pilih Mobil</label>
-                        <select id="mobil" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></select>
+                        <label for="mobil" class="block text-sm text-slate-300 mb-2">
+                            Pilih Unit Mobil
+                        </label>
+                        <select id="mobil" required
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        </select>
                     </div>
 
+                    <!-- SUPIR KHUSUS LEPAS KUNCI -->
                     <div id="pilihanSupirLepas" class="hidden">
-                        <label for="opsiSupirLepas" class="block text-sm text-slate-300 mb-2">Layanan Supir</label>
-                        <select id="opsiSupirLepas" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        <label for="opsiSupirLepas" class="block text-sm text-slate-300 mb-2">
+                            Layanan Supir
+                        </label>
+                        <select id="opsiSupirLepas"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                             <option value="tanpa">Tanpa Supir</option>
                             <option value="dengan">Dengan Supir — Biaya Tambahan</option>
                         </select>
                     </div>
 
                     <div id="pilihanSopir" class="hidden">
-                        <label for="wilayahSopir" class="block text-sm text-slate-300 mb-2">Wilayah Supir Tambahan</label>
-                        <select id="wilayahSopir" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                        <label for="wilayahSopir" class="block text-sm text-slate-300 mb-2">
+                            Wilayah Supir Tambahan
+                        </label>
+                        <select id="wilayahSopir"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                             <option value="200000">Dalam Kota — Rp200.000/hari</option>
                             <option value="250000">Luar Kota — Rp250.000/hari</option>
                         </select>
-                        <p class="text-xs text-slate-500 mt-2">Biaya ini hanya untuk paket lepas kunci yang memakai supir tambahan.</p>
+                        <p class="text-xs text-slate-500 mt-2">
+                            Biaya tambahan hanya berlaku untuk paket Lepas Kunci yang menggunakan supir.
+                        </p>
                     </div>
 
+                    <!-- TANGGAL DAN JAM -->
                     <div class="grid sm:grid-cols-2 gap-5">
                         <div>
-                            <label for="tanggal" class="block text-sm text-slate-300 mb-2">Tanggal Mulai</label>
-                            <input type="date" id="tanggal" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="tanggal" class="block text-sm text-slate-300 mb-2">
+                                Tanggal Reservasi
+                            </label>
+                            <input type="date" id="tanggal" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
+
                         <div>
-                            <label for="jam" class="block text-sm text-slate-300 mb-2">Jam Mulai</label>
-                            <input type="time" id="jam" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="jam" class="block text-sm text-slate-300 mb-2">
+                                Jam Mulai
+                            </label>
+                            <input type="time" id="jam" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
                     </div>
 
+                    <!-- DURASI -->
                     <div class="grid sm:grid-cols-2 gap-5">
                         <div>
-                            <label for="durasi" class="block text-sm text-slate-300 mb-2">Durasi</label>
-                            <input type="number" id="durasi" min="1" max="365" value="1" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="durasi" class="block text-sm text-slate-300 mb-2">
+                                Berapa Hari
+                            </label>
+                            <input type="number" id="durasi" min="1" max="365" value="1" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
+
                         <div>
-                            <label for="satuanDurasi" class="block text-sm text-slate-300 mb-2">Satuan Durasi</label>
-                            <select id="satuanDurasi" required class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="satuanDurasi" class="block text-sm text-slate-300 mb-2">
+                                Satuan Durasi
+                            </label>
+                            <select id="satuanDurasi" required
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                                 <option value="1">Hari</option>
                                 <option value="7">Minggu</option>
                                 <option value="30">Bulan</option>
@@ -1278,53 +1345,150 @@ Update
                         </div>
                     </div>
 
-                    <div>
-                        <label for="tujuan" class="block text-sm text-slate-300 mb-2">Tujuan Perjalanan</label>
-                        <input type="text" id="tujuan" required placeholder="Contoh: Banda Aceh, Sabang, Bandara SIM" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                    <!-- TUJUAN HANYA UNTUK RENTAL REGULER -->
+                    <div id="bagianTujuan">
+                        <label for="tujuan" class="block text-sm text-slate-300 mb-2">
+                            Tujuan Perjalanan
+                        </label>
+                        <input type="text" id="tujuan"
+                            placeholder="Contoh: Banda Aceh, Aceh Besar"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                     </div>
 
+                    <!-- DATA PEMESAN -->
                     <div class="grid sm:grid-cols-2 gap-5">
                         <div>
-                            <label for="nama" class="block text-sm text-slate-300 mb-2">Nama Pemesan</label>
-                            <input type="text" id="nama" required placeholder="Nama lengkap" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="nama" class="block text-sm text-slate-300 mb-2">
+                                Nama Pemesan
+                            </label>
+                            <input type="text" id="nama" required
+                                placeholder="Nama lengkap"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
+
                         <div>
-                            <label for="kontak" class="block text-sm text-slate-300 mb-2">Nomor WhatsApp Pemesan</label>
-                            <input type="tel" id="kontak" required placeholder="08xxxxxxxxxx" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                            <label for="kontak" class="block text-sm text-slate-300 mb-2">
+                                Nomor WhatsApp Pemesan
+                            </label>
+                            <input type="tel" id="kontak" required
+                                placeholder="08xxxxxxxxxx"
+                                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </div>
                     </div>
 
+                    <!-- CATATAN TAMBAHAN -->
                     <div>
-                        <label for="catatan" class="block text-sm text-slate-300 mb-2">Catatan Tambahan</label>
-                        <textarea id="catatan" rows="3" placeholder="Permintaan khusus, nomor penerbangan, jumlah penumpang, dan lainnya" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></textarea>
+                        <label for="catatan" class="block text-sm text-slate-300 mb-2">
+                            Catatan Tambahan (Opsional)
+                        </label>
+                        <textarea id="catatan" rows="3"
+                            placeholder="Contoh: jumlah penumpang, nomor penerbangan, lokasi penjemputan, atau permintaan khusus"
+                            class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-4 transition">Hitung Estimasi Reservasi</button>
+                    <button type="submit"
+                        class="w-full rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-4 transition">
+                        Hitung Estimasi Reservasi
+                    </button>
+
                 </form>
             </div>
 
+            <!-- RINGKASAN -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 h-fit">
+
                 <h3 class="text-xl font-bold mb-6">Ringkasan Reservasi</h3>
+
                 <div class="space-y-4 text-sm">
-                    <div class="flex justify-between gap-4"><span class="text-slate-400">Perjalanan</span><span id="ringkasanPerjalanan" class="text-right font-medium">Rental Mobil Reguler</span></div>
-                    <div class="flex justify-between gap-4"><span class="text-slate-400">Paket</span><span id="ringkasanPaket" class="text-right font-medium">Paket All-In</span></div>
-                    <div class="flex justify-between gap-4"><span class="text-slate-400">Mobil</span><span id="ringkasanMobil" class="text-right font-medium">Belum dipilih</span></div>
-                    <div class="flex justify-between gap-4"><span class="text-slate-400">Durasi</span><span id="ringkasanDurasi" class="text-right font-medium">1 hari</span></div>
-                    <div class="flex justify-between gap-4"><span class="text-slate-400">Tarif mobil/hari</span><span id="ringkasanTarif" class="text-right font-medium">-</span></div>
-                    <div id="barisSopir" class="hidden flex justify-between gap-4"><span class="text-slate-400">Biaya supir/hari</span><span id="ringkasanSopir" class="text-right font-medium">-</span></div>
-                    <div class="border-t border-slate-700 pt-5">
-                        <p class="text-slate-400 mb-2">Estimasi Total</p>
-                        <p id="totalHarga" class="text-3xl font-bold text-amber-400">Rp0</p>
-                        <p id="keteranganHarga" class="text-xs text-slate-500 mt-2">Pilih mobil untuk melihat estimasi harga.</p>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Paket</span>
+                        <span id="ringkasanPaket" class="text-right font-medium">Paket All-In</span>
                     </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Mobil</span>
+                        <span id="ringkasanMobil" class="text-right font-medium">Belum dipilih</span>
+                    </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Tanggal</span>
+                        <span id="ringkasanTanggal" class="text-right font-medium">-</span>
+                    </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Jam</span>
+                        <span id="ringkasanJam" class="text-right font-medium">-</span>
+                    </div>
+
+                    <div class="flex justify-between gap-4">
+                        <span class="text-slate-400">Durasi</span>
+                        <span id="ringkasanDurasi" class="text-right font-medium">1 hari</span>
+                    </div>
+
+                    <div id="barisSopir" class="hidden flex justify-between gap-4">
+                        <span class="text-slate-400">Biaya Supir</span>
+                        <span id="ringkasanSopir" class="text-right font-medium">-</span>
+                    </div>
+
+                    <div class="border-t border-slate-700 pt-5">
+                        <p class="text-slate-400 mb-2">Total Pembayaran</p>
+                        <p id="totalHarga" class="text-3xl font-bold text-amber-400">
+                            Rp0
+                        </p>
+                        <p id="keteranganHarga" class="text-xs text-slate-500 mt-2">
+                            Pilih paket untuk melihat informasi harga.
+                        </p>
+                    </div>
+
                 </div>
 
-                <button type="button" id="kirimWhatsApp" disabled class="w-full mt-7 rounded-xl bg-green-600 hover:bg-green-500 disabled:bg-slate-700 disabled:text-slate-400 text-white font-bold py-4 transition">Lanjutkan via WhatsApp</button>
-                <p class="text-xs text-slate-500 mt-4 leading-relaxed">Tour Sabang dan antar jemput Bandara SIM memerlukan konfirmasi harga dari admin.</p>
+                <button type="button" id="kirimWhatsApp" disabled
+                    class="w-full mt-7 rounded-xl bg-green-600 hover:bg-green-500 disabled:bg-slate-700 disabled:text-slate-400 text-white font-bold py-4 transition">
+                    Konfirmasi via WhatsApp
+                </button>
+
+                <p class="text-xs text-slate-500 mt-4 leading-relaxed">
+                    Harga Tour Sabang dan Antar Jemput Bandara SIM dikonfirmasi langsung oleh admin.
+                </p>
+
             </div>
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("formReservasi");
+    const jenisPaket = document.getElementById("jenisPaket");
+    const mobil = document.getElementById("mobil");
+    const tanggal = document.getElementById("tanggal");
+    const jam = document.getElementById("jam");
+    const durasi = document.getElementById("durasi");
+    const satuanDurasi = document.getElementById("satuanDurasi");
+    const tujuan = document.getElementById("tujuan");
+    const bagianTujuan = document.getElementById("bagianTujuan");
+    const pilihanSupirLepas = document.getElementById("pilihanSupirLepas");
+    const opsiSupirLepas = document.getElementById("opsiSupirLepas");
+    const pilihanSopir = document.getElementById("pilihanSopir");
+    const wilayahSopir = document.getElementById("wilayahSopir");
+    const totalHarga = document.getElementById("totalHarga");
+    const keteranganHarga = document.getElementById("keteranganHarga");
+    const tombolWA = document.getElementById("kirimWhatsApp");
+
+    const ringkasanPaket = document.getElementById("ringkasanPaket");
+    const ringkasanMobil = document.getElementById("ringkasanMobil");
+    const ringkasanTanggal = document.getElementById("ringkasanTanggal");
+    const ringkasanJam = document.getElementById("ringkasanJam");
+    const ringkasanDurasi = document.getElementById("ringkasanDurasi");
+    const barisSopir = document.getElementById("barisSopir");
+    const ringkasanSopir = document.getElementById("ringkasanSopir");
+
+    const nama = document.getElementById("nama");
+    const kontak = document.getElementById("kontak");
+    const catatan = document.getElementById("catatan");
+
+    const nomorAdmin = "6285210601055";
 
 <script>
 (() => {
