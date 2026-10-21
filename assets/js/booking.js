@@ -1,351 +1,557 @@
-document.addEventListener("DOMContentLoaded", function () {
+<script>
+document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
-    // ==========================================================
-    // 1. MENCARI FORM SESUAI DENGAN HTML ASLI ANDA (formReservasi)
-    // ==========================================================
-    const formUtama = document.getElementById("formReservasi") || document.getElementById("booking-calculator");
-    
-    // Mencari tombol submit di dalam form Anda
-    const tombolKirim = formUtama?.querySelector('button[type="submit"]') || document.getElementById("btn-submit-booking");
+    const $ = id => document.getElementById(id);
+    const form = $("formReservasi");
 
-    if (!formUtama || !tombolKirim) {
-        console.error("Gagal memuat: Form atau tombol kirim tidak ditemukan!");
+    if (!form) return;
+
+    const admin = "6285210601055";
+    const tombolWA = $("kirimWhatsApp");
+    const tombolHitung = form.querySelector('button[type="submit"]');
+
+    const daftarMobil = {
+        vip: [
+            { id: "alphard", nama: "Toyota Alphard VIP", harga: null },
+            { id: "fortuner", nama: "Toyota Fortuner 2.8 GR Sport", harga: 1600000 },
+            { id: "pajero", nama: "Mitsubishi Pajero Sport Dakar", harga: 1600000 },
+            { id: "zenix", nama: "Toyota Innova Zenix Q HEV", harga: 1500000 },
+            { id: "hiace", nama: "Toyota HiAce Premio", harga: 1400000 },
+            { id: "reborn", nama: "Toyota Innova Reborn", harga: 850000 },
+            { id: "avanza", nama: "Toyota New Avanza / Veloz", harga: 750000 },
+            { id: "avanza-lama", nama: "Toyota Avanza Old", harga: null },
+            { id: "hilux", nama: "Toyota Hilux 4x4", harga: 1600000 },
+            { id: "brio", nama: "Honda Brio", harga: 600000 },
+            { id: "agya", nama: "Toyota Agya", harga: 550000 }
+        ],
+        lepas: [
+            { id: "reborn-matic", nama: "Toyota Innova Reborn Matic", harga: 550000 },
+            { id: "reborn-manual", nama: "Toyota Innova Reborn Manual", harga: 500000 },
+            { id: "avanza-veloz", nama: "Toyota New Avanza / Veloz", harga: 400000 },
+            { id: "avanza-lama", nama: "Toyota Avanza Old", harga: 350000 },
+            { id: "brio", nama: "Honda Brio", harga: 350000 },
+            { id: "agya", nama: "Toyota Agya", harga: 300000 }
+        ]
+    };
+
+    const formatRp = angka => new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(angka);
+
+    const namaPaket = {
+        vip: "Paket All-In",
+        lepas: "Paket Lepas Kunci",
+        sabang: "Paket Tour Sabang",
+        bandara: "Paket Antar Jemput Bandara SIM"
+    };
+
+    const khusus = paket => ["sabang", "bandara"].includes(paket);
+
+    const sumber = {
+        paket: $("jenisPaket").closest("div"),
+        mobil: $("mobil").closest("div"),
+        supir: $("pilihanSupirLepas"),
+        infoSupir: $("infoSupir"),
+        tanggalJam: $("tanggal").closest(".grid"),
+        durasi: $("bagianDurasi"),
+        infoKhusus: $("infoPaketKhusus"),
+        tujuan: $("bagianTujuan")
+    };
+
+    if (Object.values(sumber).some(el => !el)) {
+        console.error("Struktur HTML reservasi tidak lengkap.");
         return;
     }
 
-    let totalUnitAktif = 1;
-    const BATAS_MAKSIMAL_UNIT = 10;
-
-    // ==========================================================
-    // 2. PEMBUATAN STRUKTUR MULTI-UNIT OTOMATIS
-    // ==========================================================
-    
-    // Membuat wadah utama untuk menampung barisan unit mobil
-    const wadahMultiUnit = document.createElement("div");
-    wadahMultiUnit.id = "wadahMultiUnit";
-    wadahMultiUnit.className = "space-y-6 mb-6";
-
-    // Membuat kotak pembungkus awal untuk Unit 1
-    const kotakUnitAwal = document.createElement("div");
-    kotakUnitAwal.className = "unit-box border border-slate-800 bg-slate-950/40 p-5 rounded-xl relative";
-    kotakUnitAwal.id = "kotak-unit-1";
-
-    // Label penanda Unit 1
-    const labelUnitAwal = document.createElement("div");
-    labelUnitAwal.className = "text-amber-400 font-semibold text-sm mb-4 uppercase tracking-wider";
-    labelUnitAwal.innerText = "Reservasi Unit 1";
-    kotakUnitAwal.appendChild(labelUnitAwal);
-
-    // Menyesuaikan dengan ID elemen input asli yang ada di HTML Anda
-    const daftarIdInput = ["mobil", "tanggal", "jam", "durasi", "satuanDurasi", "calc-mobil", "calc-tanggal", "calc-jam", "calc-durasi", "calc-tipe-durasi"];
-    const elemenPindahan = [];
-    
-    daftarIdInput.forEach(function (id) {
-        const elemen = formUtama.querySelector(`#${id}`);
-        if (elemen) {
-            // Mengambil div pembungkus terdekat (struktur Tailwind Anda)
-            const kelompokForm = elemen.closest('.grid') || elemen.parentElement;
-            if (kelompokForm && !elemenPindahan.includes(kelompokForm) && kelompokForm !== formUtama) {
-                elemenPindahan.push(kelompokForm);
-            }
-        }
+    // Simpan template sebelum memindahkan elemen dari form asli.
+    const template = {};
+    Object.keys(sumber).forEach(k => {
+        template[k] = sumber[k].cloneNode(true);
     });
 
-    // Pindahkan elemen input HTML Anda ke dalam kotak unit pertama
-    elemenPindahan.forEach(function (el) {
-        kotakUnitAwal.appendChild(el);
-    });
-    wadahMultiUnit.appendChild(kotakUnitAwal);
-    
-    // Taruh barisan unit tepat di atas tombol submit Anda
-    formUtama.insertBefore(wadahMultiUnit, tombolKirim);
+    const grupPemesanan = $("nama").closest(".grid");
+    const grupCatatan = $("catatan").closest("div");
 
-    // Membuat tombol "Tambah Unit" secara otomatis tepat di atas tombol kirim
+    // Wadah unit ditempatkan sebelum data pemesan.
+    const wadah = document.createElement("div");
+    wadah.id = "wadahMultiUnit";
+    wadah.className = "space-y-6";
+
+    form.insertBefore(wadah, grupPemesanan);
+
+    // Buat tombol tambah unit tepat sebelum tombol hitung.
     const tombolTambah = document.createElement("button");
     tombolTambah.type = "button";
-    tombolTambah.id = "tombol-tambah-unit";
-    tombolTambah.className = "w-full py-3 mb-5 border border-dashed border-amber-400/50 text-amber-400 rounded-xl hover:bg-amber-400/10 transition font-medium text-sm cursor-pointer";
-    tombolTambah.innerText = "➕ Tambah Unit Reservasi";
-    formUtama.insertBefore(tombolTambah, tombolKirim);
+    tombolTambah.id = "tambahUnit";
+    tombolTambah.className =
+        "w-full rounded-xl border-2 border-amber-400 text-amber-400 " +
+        "hover:bg-amber-400/10 font-bold py-3 transition";
+    tombolTambah.textContent = "+ Tambah Unit";
 
-    // ==========================================================
-    // 3. TARGET OUTPUT RINGKASAN HARGA (KANAN)
-    // ==========================================================
-    const targetOutput = {
-        mobil: document.getElementById("hasil-mobil") || document.getElementById("view-total-unit"),
-        layanan: document.getElementById("hasil-layanan") || document.getElementById("view-paket"),
-        tarif: document.getElementById("hasil-tarif") || document.getElementById("view-harga"),
-        durasi: document.getElementById("hasil-durasi"),
-        total: document.getElementById("hasil-total") || document.getElementById("view-harga"),
-        catatan: document.getElementById("hasil-catatan")
-    };
+    form.insertBefore(tombolTambah, tombolHitung);
 
-    const NOMOR_WHATSAPP = "6285210601055";
+    let nomorUnit = 0;
+    const batasUnit = 10;
 
-    // Katalog Harga Lepas Kunci/Dasar per Hari
-    const DAFTAR_TARIF = Object.freeze({
-        "Toyota Zenix Q HEV": 1500000,
-        "Toyota Alphard": null,
-        "Toyota Fortuner": 1000000,
-        "Toyota Innova Reborn": 500000,
-        "Toyota Hiace Premio": 1400000,
-        "Toyota Hilux 4x4": null,
-        "Toyota Avanza": 300000,
-        "Honda Brio": 250000,
-        "Toyota Agya": 250000,
-        "Mitsubishi Pajero Sport": null
-    });
-
-    const PENGALI_DURASI = Object.freeze({
-        "Hari": 1, "1": 1,
-        "Minggu": 7, "7": 7,
-        "Bulan": 30, "30": 30
-    });
-
-    function formatRupiah(angka) {
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            maximumFractionDigits: 0
-        }).format(angka);
+    function buatPilihanWilayah() {
+        const grup = document.createElement("div");
+        grup.dataset.role = "wilayah";
+        grup.innerHTML = `
+            <label class="block text-sm text-slate-300 mb-2">
+                Wilayah Paket All-In
+            </label>
+            <select data-field="wilayah"
+                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+                <option value="dalam">Dalam Kota — Harga Sesuai Daftar</option>
+                <option value="luar">Luar Kota — Konfirmasi Admin</option>
+            </select>
+        `;
+        return grup;
     }
 
-    function ambilLayananTerpilih() {
-        // Cek jika HTML menggunakan radio button
-        const radioTerpilih = formUtama.querySelector('input[name="layanan"]:checked');
-        if (radioTerpilih) return radioTerpilih.value;
-        
-        // Cek jika HTML menggunakan dropdown jenisPaket (seperti kode HTML Anda)
-        const dropdownPaket = document.getElementById("jenisPaket");
-        if (dropdownPaket) {
-            const pemetaanLabel = {
-                "vip": "Paket All-In (Dalam Kota)",
-                "vip-dalam": "Paket All-In (Dalam Kota)",
-                "vip-luar": "Paket All-In (Luar Kota)",
-                "lepas": "Lepas Kunci",
-                "sabang": "Tour Sabang",
-                "bandara": "Antar Jemput Bandara SIM"
-            };
-            return pemetaanLabel[dropdownPaket.value] || dropdownPaket.value;
+    function tandaiDanUnikkanID(kotak, nomor) {
+        const pemetaan = {
+            jenisPaket: "paket",
+            mobil: "mobil",
+            opsiSupirLepas: "opsiSupir",
+            tanggal: "tanggal",
+            jam: "jam",
+            durasi: "durasi",
+            satuanDurasi: "satuanDurasi",
+            tujuan: "tujuan",
+            infoSupir: "infoSupir",
+            teksBiayaSupir: "teksBiayaSupir",
+            infoPaketKhusus: "infoKhusus",
+            teksPaketKhusus: "teksKhusus"
+        };
+
+        kotak.querySelectorAll("[id]").forEach(el => {
+            const idLama = el.id;
+            if (pemetaan[idLama]) {
+                el.dataset.field = pemetaan[idLama];
+            }
+
+            el.id = `${idLama}-unit-${nomor}`;
+        });
+
+        kotak.querySelectorAll("label[for]").forEach(label => {
+            const forLama = label.htmlFor;
+            label.htmlFor = `${forLama}-unit-${nomor}`;
+        });
+
+        kotak.querySelectorAll("select, input, textarea").forEach(el => {
+            // Lepaskan required dari field yang disembunyikan.
+            el.required = false;
+        });
+    }
+
+    function buatUnit(pertama = false) {
+        nomorUnit++;
+
+        const kotak = document.createElement("div");
+        kotak.className =
+            "unit-box border border-slate-700 bg-slate-950/40 p-5 rounded-xl relative space-y-5";
+        kotak.dataset.unit = String(nomorUnit);
+
+        const judul = document.createElement("h3");
+        judul.className = "text-amber-400 font-semibold text-sm uppercase tracking-wider";
+        judul.textContent = `Reservasi Unit ${nomorUnit}`;
+        kotak.appendChild(judul);
+
+        const grup = {};
+
+        Object.keys(template).forEach(k => {
+            grup[k] = pertama
+                ? sumber[k]
+                : template[k].cloneNode(true);
+
+            kotak.appendChild(grup[k]);
+        });
+
+        const wilayah = buatPilihanWilayah();
+        kotak.insertBefore(wilayah, grup.supir);
+
+        tandaiDanUnikkanID(kotak, nomorUnit);
+
+        // Setiap unit memiliki ID unik, data mobil, dan pilihan sendiri.
+        wadah.appendChild(kotak);
+
+        if (!pertama) {
+            const hapus = document.createElement("button");
+            hapus.type = "button";
+            hapus.className =
+                "absolute top-4 right-4 text-xs text-red-400 hover:text-red-300";
+            hapus.textContent = "Hapus Unit";
+
+            hapus.addEventListener("click", () => {
+                kotak.remove();
+                perbaruiSemua();
+            });
+
+            kotak.appendChild(hapus);
         }
-        return "";
+
+        const paket = kotak.querySelector('[data-field="paket"]');
+        const mobil = kotak.querySelector('[data-field="mobil"]');
+        const supir = kotak.querySelector('[data-field="opsiSupir"]');
+        const wilayahSelect = kotak.querySelector('[data-field="wilayah"]');
+
+        function isiMobil() {
+            const paketValue = paket.value;
+            const layananKhusus = khusus(paketValue);
+
+            mobil.innerHTML = "";
+
+            if (layananKhusus) {
+                mobil.add(new Option(
+                    "Unit Mobil — Konfirmasi Admin",
+                    "konfirmasi-admin"
+                ));
+                mobil.disabled = true;
+            } else {
+                mobil.disabled = false;
+                mobil.add(new Option("-- Pilih Unit Mobil --", ""));
+
+                daftarMobil[paketValue].forEach(item => {
+                    mobil.add(new Option(
+                        `${item.nama} — ${
+                            item.harga === null
+                                ? "Konfirmasi Admin"
+                                : formatRp(item.harga) + "/hari"
+                        }`,
+                        item.id
+                    ));
+                });
+            }
+
+            const bagianSupir = grup.supir;
+            const bagianInfoSupir = grup.infoSupir;
+            const bagianDurasi = grup.durasi;
+            const infoLayanan = grup.infoKhusus;
+            const tujuan = grup.tujuan;
+
+            bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
+            bagianInfoSupir.classList.add("hidden");
+
+            wilayah.classList.toggle("hidden", paketValue !== "vip");
+            bagianDurasi.classList.toggle("hidden", layananKhusus);
+            infoLayanan.classList.toggle("hidden", !layananKhusus);
+            tujuan.classList.toggle("hidden", layananKhusus);
+
+            const inputDurasi = kotak.querySelector('[data-field="durasi"]');
+            const satuan = kotak.querySelector('[data-field="satuanDurasi"]');
+
+            inputDurasi.required = !layananKhusus;
+            satuan.required = !layananKhusus;
+
+            if (layananKhusus) {
+                const teks = kotak.querySelector('[data-field="teksKhusus"]');
+                teks.textContent = paketValue === "sabang"
+                    ? "Tour Sabang: harga dan durasi dikonfirmasi admin."
+                    : "Antar Jemput Bandara SIM: harga dan durasi dikonfirmasi admin.";
+            }
+
+            perbaruiSupir();
+            perbaruiSemua();
+        }
+
+        function perbaruiSupir() {
+            const aktif = paket.value === "lepas" && supir.value !== "tanpa";
+            grup.infoSupir.classList.toggle("hidden", !aktif);
+
+            const teks = kotak.querySelector('[data-field="teksBiayaSupir"]');
+
+            if (aktif) {
+                teks.textContent = supir.value === "dalam"
+                    ? "Biaya supir dalam kota: Rp200.000 per hari."
+                    : "Biaya supir luar kota: Rp250.000 per hari.";
+            }
+
+            perbaruiSemua();
+        }
+
+        paket.addEventListener("change", isiMobil);
+        mobil.addEventListener("change", perbaruiSemua);
+        supir.addEventListener("change", perbaruiSupir);
+        wilayahSelect.addEventListener("change", perbaruiSemua);
+
+        kotak.querySelectorAll("input, select, textarea").forEach(el => {
+            el.addEventListener("input", perbaruiSemua);
+            el.addEventListener("change", perbaruiSemua);
+        });
+
+        isiMobil();
+        return kotak;
     }
 
-    function hitungDurasiUnit(kotakUnit) {
-        const inputDurasi = kotakUnit.querySelector('input[id^="durasi"]') || kotakUnit.querySelector('input[id^="calc-durasi"]');
-        const selectTipe = kotakUnit.querySelector('select[id^="satuanDurasi"]') || kotakUnit.querySelector('select[id^="calc-tipe-durasi"]');
-        
-        if (!inputDurasi || !selectTipe) return null;
+    function dataUnit(kotak) {
+        const ambil = field => kotak.querySelector(`[data-field="${field}"]`);
 
-        const nilaiDurasi = Number(inputDurasi.value);
-        const tipeDurasi = selectTipe.value;
-        const angkaPengali = PENGALI_DURASI[tipeDurasi] || 1;
+        const paket = ambil("paket").value;
+        const mobilID = ambil("mobil").value;
+        const wilayah = ambil("wilayah").value;
+        const dataMobil = (daftarMobil[paket] || []).find(m => m.id === mobilID);
 
-        if (!Number.isInteger(nilaiDurasi) || nilaiDurasi < 1 || nilaiDurasi > 365) return null;
+        const durasiEl = ambil("durasi");
+        const satuanEl = ambil("satuanDurasi");
+        const nilaiDurasi = Math.max(1, Number(durasiEl.value) || 1);
+        const pengali = Number(satuanEl.value) || 1;
+        const hari = nilaiDurasi * pengali;
+
+        const opsiSupir = ambil("opsiSupir").value;
+        const memakaiSupir = paket === "lepas" && opsiSupir !== "tanpa";
+        const hargaSupir = !memakaiSupir
+            ? 0
+            : opsiSupir === "dalam" ? 200000 : 250000;
+
+        let harga = khusus(paket) ? null : dataMobil?.harga ?? null;
+
+        if (paket === "vip" && wilayah === "luar") {
+            harga = null;
+        }
+
+        let total = harga === null ? null : (harga + hargaSupir) * hari;
 
         return {
-            nilai: nilaiDurasi,
-            tipe: isNaN(tipeDurasi) ? tipeDurasi : "Hari",
-            totalHari: nilaiDurasi * angkaPengali
+            paket,
+            namaPaket: namaPaket[paket],
+            mobil: khusus(paket)
+                ? "Konfirmasi Admin"
+                : dataMobil?.nama || "",
+            harga,
+            wilayah,
+            durasi: nilaiDurasi,
+            satuan: satuanEl.options[satuanEl.selectedIndex]?.text || "Hari",
+            hari,
+            tanggal: ambil("tanggal").value,
+            jam: ambil("jam").value,
+            tujuan: ambil("tujuan").value.trim(),
+            supir: paket === "vip"
+                ? "Termasuk paket All-In"
+                : memakaiSupir
+                    ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
+                    : "Tanpa supir",
+            hargaSupir,
+            total,
+            catatan: $("catatan").value.trim()
         };
     }
 
-    function perbaruiTeksOutput(kunci, teks) {
-        if (targetOutput[kunci]) targetOutput[kunci].textContent = teks;
+    function perbaruiSemua() {
+        const kotakUnit = [...wadah.querySelectorAll(".unit-box")];
+        const data = kotakUnit.map(dataUnit);
+
+        const perluKonfirmasi = data.some(d =>
+            d.harga === null || d.total === null
+        );
+
+        const total = data.reduce((sum, d) => sum + (d.total || 0), 0);
+
+        $("ringkasanPaket").textContent = data
+            .map((d, i) => `${i + 1}. ${d.namaPaket}`)
+            .join("\n");
+
+        $("ringkasanMobil").textContent = data
+            .map((d, i) => `${i + 1}. ${d.mobil || "Belum dipilih"}`)
+            .join("\n");
+
+        $("ringkasanTanggal").textContent = data
+            .map((d, i) => `${i + 1}. ${d.tanggal || "-"}`)
+            .join("\n");
+
+        $("ringkasanJam").textContent = data
+            .map((d, i) => `${i + 1}. ${d.jam || "-"}`)
+            .join("\n");
+
+        $("ringkasanDurasi").textContent = data
+            .map((d, i) => `${i + 1}. ${
+                khusus(d.paket) ? "Konfirmasi Admin" : `${d.hari} hari`
+            }`)
+            .join("\n");
+
+        $("barisSopir").classList.remove("hidden");
+        $("ringkasanSopir").textContent = data
+            .map((d, i) => `${i + 1}. ${d.supir}`)
+            .join("\n");
+
+        $("totalHarga").textContent = perluKonfirmasi
+            ? "Konfirmasi Admin"
+            : formatRp(total);
+
+        $("keteranganHarga").textContent = perluKonfirmasi
+            ? "Sebagian unit memerlukan konfirmasi harga dari admin."
+            : "Estimasi total seluruh unit, termasuk biaya supir jika dipilih.";
+
+        tombolWA.disabled = true;
+        tombolWA.dataset.siapan = "false";
     }
 
-    // ==========================================================
-    // 4. LOGIKA UTAMA PERHITUNGAN MULTI-UNIT & ALL-IN
-    // ==========================================================
-    function prosesKalkulasiTarif() {
-        const layanan = ambilLayananTerpilih();
-        const seluruhUnit = document.querySelectorAll(".unit-box");
-        
-        perbaruiTeksOutput("layanan", layanan || "Belum dipilih");
-        perbaruiTeksOutput("mobil", `${seluruhUnit.length} Unit Armada`);
+    // Validasi tanggal minimal untuk setiap unit.
+    const sekarang = new Date();
+    const tanggalHariIni = [
+        sekarang.getFullYear(),
+        String(sekarang.getMonth() + 1).padStart(2, "0"),
+        String(sekarang.getDate()).padStart(2, "0")
+    ].join("-");
 
-        let grandTotal = 0;
-        let butuhKonfirmasiAdmin = false;
-        let ringkasanDurasi = [];
+    // Buat unit pertama menggunakan elemen HTML yang sudah ada.
+    buatUnit(true);
 
-        seluruhUnit.forEach(function (unit, indeks) {
-            const pilihMobil = unit.querySelector('select[id^="mobil"]') || unit.querySelector('select[id^="calc-mobil"]');
-            const mobil = pilihMobil ? pilihMobil.value : "";
-            const dataDurasi = hitungDurasiUnit(unit);
-            const hargaDasar = DAFTAR_TARIF[mobil];
-
-            if (dataDurasi) {
-                ringkasanDurasi.push(`U${indeks + 1}: ${dataDurasi.nilai} hari`);
-            }
-
-            if (!mobil || !dataDurasi || !layanan) {
-                butuhKonfirmasiAdmin = true;
-                return;
-            }
-
-            // KONDISI LUAR KOTA / HARGA KOSONG -> Konfirmasi Admin
-            if (layanan.includes("Luar Kota") || layanan === "Dengan Supir" || hargaDasar == null) {
-                butuhKonfirmasiAdmin = true;
-            } else {
-                grandTotal += (hargaDasar * dataDurasi.totalHari);
-            }
-        });
-
-        perbaruiTeksOutput("durasi", ringkasanDurasi.length > 0 ? ringkasanDurasi.join(", ") : "-");
-
-        if (butuhKonfirmasiAdmin) {
-            perbaruiTeksOutput("total", "Konfirmasi Admin");
-            perbaruiTeksOutput("tarif", "Konfirmasi admin");
-            if (layanan.includes("Luar Kota")) {
-                perbaruiTeksOutput("catatan", "Tarif All-In Luar Kota disesuaikan dengan rute tujuan. Hubungi admin untuk harga pas.");
-            } else {
-                perbaruiTeksOutput("catatan", "Detail penyewaan memerlukan konfirmasi manual biaya dari pihak admin.");
-            }
-            return null;
-        }
-
-        perbaruiTeksOutput("total", formatRupiah(grandTotal));
-        perbaruiTeksOutput("tarif", "Dihitung otomatis");
-        perbaruiTeksOutput("catatan", "Estimasi total untuk seluruh unit terkalkulasi berdasarkan tarif katalog aktif.");
-        
-        return { total: grandTotal };
-    }
-
-    // ==========================================================
-    // 5. EVENT HANDLER TOMBOL TAMBAH & HAPUS UNIT
-    // ==========================================================
-    tombolTambah.addEventListener("click", function () {
-        const jumlahUnitSaatIni = document.querySelectorAll(".unit-box").length;
-        if (jumlahUnitSaatIni >= BATAS_MAKSIMAL_UNIT) {
-            alert(`Maksimal pemesanan sekaligus adalah ${BATAS_MAKSIMAL_UNIT} unit.`);
+    tombolTambah.addEventListener("click", () => {
+        if (wadah.querySelectorAll(".unit-box").length >= batasUnit) {
+            alert(`Maksimal ${batasUnit} unit untuk satu reservasi.`);
             return;
         }
 
-        totalUnitAktif++;
-        const unitBaru = kotakUnitAwal.cloneNode(true);
-        unitBaru.id = `kotak-unit-${totalUnitAktif}`;
-        
-        // Perbarui judul teks di unit baru
-        unitBaru.querySelector(".text-amber-400").innerText = `Reservasi Unit ${totalUnitAktif}`;
+        buatUnit(false);
+    });
 
-// Pasang tombol hapus unit di pojok kanan atas
-const tombolHapus = document.createElement("button");
-tombolHapus.type = "button";
-tombolHapus.className = "absolute top-4 right-4 text-xs text-red-400 hover:text-red-300 font-medium cursor-pointer";
-tombolHapus.innerText = "❌ Hapus";
-tombolHapus.onclick = function () {
-unitBaru.remove();
-prosesKalkulasiTarif();
-};
-unitBaru.appendChild(tombolHapus);
-// Reset data input pada unit hasil kloningan
-unitBaru.querySelectorAll("input").forEach(function (inp) {
-if (inp.type === "number") inp.value = 1;
-else inp.value = "";
+    wadah.addEventListener("change", event => {
+        if (event.target.matches('input[type="date"]')) {
+            event.target.min = tanggalHariIni;
+        }
+    });
+
+    wadah.querySelectorAll('input[type="date"]').forEach(el => {
+        el.min = tanggalHariIni;
+    });
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        if (!form.reportValidity()) return;
+
+        const unit = [...wadah.querySelectorAll(".unit-box")];
+        let valid = true;
+
+        unit.forEach(kotak => {
+            const paket = kotak.querySelector('[data-field="paket"]').value;
+            const mobil = kotak.querySelector('[data-field="mobil"]');
+            const wilayah = kotak.querySelector('[data-field="wilayah"]').value;
+
+            if (!khusus(paket) && !mobil.value) {
+                mobil.setCustomValidity("Silakan pilih unit mobil.");
+                mobil.reportValidity();
+                mobil.setCustomValidity("");
+                valid = false;
+            }
+
+            if (paket === "vip" && !wilayah) valid = false;
+        });
+
+        if (!valid) return;
+
+        perbaruiSemua();
+        tombolWA.disabled = false;
+        tombolWA.dataset.siapan = "true";
+    });
+
+    tombolWA.addEventListener("click", () => {
+        if (tombolWA.dataset.siapan !== "true") return;
+        if (!form.reportValidity()) return;
+
+        const data = [...wadah.querySelectorAll(".unit-box")].map(dataUnit);
+        const nama = $("nama").value.trim();
+        const kontak = $("kontak").value.trim();
+        const catatan = $("catatan").value.trim();
+
+        const pesan = [
+            "Halo Putra Utama Group, saya ingin melakukan reservasi.",
+            "",
+            `Nama Pemesan: ${nama}`,
+            `Nomor WhatsApp: ${kontak}`,
+            `Total Unit: ${data.length}`,
+            "",
+            ...data.flatMap((d, i) => [
+                `UNIT ${i + 1}`,
+                `Paket: ${d.namaPaket}`,
+                `Wilayah: ${d.paket === "vip" ? (d.wilayah === "luar" ? "Luar Kota" : "Dalam Kota") : "-"}`,
+                `Mobil: ${d.mobil || "Belum dipilih"}`,
+                `Tanggal: ${d.tanggal}`,
+                `Jam: ${d.jam}`,
+                `Durasi: ${khusus(d.paket) ? "Konfirmasi Admin" : `${d.durasi} ${d.satuan} (${d.hari} hari)`}`,
+                `Tujuan: ${d.tujuan || (khusus(d.paket) ? "Konfirmasi Admin" : "-")}`,
+                `Pilihan Supir: ${d.supir}`,
+                `Biaya Supir: ${d.hargaSupir ? formatRp(d.hargaSupir) + "/hari" : "Rp0"}`,
+                `Tarif Unit: ${d.harga === null ? "Konfirmasi Admin" : formatRp(d.harga) + "/hari"}`,
+                `Estimasi Unit: ${d.total === null ? "Konfirmasi Admin" : formatRp(d.total)}`,
+                ""
+            ]),
+            `Estimasi Total: ${data.some(d => d.total === null) ? "Konfirmasi Admin" : formatRp(data.reduce((sum, d) => sum + d.total, 0))}`,
+            `Catatan Tambahan: ${catatan || "-"}`,
+            "",
+            "Mohon konfirmasi ketersediaan unit dan rincian harga. Terima kasih."
+        ].join("\n");
+
+        window.open(
+            `https://wa.me/${admin}?text=${encodeURIComponent(pesan)}`,
+            "_blank",
+            "noopener,noreferrer"
+        );
+    });
+
+    // Klik kartu paket di bagian atas akan mengubah paket Unit 1.
+    document.querySelectorAll(".paket-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const unitPertama = wadah.querySelector(".unit-box");
+            const paket = unitPertama?.querySelector('[data-field="paket"]');
+
+            if (paket) {
+                paket.value = btn.dataset.paket;
+                paket.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+        });
+    });
+
+    // Pilih mobil dari katalog kendaraan.
+    const pemetaanKatalog = {
+        "Toyota Zenix Q HEV": "zenix",
+        "Toyota Alphard VIP": "alphard",
+        "Toyota Fortuner 2.8 GR Sport": "fortuner",
+        "Toyota Innova Reborn": "reborn",
+        "Toyota HiAce Premio": "hiace",
+        "Toyota Hilux 4x4": "hilux",
+        "Toyota All New Avanza": "avanza",
+        "Toyota New Avanza / Veloz": "avanza",
+        "Toyota Avanza Old": "avanza-lama",
+        "Honda Brio Satya": "brio",
+        "Honda Brio": "brio",
+        "Toyota Agya": "agya",
+        "Mitsubishi Pajero Sport Dakar": "pajero"
+    };
+
+    document.addEventListener("click", event => {
+        const target = event.target.closest("[data-car], [data-book-car]");
+        if (!target) return;
+
+        const nama = target.getAttribute("data-car") ||
+                     target.getAttribute("data-book-car");
+        const idMobil = pemetaanKatalog[nama];
+
+        const unitPertama = wadah.querySelector(".unit-box");
+        if (idMobil && unitPertama) {
+            const paket = unitPertama.querySelector('[data-field="paket"]');
+            const mobil = unitPertama.querySelector('[data-field="mobil"]');
+
+            // Pemetaan katalog hanya mengubah pilihan ketika paket cocok.
+            if (paket.value === "vip" || paket.value === "lepas") {
+                const opsi = [...mobil.options].find(o => o.value === idMobil);
+                if (opsi) {
+                    mobil.value = idMobil;
+                    perbaruiSemua();
+                }
+            }
+        }
+
+        $("reservasi").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+
+    perbaruiSemua();
 });
-unitBaru.querySelectorAll("select").forEach(function (sel) {
-sel.selectedIndex = 0;
-});
-// Ubah ID elemen internal unit baru agar tidak bentrok
-unitBaru.querySelectorAll("[id]").forEach(function (el) {
-el.id = ${el.id}-${totalUnitAktif};
-});
-wadahMultiUnit.appendChild(unitBaru);
-prosesKalkulasiTarif();
-});
-// Mengunci tanggal minimal hari ini
-function dapatkanTanggalHariIni() {
-const tgl = new Date();
-const yyyy = tgl.getFullYear();
-const mm = String(tgl.getMonth() + 1).padStart(2, "0");
-const dd = String(tgl.getDate()).padStart(2, "0");
-return ${yyyy}-${mm}-${dd};
-}
-const inputTanggalAwal = formUtama.querySelector("#tanggal") || formUtama.querySelector("#calc-tanggal");
-if (inputTanggalAwal) {
-inputTanggalAwal.min = dapatkanTanggalHariIni();
-}
-formUtama.addEventListener("submit", function (event) {
-event.preventDefault();
-if (!formUtama.reportValidity()) return;
-prosesKalkulasiTarif();
-});
-formUtama.addEventListener("change", prosesKalkulasiTarif);
-formUtama.addEventListener("input", prosesKalkulasiTarif);
-// ==========================================================
-// 6. LOGIKA PENGIRIMAN DATA KE WHATSAPP ADMIN
-// ==========================================================
-tombolKirim.addEventListener("click", function (e) {
-if (tombolKirim.type === "submit") e.preventDefault();
-if (!formUtama.reportValidity()) return;
-const dataEstimasi = prosesKalkulasiTarif();
-const jenisLayanan = ambilLayananTerpilih();
-const daftarUnitForm = document.querySelectorAll(".unit-box");
-let teksPesan = *Halo Admin Putra Utama Group, saya ingin melakukan reservasi.*\n\n;
-teksPesan += *Layanan:* ${jenisLayanan}\n;
-teksPesan += *Total Pemesanan:* ${daftarUnitForm.length} Unit\n;
-teksPesan += ===============================\n\n;
-daftarUnitForm.forEach(function (unit, index) {
-const selMobil = unit.querySelector('select[id^="mobil"]') || unit.querySelector('select[id^="calc-mobil"]');
-const inpTgl = unit.querySelector('input[id^="tanggal"]') || unit.querySelector('input[id^="calc-tanggal"]');
-const inpJam = unit.querySelector('input[id^="jam"]') || unit.querySelector('input[id^="calc-jam"]');
-const inpDurasi = unit.querySelector('input[id^="durasi"]') || unit.querySelector('input[id^="calc-durasi"]');
-const selTipe = unit.querySelector('select[id^="satuanDurasi"]') || unit.querySelector('select[id^="calc-tipe-durasi"]');
-const namaMobil = selMobil ? selMobil.value : "";
-const tglMulai = inpTgl ? inpTgl.value : "";
-const jamMulai = inpJam ? inpJam.value : "";
-const angkaDurasi = inpDurasi ? inpDurasi.value : "";
-const tipeDurasi = selTipe ? selTipe.value : "";
-const tarifMobil = DAFTAR_TARIF[namaMobil];
-teksPesan += *UNIT #${index + 1}*\n;
-teksPesan += • Armada: ${namaMobil}\n;
-teksPesan += • Tanggal Mulai: ${tglMulai}\n;
-teksPesan += • Jam Mulai: ${jamMulai} WIB\n;
-teksPesan += • Durasi: ${angkaDurasi} ${isNaN(tipeDurasi) ? "Hari" : tipeDurasi}\n;
-teksPesan += • Tarif/Hari: ${tarifMobil != null ? formatRupiah(tarifMobil) : "Konfirmasi admin"}\n\n;
-});
-teksPesan += ===============================\n;
-teksPesan += *Estimasi Total:* ${dataEstimasi && !jenisLayanan.includes("Luar Kota") ? formatRupiah(dataEstimasi.total) : "Konfirmasi admin"}\n\n;
-teksPesan += Mohon informasi ketersediaan unit dan rincian biaya resmi. Terima kasih!;
-const tautanWhatsApp = https://wa.me{NOMOR_WHATSAPP}?text=${encodeURIComponent(teksPesan)};
-window.open(tautanWhatsApp, "_blank", "noopener,noreferrer");
-});
-// ==========================================================
-// 7. LOGIKA KLIK KATALOG ARMADA KODE ASLI
-// ==========================================================
-const pemetaanKatalog = {
-"Toyota Zenix Q HEV": "Toyota Zenix Q HEV", "Toyota Alphard VIP": "Toyota Alphard",
-"Toyota Fortuner 2.8 GR Sport": "Toyota Fortuner", "Toyota Innova Reborn": "Toyota Innova Reborn",
-"Toyota HiAce Premio": "Toyota Hiace Premio", "Toyota Hilux 4x4": "Toyota Hilux 4x4",
-"Toyota All New Avanza": "Toyota Avanza", "Toyota Avanza Old": "Toyota Avanza Old",
-"Honda Brio Satya": "Honda Brio", "Honda Brio": "Honda Brio",
-"Toyota Agya": "Toyota Agya", "Mitsubishi Pajero Sport Dakar": "Mitsubishi Pajero Sport"
-};
-document.addEventListener("click", function (event) {
-const targetKatalog = event.target.closest("[data-car], [data-book-car]");
-if (!targetKatalog) return;
-const namaMentah = targetKatalog.getAttribute("data-car") || targetKatalog.getAttribute("data-book-car");
-if (!namaMentah) return;
-const namaTerpilih = pemetaanKatalog[namaMentah] || namaMentah;
-const dropdownMobilUtama = document.getElementById("mobil") || document.getElementById("calc-mobil");
-if (dropdownMobilUtama) {
-let opsiCocok = Array.from(dropdownMobilUtama.options).find(function (item) {
-return item.value === namaTerpilih || item.textContent.trim() === namaTerpilih;
-});
-if (!opsiCocok) {
-opsiCocok = new Option(namaMentah, namaTerpilih);
-dropdownMobilUtama.add(opsiCocok);
-}
-dropdownMobilUtama.value = opsiCocok.value;
-prosesKalkulasiTarif();
-}
-const elemenTargetScroll = document.getElementById("reservasi") || formUtama;
-if (elemenTargetScroll) {
-event.preventDefault();
-elemenTargetScroll.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-});
-// Jalankan kalkulasi pertama kali
-prosesKalkulasiTarif();
-});
+</script>
