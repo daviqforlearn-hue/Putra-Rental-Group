@@ -1,4 +1,3 @@
-<script>
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
@@ -554,4 +553,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     perbaruiSemua();
 });
-</script>
