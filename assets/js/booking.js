@@ -245,11 +245,15 @@ const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
 if (paketValue === "vip") {
     if (wilayahSelect.value === "dalam") {
         tujuanInput.value = "Banda Aceh dan sekitarnya";
-        grup.tujuan.classList.add("hidden");
+        tujuan.classList.add("hidden");
     } else {
         tujuanInput.value = "";
-        grup.tujuan.classList.remove("hidden");
+        tujuan.classList.remove("hidden");
     }
+} else if (paketValue === "lepas") {
+    tujuan.classList.remove("hidden");
+} else {
+    tujuan.classList.add("hidden");
 }
 
 
@@ -288,7 +292,7 @@ if (paketValue === "vip") {
         paket.addEventListener("change", isiMobil);
         mobil.addEventListener("change", perbaruiSemua);
         supir.addEventListener("change", perbaruiSupir);
-        wilayahSelect.addEventListener("change", perbaruiSemua);
+        wilayahSelect.addEventListener("change", isiMobil);
 
         kotak.querySelectorAll("input, select, textarea").forEach(el => {
             el.addEventListener("input", perbaruiSemua);
