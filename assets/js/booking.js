@@ -239,6 +239,20 @@ document.addEventListener("DOMContentLoaded", () => {
             bagianDurasi.classList.toggle("hidden", layananKhusus);
             infoLayanan.classList.toggle("hidden", !layananKhusus);
             tujuan.classList.toggle("hidden", layananKhusus);
+            
+const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
+
+if (paketValue === "vip") {
+    tujuan.classList.add("hidden");
+    tujuanInput.value = wilayahSelect.value === "dalam"
+        ? "Banda Aceh dan sekitarnya"
+        : "Konfirmasi Admin";
+} else if (paketValue === "lepas") {
+    tujuan.classList.remove("hidden");
+} else {
+    tujuan.classList.add("hidden");
+}
+
 
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
             const satuan = kotak.querySelector('[data-field="satuanDurasi"]');
@@ -341,15 +355,21 @@ document.addEventListener("DOMContentLoaded", () => {
             hari,
             tanggal: ambil("tanggal").value,
             jam: ambil("jam").value,
-            tujuan: ambil("tujuan").value.trim(),
-            supir: paket === "vip"
-                ? "Termasuk paket All-In"
-                : memakaiSupir
-                    ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
-                    : "Tanpa supir",
-            hargaSupir,
-            total,
-            catatan: $("catatan").value.trim()
+            tujuan: paket === "vip"
+    ? (wilayah === "dalam"
+        ? "Banda Aceh dan sekitarnya"
+        : "Konfirmasi Admin")
+    : khusus(paket)
+        ? "Konfirmasi Admin"
+        : ambil("tujuan").value.trim(),
+supir: paket === "vip"
+    ? "Termasuk paket All-In"
+    : memakaiSupir
+        ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
+        : "Tanpa supir",
+hargaSupir,
+total,
+catatan: $("catatan").value.trim()
         };
     }
 
