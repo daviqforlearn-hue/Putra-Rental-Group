@@ -282,6 +282,20 @@ document.addEventListener("DOMContentLoaded", () => {
             el.addEventListener("change", perbaruiSemua);
         });
 
+        if (!pertama) {
+    kotak.querySelectorAll("input, select, textarea").forEach(el => {
+        if (el.tagName === "SELECT") {
+            el.selectedIndex = 0;
+        } else {
+            el.value = "";
+        }
+
+        if (el.type === "checkbox" || el.type === "radio") {
+            el.checked = false;
+        }
+    });
+}
+
         isiMobil();
         return kotak;
     }
