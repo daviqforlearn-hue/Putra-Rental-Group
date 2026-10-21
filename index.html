@@ -1276,6 +1276,18 @@ Update
                             class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                         </select>
                     </div>
+                    
+                    <!-- WILAYAH PAKET ALL-IN -->
+<div id="bagianWilayahAllIn" class="hidden">
+    <label for="wilayahAllIn" class="block text-sm text-slate-300 mb-2">
+        Wilayah Paket All-In
+    </label>
+    <select id="wilayahAllIn"
+        class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+        <option value="dalam">Dalam Kota — Harga Sesuai Daftar</option>
+        <option value="luar">Luar Kota — Konfirmasi Admin</option>
+    </select>
+</div>
 
                     <!-- PILIHAN SUPIR LEPAS KUNCI -->
                     <div id="pilihanSupirLepas" class="hidden">
@@ -1389,6 +1401,11 @@ Update
                             placeholder="Tour Sabang: detail perjalanan. Bandara: nomor penerbangan dan lokasi jemput. Bisa juga tuliskan permintaan khusus."
                             class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none"></textarea>
                     </div>
+                    
+                    <button type="button" id="tambahUnit"
+    class="w-full rounded-xl border-2 border-amber-400 text-amber-400 hover:bg-amber-400/10 font-bold py-3 transition">
+    + Tambah Unit
+</button>
 
                     <button type="submit"
                         class="w-full rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-4 transition">
