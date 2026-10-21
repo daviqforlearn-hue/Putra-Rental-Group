@@ -243,14 +243,13 @@ document.addEventListener("DOMContentLoaded", () => {
 const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
 
 if (paketValue === "vip") {
-    tujuan.classList.add("hidden");
-    tujuanInput.value = wilayahSelect.value === "dalam"
-        ? "Banda Aceh dan sekitarnya"
-        : "Konfirmasi Admin";
-} else if (paketValue === "lepas") {
-    tujuan.classList.remove("hidden");
-} else {
-    tujuan.classList.add("hidden");
+    if (wilayahSelect.value === "dalam") {
+        tujuanInput.value = "Banda Aceh dan sekitarnya";
+        grup.tujuan.classList.add("hidden");
+    } else {
+        tujuanInput.value = "";
+        grup.tujuan.classList.remove("hidden");
+    }
 }
 
 
