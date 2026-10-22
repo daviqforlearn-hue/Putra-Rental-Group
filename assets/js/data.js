@@ -310,10 +310,10 @@ const carsData = [
         category: "mewah",
         badge: "VIP Class",
         image: "assets/images/cars/alphard.jpeg",
-        price: "Rp3.500.000 / hari",
+        price: "Hubungi Admin",
         priceOptions: {
             lepasKunci: null,
-            allIn: 3500000
+            allIn: null
         },
         priceLabel: "Paket All-In",
         transmission: "Otomatis",
