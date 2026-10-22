@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
+        penjemputanKhusus: $("bagianPenjemputanKhusus")
     };
 
     if (Object.values(sumber).some(el => !el)) {
