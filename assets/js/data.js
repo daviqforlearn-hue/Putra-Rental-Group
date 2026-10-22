@@ -3,19 +3,225 @@
    DATA MOBIL PUTRA UTAMA GROUP
    File: assets/js/data.js
    ========================================================================== */
-
 const carsData = [
     {
-        id: "zenix",
-        name: "Toyota Zenix Q HEV",
-        dataCar: "Toyota Zenix Q HEV",
+        id: "agya",
+        name: "New Agya",
+        dataCar: "New Agya",
         category: "city",
-        badge: "Unggulan",
+        badge: "Ekonomis",
+        image: "assets/images/cars/agya.jpeg",
+        price: "Rp350.000 / hari",
+        priceOptions: {
+            lepasKunci: 350000,
+            allIn: 700000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Bensin",
+        capacity: "5 penumpang",
+        specs: [
+            "Kategori: City car",
+            "Mesin: Bensin",
+            "Kapasitas: 5 penumpang",
+            "Cocok untuk: Mobilitas perkotaan"
+        ]
+    },
+    {
+        id: "brio",
+        name: "Honda Brio",
+        dataCar: "Honda Brio",
+        category: "city",
+        badge: "",
+        image: "assets/images/cars/brio.jpeg",
+        price: "Rp350.000 / hari",
+        priceOptions: {
+            lepasKunci: 350000,
+            allIn: 700000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Bensin",
+        capacity: "5 penumpang",
+        specs: [
+            "Kategori: City car",
+            "Mesin: Bensin",
+            "Kapasitas: 5 penumpang",
+            "Cocok untuk: Perjalanan dalam kota"
+        ]
+    },
+    {
+        id: "avanza-old",
+        name: "Toyota Avanza 2019–2021",
+        dataCar: "Avanza",
+        category: "city",
+        badge: "",
+        image: "assets/images/cars/avanzaold.jpeg",
+        price: "Rp350.000 / hari",
+        priceOptions: {
+            lepasKunci: 350000,
+            allIn: 700000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Bensin",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV keluarga",
+            "Tahun: 2019–2021",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Keluarga dan wisata"
+        ]
+    },
+    {
+        id: "avanza",
+        name: "Toyota New Avanza",
+        dataCar: "New Avanza",
+        category: "city",
+        badge: "Favorit",
+        image: "assets/images/cars/avanza.jpeg",
+        price: "Rp400.000 / hari",
+        priceOptions: {
+            lepasKunci: 400000,
+            allIn: 750000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Bensin",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV keluarga",
+            "Tahun: 2022–2025",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Keluarga dan wisata"
+        ]
+    },
+    {
+        id: "avanza-veloz",
+        name: "Toyota Avanza Veloz",
+        dataCar: "Avanza Veloz",
+        category: "city",
+        badge: "",
+        image: "assets/images/cars/avanza-veloz.jpeg",
+        price: "Rp450.000 / hari",
+        priceOptions: {
+            lepasKunci: 450000,
+            allIn: 800000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Automatic",
+        fuel: "Bensin",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV",
+            "Desain: Sporty dan modern",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Keluarga dan perjalanan wisata"
+        ]
+    },
+    {
+        id: "innova-reborn-manual",
+        name: "Toyota Innova Reborn Manual",
+        dataCar: "Innova Reborn Manual",
+        category: "city",
+        badge: "",
+        image: "assets/images/cars/innova-reborn.jpeg",
+        price: "Rp500.000 / hari",
+        priceOptions: {
+            lepasKunci: 500000,
+            allIn: 900000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Manual",
+        fuel: "Mengikuti tipe unit",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV keluarga",
+            "Transmisi: Manual",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Perjalanan keluarga dan dinas"
+        ]
+    },
+    {
+        id: "innova-reborn-matic",
+        name: "Toyota Innova Reborn Matic",
+        dataCar: "Innova Reborn Matic",
+        category: "city",
+        badge: "Favorit",
+        image: "assets/images/cars/innova-reborn.jpeg",
+        price: "Rp550.000 / hari",
+        priceOptions: {
+            lepasKunci: 550000,
+            allIn: 900000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Automatic",
+        fuel: "Mengikuti tipe unit",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV keluarga",
+            "Transmisi: Otomatis",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Perjalanan bisnis dan keluarga"
+        ]
+    },
+    {
+        id: "zenix-g",
+        name: "Toyota Innova Zenix Tipe G",
+        dataCar: "Innova Zenix Tipe G",
+        category: "city",
+        badge: "Crossover Modern",
         image: "assets/images/cars/zenix.jpeg",
+        price: "Rp650.000 / hari",
+        priceOptions: {
+            lepasKunci: 650000,
+            allIn: 1100000
+        },
+        priceLabel: "Harga sewa per hari",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Mengikuti tipe unit",
+        capacity: "7 penumpang",
+        specs: [
+            "Kategori: MPV modern",
+            "Tipe: Zenix G",
+            "Kapasitas: 7 penumpang",
+            "Cocok untuk: Perjalanan keluarga dan bisnis"
+        ]
+    },
+    {
+        id: "hiace-commuter",
+        name: "Toyota HiAce Commuter",
+        dataCar: "Hiace Commuter",
+        category: "mewah",
+        badge: "Rombongan",
+        image: "assets/images/cars/hiace.jpeg",
         price: "Rp1.500.000 / hari",
         priceOptions: {
             lepasKunci: null,
             allIn: 1500000
+        },
+        priceLabel: "Paket All-In",
+        transmission: "Mengikuti unit tersedia",
+        fuel: "Diesel",
+        capacity: "Mengikuti konfigurasi unit",
+        specs: [
+            "Kategori: Minibus",
+            "Mesin: Diesel",
+            "Kapasitas: Mengikuti konfigurasi unit",
+            "Cocok untuk: Rombongan dan antar-jemput"
+        ]
+    },
+    {
+        id: "zenix",
+        name: "Toyota Innova Zenix Q HEV",
+        dataCar: "Toyota Zenix Q HEV",
+        category: "city",
+        badge: "Unggulan",
+        image: "assets/images/cars/zenix.jpeg",
+        price: "Rp1.600.000 / hari",
+        priceOptions: {
+            lepasKunci: null,
+            allIn: 1600000
         },
         priceLabel: "Paket All-In",
         transmission: "Automatic",
@@ -29,26 +235,26 @@ const carsData = [
         ]
     },
     {
-        id: "alphard",
-        name: "Toyota Alphard VIP",
-        dataCar: "Toyota Alphard VIP",
+        id: "hiace",
+        name: "Toyota HiAce Premio",
+        dataCar: "Toyota HiAce Premio",
         category: "mewah",
-        badge: "VIP Class",
-        image: "assets/images/cars/alphard.jpeg",
-        price: "Hubungi Admin",
+        badge: "Rombongan",
+        image: "assets/images/cars/hiace.jpeg",
+        price: "Rp1.600.000 / hari",
         priceOptions: {
             lepasKunci: null,
-            allIn: null
+            allIn: 1600000
         },
-        priceLabel: "Tarif sewa",
-        transmission: "Otomatis",
-        fuel: "Mengikuti tipe unit",
+        priceLabel: "Paket All-In",
+        transmission: "Manual",
+        fuel: "Diesel",
         capacity: "Mengikuti konfigurasi unit",
         specs: [
-            "Kategori: Luxury MPV",
-            "Transmisi: Otomatis",
-            "Fasilitas: Interior premium",
-            "Cocok untuk: Perjalanan VIP dan acara khusus"
+            "Kategori: Minibus executive",
+            "Mesin: Diesel",
+            "Kapasitas: Mengikuti konfigurasi unit",
+            "Cocok untuk: Wisata dan rombongan"
         ]
     },
     {
@@ -58,69 +264,66 @@ const carsData = [
         category: "suv",
         badge: "",
         image: "assets/images/cars/fortuner.jpeg",
-        price: "Rp1.600.000 / hari",
+        price: "Rp1.700.000 / hari",
         priceOptions: {
             lepasKunci: null,
-            allIn: 1600000
+            allIn: 1700000
         },
         priceLabel: "Paket All-In",
         transmission: "Mengikuti unit tersedia",
         fuel: "Diesel",
         capacity: "7 penumpang",
         specs: [
-            "Kapasitas: 7 penumpang",
-            "Transmisi: Mengikuti unit tersedia",
+            "Kategori: SUV premium",
             "Mesin: Diesel",
+            "Kapasitas: 7 penumpang",
             "Cocok untuk: Perjalanan bisnis dan wisata"
         ]
     },
     {
-        id: "innova-reborn",
-        name: "Toyota Innova Reborn",
-        dataCar: "Toyota Innova Reborn",
-        category: "city",
-        badge: "Favorit",
-        image: "assets/images/cars/innova-reborn.jpeg",
-        price: "Rp500.000–550.000 / hari",
-        priceOptions: {
-            lepasKunci: {
-                min: 500000,
-                max: 550000
-            },
-            allIn: 850000
-        },
-        priceLabel: "Harga sewa per hari",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Mengikuti tipe unit",
-        capacity: "7 penumpang",
-        specs: [
-            "Kapasitas: 7 penumpang",
-            "Transmisi: Konfirmasi ketersediaan unit",
-            "Kenyamanan: Cocok untuk perjalanan keluarga",
-            "Penggunaan: Perjalanan antarkota dan dinas"
-        ]
-    },
-    {
-        id: "hiace",
-        name: "Toyota HiAce Premio",
-        dataCar: "Toyota HiAce Premio",
-        category: "mewah",
-        badge: "Rombongan",
-        image: "assets/images/cars/hiace.jpeg",
-        price: "Rp1.400.000 / hari",
+        id: "pajero",
+        name: "Mitsubishi Pajero Sport",
+        dataCar: "Mitsubishi Pajero Sport Dakar",
+        category: "suv",
+        badge: "",
+        image: "assets/images/cars/pajero.jpeg",
+        price: "Rp1.700.000 / hari",
         priceOptions: {
             lepasKunci: null,
-            allIn: 1400000
+            allIn: 1700000
         },
         priceLabel: "Paket All-In",
-        transmission: "Manual",
+        transmission: "Mengikuti unit tersedia",
         fuel: "Diesel",
         capacity: "Mengikuti konfigurasi unit",
         specs: [
-            "Kategori: Minibus executive",
-            "Kapasitas: Mengikuti konfigurasi unit",
+            "Kategori: SUV premium",
             "Mesin: Diesel",
-            "Cocok untuk: Wisata dan rombongan"
+            "Transmisi: Konfirmasi ketersediaan unit",
+            "Cocok untuk: Perjalanan bisnis dan wisata"
+        ]
+    },
+    {
+        id: "alphard",
+        name: "Toyota Alphard VIP",
+        dataCar: "Toyota Alphard VIP",
+        category: "mewah",
+        badge: "VIP Class",
+        image: "assets/images/cars/alphard.jpeg",
+        price: "Rp3.500.000 / hari",
+        priceOptions: {
+            lepasKunci: null,
+            allIn: 3500000
+        },
+        priceLabel: "Paket All-In",
+        transmission: "Otomatis",
+        fuel: "Mengikuti tipe unit",
+        capacity: "Mengikuti konfigurasi unit",
+        specs: [
+            "Kategori: Luxury MPV",
+            "Transmisi: Otomatis",
+            "Fasilitas: Interior premium",
+            "Cocok untuk: Perjalanan VIP dan acara khusus"
         ]
     },
     {
@@ -145,125 +348,8 @@ const carsData = [
             "Mesin: Diesel",
             "Cocok untuk: Kebutuhan proyek dan lapangan"
         ]
-    },
-    {
-        id: "avanza",
-        name: "Toyota All New Avanza",
-        dataCar: "Toyota All New Avanza",
-        category: "city",
-        badge: "Ekonomis",
-        image: "assets/images/cars/avanza.jpeg",
-        price: "Rp400.000 / hari",
-        priceOptions: {
-            lepasKunci: 400000,
-            allIn: 750000
-        },
-        priceLabel: "Harga sewa per hari",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Bensin",
-        capacity: "7 penumpang",
-        specs: [
-            "Kapasitas: 7 penumpang",
-            "Transmisi: Konfirmasi ketersediaan unit",
-            "Mesin: Bensin",
-            "Cocok untuk: Keluarga dan wisata"
-        ]
-    },
-    {
-        id: "avanza-old",
-        name: "Toyota Avanza Old",
-        dataCar: "Toyota Avanza Old",
-        category: "city",
-        badge: "",
-        image: "assets/images/cars/avanzaold.jpeg",
-        price: "Rp350.000 / hari",
-        priceOptions: {
-            lepasKunci: 350000,
-            allIn: null
-        },
-        priceLabel: "Lepas kunci",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Bensin",
-        capacity: "Mengikuti konfigurasi unit",
-        specs: [
-            "Kategori: MPV keluarga",
-            "Mesin: Bensin",
-            "Penggunaan: Mobilitas harian",
-            "Keunggulan: Pilihan ekonomis"
-        ]
-    },
-    {
-        id: "brio",
-        name: "Honda Brio Satya",
-        dataCar: "Honda Brio",
-        category: "city",
-        badge: "",
-        image: "assets/images/cars/brio.jpeg",
-        price: "Rp350.000 / hari",
-        priceOptions: {
-            lepasKunci: 350000,
-            allIn: 600000
-        },
-        priceLabel: "Harga sewa per hari",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Bensin",
-        capacity: "5 penumpang",
-        specs: [
-            "Kapasitas: 5 penumpang",
-            "Kategori: City car",
-            "Mesin: Bensin",
-            "Cocok untuk: Perjalanan dalam kota"
-        ]
-    },
-    {
-        id: "agya",
-        name: "Toyota Agya",
-        dataCar: "Toyota Agya",
-        category: "city",
-        badge: "",
-        image: "assets/images/cars/agya.jpeg",
-        price: "Rp300.000 / hari",
-        priceOptions: {
-            lepasKunci: 300000,
-            allIn: 550000
-        },
-        priceLabel: "Harga sewa per hari",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Bensin",
-        capacity: "5 penumpang",
-        specs: [
-            "Kapasitas: 5 penumpang",
-            "Kategori: Compact car",
-            "Mesin: Bensin",
-            "Cocok untuk: Perjalanan hemat dalam kota"
-        ]
-    },
-    {
-        id: "pajero",
-        name: "Mitsubishi Pajero Sport",
-        dataCar: "Mitsubishi Pajero Sport Dakar",
-        category: "suv",
-        badge: "",
-        image: "assets/images/cars/pajero.jpeg",
-        price: "Rp1.600.000 / hari",
-        priceOptions: {
-            lepasKunci: null,
-            allIn: 1600000
-        },
-        priceLabel: "Paket All-In",
-        transmission: "Mengikuti unit tersedia",
-        fuel: "Diesel",
-        capacity: "Mengikuti konfigurasi unit",
-        specs: [
-            "Kategori: SUV premium",
-            "Mesin: Diesel",
-            "Transmisi: Konfirmasi ketersediaan unit",
-            "Cocok untuk: Perjalanan bisnis dan wisata"
-        ]
     }
 ];
-
-
 /* ==========================================================================
    HELPER FUNCTIONS
    ========================================================================== */
