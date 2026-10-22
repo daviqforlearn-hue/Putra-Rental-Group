@@ -32,7 +32,7 @@ const carsData = [
         name: "Honda Brio",
         dataCar: "Honda Brio",
         category: "city",
-        badge: "",
+        badge: "Ekonomis",
         image: "assets/images/cars/brio.jpeg",
         price: "Rp350.000 / hari",
         priceOptions: {
@@ -55,7 +55,7 @@ const carsData = [
         name: "Toyota Avanza 2019–2021",
         dataCar: "Avanza",
         category: "city",
-        badge: "",
+        badge: "Ekonomis",
         image: "assets/images/cars/avanza-old.jpeg",
         price: "Rp350.000 / hari",
         priceOptions: {
@@ -101,7 +101,7 @@ const carsData = [
         name: "Toyota Avanza Veloz",
         dataCar: "Avanza Veloz",
         category: "city",
-        badge: "",
+        badge: "Favorit",
         image: "assets/images/cars/avanza-veloz.jpeg",
         price: "Rp450.000 / hari",
         priceOptions: {
@@ -124,7 +124,7 @@ const carsData = [
         name: "Toyota Innova Reborn Manual",
         dataCar: "Innova Reborn Manual",
         category: "city",
-        badge: "",
+        badge: "Favorit",
         image: "assets/images/cars/innova-reborn-manual.jpeg",
         price: "Rp500.000 / hari",
         priceOptions: {
@@ -262,7 +262,7 @@ const carsData = [
         name: "Toyota Fortuner",
         dataCar: "Toyota Fortuner 2.8 GR Sport",
         category: "suv",
-        badge: "",
+        badge: "VIP Class",
         image: "assets/images/cars/fortuner-gr-sport.jpeg",
         price: "Rp1.700.000 / hari",
         priceOptions: {
@@ -285,7 +285,7 @@ const carsData = [
         name: "Mitsubishi Pajero Sport",
         dataCar: "Mitsubishi Pajero Sport Dakar",
         category: "suv",
-        badge: "",
+        badge: "VIP Class",
         image: "assets/images/cars/pajero-sport.jpeg",
         price: "Rp1.700.000 / hari",
         priceOptions: {
