@@ -1,8 +1,6 @@
 
-/* ==========================================================================
-   DATA MOBIL PUTRA UTAMA GROUP
-   File: assets/js/data.js
-   ========================================================================== */
+/*DATA MOBIL PUTRA UTAMA GROUP
+   File: assets/js/data.js*/
 const carsData = [
     {
         id: "agya",
@@ -315,7 +313,7 @@ const carsData = [
             lepasKunci: null,
             allIn: null
         },
-        priceLabel: "Paket All-In",
+        priceLabel: "Tarif sewa",
         transmission: "Otomatis",
         fuel: "Mengikuti tipe unit",
         capacity: "Mengikuti konfigurasi unit",
