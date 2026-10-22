@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
-        penjemputanKhusus: $("bagianPenjemputanKhusus")
     };
 
     if (Object.values(sumber).some(el => !el)) {
@@ -126,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
             teksPaketKhusus: "teksKhusus"
-            penjemputanKhusus: "penjemputan"
         };
 
         kotak.querySelectorAll("[id]").forEach(el => {
@@ -233,10 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const bagianDurasi = grup.durasi;
             const infoLayanan = grup.infoKhusus;
             const tujuan = grup.tujuan;
-            const penjemputan = grup.penjemputanKhusus;
-
-            const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
-            const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
 
             bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
             bagianInfoSupir.classList.add("hidden");
@@ -244,26 +238,23 @@ document.addEventListener("DOMContentLoaded", () => {
             wilayah.classList.toggle("hidden", paketValue !== "vip");
             bagianDurasi.classList.toggle("hidden", layananKhusus);
             infoLayanan.classList.toggle("hidden", !layananKhusus);
+            tujuan.classList.toggle("hidden", layananKhusus);
+            
+const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
 
-            // Tujuan perjalanan: All-In luar kota dan Lepas Kunci.
-            const perluTujuan =
-                paketValue === "lepas" ||
-                (paketValue === "vip" && wilayahSelect.value === "luar");
-
-            tujuan.classList.toggle("hidden", !perluTujuan);
-            tujuanInput.required = perluTujuan;
-
-            if (!perluTujuan) {
-                tujuanInput.value = "";
-            }
-
-            // Lokasi penjemputan: Tour Sabang dan Bandara SIM.
-            penjemputan.classList.toggle("hidden", !layananKhusus);
-            penjemputanInput.required = layananKhusus;
-
-            if (!layananKhusus) {
-                penjemputanInput.value = "";
-            }
+if (paketValue === "vip") {
+    if (wilayahSelect.value === "dalam") {
+        tujuanInput.value = "Banda Aceh dan sekitarnya";
+        tujuan.classList.add("hidden");
+    } else {
+        tujuanInput.value = "";
+        tujuan.classList.remove("hidden");
+    }
+} else if (paketValue === "lepas") {
+    tujuan.classList.remove("hidden");
+} else {
+    tujuan.classList.add("hidden");
+}
 
 
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
