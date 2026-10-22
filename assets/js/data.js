@@ -56,7 +56,7 @@ const carsData = [
         dataCar: "Avanza",
         category: "city",
         badge: "",
-        image: "assets/images/cars/avanzaold.jpeg",
+        image: "assets/images/cars/avanza-old.jpeg",
         price: "Rp350.000 / hari",
         priceOptions: {
             lepasKunci: 350000,
@@ -79,7 +79,7 @@ const carsData = [
         dataCar: "New Avanza",
         category: "city",
         badge: "Favorit",
-        image: "assets/images/cars/avanza.jpeg",
+        image: "assets/images/cars/avanza-new.jpeg",
         price: "Rp400.000 / hari",
         priceOptions: {
             lepasKunci: 400000,
@@ -125,7 +125,7 @@ const carsData = [
         dataCar: "Innova Reborn Manual",
         category: "city",
         badge: "",
-        image: "assets/images/cars/innova-reborn.jpeg",
+        image: "assets/images/cars/innova-reborn-manual.jpeg",
         price: "Rp500.000 / hari",
         priceOptions: {
             lepasKunci: 500000,
@@ -171,7 +171,7 @@ const carsData = [
         dataCar: "Innova Zenix Tipe G",
         category: "city",
         badge: "Crossover Modern",
-        image: "assets/images/cars/zenix.jpeg",
+        image: "assets/images/cars/zenix-tipe-g.jpeg",
         price: "Rp650.000 / hari",
         priceOptions: {
             lepasKunci: 650000,
@@ -194,7 +194,7 @@ const carsData = [
         dataCar: "Hiace Commuter",
         category: "mewah",
         badge: "Rombongan",
-        image: "assets/images/cars/hiace.jpeg",
+        image: "assets/images/cars/hiace-commuter.jpeg",
         price: "Rp1.500.000 / hari",
         priceOptions: {
             lepasKunci: null,
@@ -217,7 +217,7 @@ const carsData = [
         dataCar: "Toyota Zenix Q HEV",
         category: "city",
         badge: "Unggulan",
-        image: "assets/images/cars/zenix.jpeg",
+        image: "assets/images/cars/zenix-tipe-q.jpeg",
         price: "Rp1.600.000 / hari",
         priceOptions: {
             lepasKunci: null,
@@ -240,7 +240,7 @@ const carsData = [
         dataCar: "Toyota HiAce Premio",
         category: "mewah",
         badge: "Rombongan",
-        image: "assets/images/cars/hiace.jpeg",
+        image: "assets/images/cars/hiace-premio.jpeg",
         price: "Rp1.600.000 / hari",
         priceOptions: {
             lepasKunci: null,
@@ -263,7 +263,7 @@ const carsData = [
         dataCar: "Toyota Fortuner 2.8 GR Sport",
         category: "suv",
         badge: "",
-        image: "assets/images/cars/fortuner.jpeg",
+        image: "assets/images/cars/fortuner-gr-sport.jpeg",
         price: "Rp1.700.000 / hari",
         priceOptions: {
             lepasKunci: null,
@@ -286,7 +286,7 @@ const carsData = [
         dataCar: "Mitsubishi Pajero Sport Dakar",
         category: "suv",
         badge: "",
-        image: "assets/images/cars/pajero.jpeg",
+        image: "assets/images/cars/pajero-sport.jpeg",
         price: "Rp1.700.000 / hari",
         priceOptions: {
             lepasKunci: null,
