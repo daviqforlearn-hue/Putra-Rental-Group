@@ -509,90 +509,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
 
-               
-<!-- CAROUSEL MOBIL UNGGULAN -->
-<section id="mobil-unggulan" class="relative py-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-        <div class="mb-6 flex items-end justify-between gap-4">
-            <div>
-                <p class="text-sm font-semibold uppercase tracking-widest text-brand-gold dark:text-brand-amber">
-                    Putra Utama Group
-                </p>
-                <h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">
-                    Pilihan Armada
-                </h2>
-                <p class="mt-2 text-sm text-gray-500">
-                    Geser untuk melihat mobil lainnya. Klik gambar untuk detail.
-                </p>
-            </div>
-
-            <div class="flex shrink-0 gap-2">
-                <button type="button" id="mobil-sebelumnya"
-                    aria-label="Mobil sebelumnya"
-                    class="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
-                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                </button>
-
-                <button type="button" id="mobil-berikutnya"
-                    aria-label="Mobil berikutnya"
-                    class="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
-                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="carousel-mobil"
-            class="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-5"
-            style="scrollbar-width: none;">
-            <!-- Kartu mobil dibuat otomatis oleh JavaScript -->
-        </div>
-    </div>
-</section>
-
-<!-- MODAL DETAIL MOBIL -->
-<div id="modal-detail-mobil"
-    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-4"
-    role="dialog" aria-modal="true" aria-labelledby="detail-mobil-nama">
-
-    <div class="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-brand-card">
-
-        <button type="button" id="tutup-detail-mobil"
-            aria-label="Tutup detail mobil"
-            class="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
-
-        <img id="detail-mobil-gambar"
-            src=""
-            alt=""
-            class="h-64 w-full bg-gray-100 object-cover dark:bg-gray-900">
-
-        <div class="p-6">
-            <h3 id="detail-mobil-nama"
-                class="font-heading text-2xl font-bold"></h3>
-
-            <p id="detail-mobil-info"
-                class="mt-2 text-sm text-gray-500"></p>
-
-            <div id="detail-mobil-spesifikasi"
-                class="mt-5 space-y-3 text-sm text-gray-600 dark:text-gray-300"></div>
-
-            <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                <p class="text-xs text-gray-500">Harga sewa</p>
-                <div id="detail-mobil-harga" class="mt-2 space-y-2"></div>
-
-                <a id="detail-mobil-pilih"
-                    href="#reservasi"
-                    data-car=""
-                    class="mt-5 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-brand-gold dark:bg-white dark:text-gray-900 dark:hover:bg-brand-amber">
-                    Pilih Armada
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
 
         <!-- TENTANG -->
         <section id="tentang" class="border-y border-gray-200 bg-white py-16 dark:border-gray-800 dark:bg-[#121214]">
@@ -955,303 +871,89 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </section>
 
-<!-- KATALOG ARMADA -->
-<section id="armada" class="bg-gray-50 py-24 dark:bg-brand-dark">
+<!-- CAROUSEL MOBIL UNGGULAN -->
+<section id="mobil-unggulan" class="relative py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        <div class="mx-auto mb-14 max-w-3xl text-center">
- 
-                Katalog Kendaraan
-            </p>
-            <h2 class="mt-3 font-heading text-3xl font-extrabold sm:text-5xl">
-                Pilihan Armada Kami
-            </h2>
-            <p class="mt-5 leading-7 text-gray-600 dark:text-gray-400">
-                Temukan kendaraan yang sesuai dengan kebutuhan perjalanan, kapasitas penumpang, dan anggaran Anda.
-            </p>
+        <div class="mb-6 flex items-end justify-between gap-4">
+            <div>
+                <p class="text-sm font-semibold uppercase tracking-widest text-brand-gold dark:text-brand-amber">
+                    Putra Utama Group
+                </p>
+                <h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">
+                    Pilihan Armada
+                </h2>
+                <p class="mt-2 text-sm text-gray-500">
+                    Geser untuk melihat mobil lainnya. Klik gambar untuk detail.
+                </p>
+            </div>
+
+            <div class="flex shrink-0 gap-2">
+                <button type="button" id="mobil-sebelumnya"
+                    aria-label="Mobil sebelumnya"
+                    class="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <button type="button" id="mobil-berikutnya"
+                    aria-label="Mobil berikutnya"
+                    class="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-
-            <!-- TOYOTA ZENIX -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">Unggulan</span>
-                    <img src="assets/images/cars/zenix.jpeg" alt="Toyota Zenix Q HEV" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Zenix Q HEV</h3>
-                    <p class="mt-2 text-sm text-gray-500">Hybrid EV · Automatic · 7 penumpang</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-suitcase mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Kapasitas bagasi mengikuti konfigurasi kursi</p>
-                        <p><i class="fa-solid fa-gas-pump mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Mesin hybrid bensin</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Paket All-In</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp1.500.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Toyota Zenix Q HEV" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-gold dark:bg-white dark:text-gray-900 dark:hover:bg-brand-amber">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA ALPHARD -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-amber-300">VIP Class</span>
-                    <img src="assets/images/cars/alphard.jpeg" alt="Toyota Alphard VIP" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Alphard VIP</h3>
-                    <p class="mt-2 text-sm text-gray-500">Luxury MPV · Automatic</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-users mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Kenyamanan premium untuk perjalanan VIP</p>
-                        <p><i class="fa-solid fa-crown mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Tarif berdasarkan kebutuhan pemesanan</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Tarif sewa</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-bold">Hubungi Admin</p>
-                            <a href="#reservasi" data-car="Toyota Alphard VIP" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA FORTUNER -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <img src="assets/images/cars/fortuner.jpeg" alt="Toyota Fortuner 2.8 GR Sport" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Fortuner</h3>
-                    <p class="mt-2 text-sm text-gray-500">SUV Premium · 7 penumpang</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-gears mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Transmisi mengikuti unit tersedia</p>
-                        <p><i class="fa-solid fa-road mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Cocok untuk perjalanan bisnis dan wisata</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Paket All-In</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp1.600.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Toyota Fortuner 2.8 GR Sport" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- INNOVA REBORN -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-brand-gold px-3 py-1 text-xs font-bold text-white">Favorit</span>
-                    <img src="assets/images/cars/innova-reborn.jpeg" alt="Toyota Innova Reborn" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Innova Reborn</h3>
-                    <p class="mt-2 text-sm text-gray-500">MPV keluarga · 7 penumpang</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-users mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Nyaman untuk perjalanan keluarga</p>
-                        <p><i class="fa-solid fa-suitcase mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Cocok untuk perjalanan antarkota</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Harga sewa per hari</p>
-                        <div class="mt-1 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Lepas kunci</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp500.000–550.000</span>
-                            </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Paket All-In</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp850.000</span>
-                            </div>
-                        </div>
-                        <a href="#reservasi" data-car="Toyota Innova Reborn" class="mt-4 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA HIACE PREMIO -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white">Rombongan</span>
-                    <img src="assets/images/cars/hiace.jpeg" alt="Toyota HiAce Premio" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota HiAce Premio</h3>
-                    <p class="mt-2 text-sm text-gray-500">Minibus executive · Kapasitas sesuai konfigurasi unit</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-users mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Ideal untuk wisata dan rombongan</p>
-                        <p><i class="fa-solid fa-gas-pump mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Mesin diesel</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Paket All-In</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp1.400.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Toyota HiAce Premio" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA HILUX -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white">Kebutuhan Proyek</span>
-                    <img src="assets/images/cars/hilux.jpeg" alt="Toyota Hilux 4x4" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Hilux 4x4</h3>
-                    <p class="mt-2 text-sm text-gray-500">Pickup · Penggerak 4x4</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-truck-pickup mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Untuk kebutuhan proyek dan lapangan</p>
-                        <p><i class="fa-solid fa-road mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Tarif berdasarkan kebutuhan perjalanan</p>
-                    </div>
-                       <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Paket All-In</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp1.600.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Toyota Hilux 4x4" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA AVANZA -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <span class="absolute left-4 top-4 z-10 rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white">Ekonomis</span>
-                    <img src="assets/images/cars/avanza.jpeg" alt="Toyota All New Avanza" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota All New Avanza</h3>
-                    <p class="mt-2 text-sm text-gray-500">LMPV · 7 penumpang</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-users mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Cocok untuk keluarga dan wisata</p>
-                        <p><i class="fa-solid fa-gas-pump mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Mesin bensin</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Harga sewa per hari</p>
-                        <div class="mt-1 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Lepas kunci</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp400.000</span>
-                            </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Paket All-In</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp750.000</span>
-                            </div>
-                        </div>
-                        <a href="#reservasi" data-car="Toyota All New Avanza" class="mt-4 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA AVANZA OLD -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <img src="assets/images/cars/avanzaold.jpeg" alt="Toyota Avanza Old" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Avanza Old</h3>
-                    <p class="mt-2 text-sm text-gray-500">MPV keluarga · Bensin</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-users mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Praktis untuk mobilitas harian</p>
-                        <p><i class="fa-solid fa-wallet mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Pilihan ekonomis</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Lepas kunci</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp350.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Toyota Avanza Old" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- HONDA BRIO -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <img src="assets/images/cars/brio.jpeg" alt="Honda Brio Satya" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Honda Brio Satya</h3>
-                    <p class="mt-2 text-sm text-gray-500">City car · Bensin</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-car mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Praktis untuk perjalanan dalam kota</p>
-                        <p><i class="fa-solid fa-gas-pump mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Irit dan mudah digunakan</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Harga sewa per hari</p>
-                        <div class="mt-1 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Lepas kunci</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp350.000</span>
-                            </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Paket All-In</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp600.000</span>
-                            </div>
-                        </div>
-                        <a href="#reservasi" data-car="Honda Brio" class="mt-4 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- TOYOTA AGYA -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <img src="assets/images/cars/agya.jpeg" alt="Toyota New Agya GR" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Toyota Agya</h3>
-                    <p class="mt-2 text-sm text-gray-500">Compact car · Bensin</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-car mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Ringkas dan praktis</p>
-                        <p><i class="fa-solid fa-wallet mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Pilihan untuk anggaran hemat</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Harga sewa per hari</p>
-                        <div class="mt-1 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Lepas kunci</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp300.000</span>
-                            </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-sm text-gray-600 dark:text-gray-300">Paket All-In</span>
-                                <span class="font-bold text-brand-gold dark:text-brand-amber">Rp550.000</span>
-                            </div>
-                        </div>
-                        <a href="#reservasi" data-car="Toyota Agya" class="mt-4 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- MITSUBISHI PAJERO SPORT -->
-            <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-brand-card">
-                <div class="h-56 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    <img src="assets/images/cars/pajero.jpeg" alt="Mitsubishi Pajero Sport Dakar" loading="lazy" class="h-full w-full object-cover transition duration-500 hover:scale-105">
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <h3 class="font-heading text-xl font-bold">Mitsubishi Pajero Sport</h3>
-                    <p class="mt-2 text-sm text-gray-500">SUV Premium · Diesel</p>
-                    <div class="mt-5 flex-1 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                        <p><i class="fa-solid fa-car-side mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Nyaman untuk perjalanan bisnis dan wisata</p>
-                        <p><i class="fa-solid fa-road mr-2 text-brand-gold dark:text-brand-amber" aria-hidden="true"></i>Transmisi dan tipe unit dikonfirmasi saat pemesanan</p>
-                    </div>
-                    <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
-                        <p class="text-xs text-gray-500">Paket All-In</p>
-                        <div class="mt-1 flex items-end justify-between gap-3">
-                            <p class="font-heading text-lg font-extrabold text-brand-gold dark:text-brand-amber">Rp1.600.000<span class="text-xs font-normal text-gray-500">/hari</span></p>
-                            <a href="#reservasi" data-car="Mitsubishi Pajero Sport Dakar" class="shrink-0 rounded-lg bg-gray-900 px-4 py-3 text-sm font-bold text-white dark:bg-white dark:text-gray-900">Pilih Armada</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
+        <div id="carousel-mobil"
+            class="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-5"
+            style="scrollbar-width: none;">
+            <!-- Kartu mobil dibuat otomatis oleh JavaScript -->
         </div>
     </div>
 </section>
+
+<!-- MODAL DETAIL MOBIL -->
+<div id="modal-detail-mobil"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 p-4"
+    role="dialog" aria-modal="true" aria-labelledby="detail-mobil-nama">
+
+    <div class="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-brand-card">
+
+        <button type="button" id="tutup-detail-mobil"
+            aria-label="Tutup detail mobil"
+            class="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <img id="detail-mobil-gambar"
+            src=""
+            alt=""
+            class="h-64 w-full bg-gray-100 object-cover dark:bg-gray-900">
+
+        <div class="p-6">
+            <h3 id="detail-mobil-nama"
+                class="font-heading text-2xl font-bold"></h3>
+
+            <p id="detail-mobil-info"
+                class="mt-2 text-sm text-gray-500"></p>
+
+            <div id="detail-mobil-spesifikasi"
+                class="mt-5 space-y-3 text-sm text-gray-600 dark:text-gray-300"></div>
+
+            <div class="mt-6 border-t border-gray-200 pt-5 dark:border-gray-700">
+                <p class="text-xs text-gray-500">Harga sewa</p>
+                <div id="detail-mobil-harga" class="mt-2 space-y-2"></div>
+
+                <a id="detail-mobil-pilih"
+                    href="#reservasi"
+                    data-car=""
+                    class="mt-5 block rounded-lg bg-gray-900 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-brand-gold dark:bg-white dark:text-gray-900 dark:hover:bg-brand-amber">
+                    Pilih Armada
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- RESERVASI -->
         
