@@ -478,3 +478,28 @@ details[open] summary ~ * {
         font-size: 0.8em;
     }
 }
+/* Carousel armada */
+#carousel-mobil {
+    width: 100%;
+    min-width: 0;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+#carousel-mobil > * {
+    flex: 0 0 290px;
+    min-width: 0;
+}
+
+#carousel-mobil img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+@media (max-width: 640px) {
+    #carousel-mobil > * {
+        flex-basis: 82%;
+    }
+}
