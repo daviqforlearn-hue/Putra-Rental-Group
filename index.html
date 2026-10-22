@@ -1007,57 +1007,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
         </div>
 
-        <!-- DAFTAR PAKET RENTAL -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-
-            <button type="button" data-paket="vip"
-                class="paket-btn border-2 border-amber-400 bg-amber-400/10 rounded-2xl p-5 text-left transition">
-                <h3 class="text-xl font-bold mb-3">Paket All-In</h3>
-                <p class="text-slate-300 text-sm mb-4">
-                    Mobil, supir, dan BBM sudah termasuk dalam paket.
-                </p>
-                <span class="text-amber-400 font-semibold text-sm">
-                    Harga Otomatis
-                </span>
-            </button>
-
-            <button type="button" data-paket="lepas"
-                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
-                <h3 class="text-xl font-bold mb-3">Paket Lepas Kunci</h3>
-                <p class="text-slate-300 text-sm mb-4">
-                    Pilih rental tanpa supir atau menggunakan supir tambahan.
-                </p>
-                <span class="text-amber-400 font-semibold text-sm">
-                    Supir Opsional
-                </span>
-            </button>
-
-            <button type="button" data-paket="sabang"
-                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
-                <h3 class="text-xl font-bold mb-3">Tour Sabang</h3>
-                <p class="text-slate-300 text-sm mb-4">
-                    Pilih tanggal, jam, durasi, dan unit melalui konfirmasi admin.
-                </p>
-                <span class="text-amber-400 font-semibold text-sm">
-                    Konfirmasi Admin
-                </span>
-            </button>
-
-            <button type="button" data-paket="bandara"
-                class="paket-btn border-2 border-slate-700 bg-slate-900 rounded-2xl p-5 text-left transition">
-                <h3 class="text-xl font-bold mb-3">Antar Jemput Bandara SIM</h3>
-                <p class="text-slate-300 text-sm mb-4">
-                    Atur tanggal, jam, durasi, dan unit melalui konfirmasi admin.
-                </p>
-                <span class="text-amber-400 font-semibold text-sm">
-                    Konfirmasi Admin
-                </span>
-            </button>
-
-        </div>
-
-        <div class="grid lg:grid-cols-3 gap-8">
-
+        
             <!-- FORM RESERVASI -->
             <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
 
@@ -1702,6 +1652,21 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <li>Menggunakan kendaraan untuk aksi ilegal/melawan hukum, balapan, atau membawa muatan berbahaya dan narkotika.</li>
                                 <li>Merokok di dalam kabin mobil demi kenyamanan dan higienitas tamu berikutnya.</li>
                                 <li>Mengubah fisik, melakukan modifikasi, mengganti suku cadang, atau membuka segel komponen kendaraan.</li>
+                            </ul>
+                        </div>
+                    </details>
+                     <!-- POIN UNTUK TANGGUNG JAWAB INSIDEN -->
+                    <details class="group rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-brand-card">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold">
+                            Tanggung Jawab Insiden & Kerusakan
+                            <i class="fa-solid fa-chevron-down text-brand-gold transition group-open:rotate-180 dark:text-brand-amber" aria-hidden="true"></i>
+                        </summary>
+                        <div class="space-y-3 px-5 pb-5 text-sm leading-7 text-gray-600 dark:text-gray-400">
+                            <ul class="list-disc space-y-1 pl-5">
+                                <li>Kerusakan akibat kelalaian pengemudi pada sewa lepas kunci menjadi tanggung jawab penuh pihak Penyewa.</li>
+                                <li>Jika terjadi insiden/kerusakan, Penyewa wajib segera melapor kepada admin <strong>Putra Rental Group</strong> dalam waktu 1x24 jam.</li>
+                                <li>Penyewa menanggung biaya perbaikan bengkel resmi serta biaya sewa selama mobil dalam masa perbaikan (<em>downtime</em>).</li>
+                                <li>Apabila unit disewa dengan sopir dari Kami, segala risiko kecelakaan atau kerusakan teknis di jalan sepenuhnya ditangani oleh perusahaan.</li>
                             </ul>
                         </div>
                     </details>
