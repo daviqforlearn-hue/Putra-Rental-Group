@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
             teksPaketKhusus: "teksKhusus"
+            penjemputanKhusus: "penjemputan"
         };
 
         kotak.querySelectorAll("[id]").forEach(el => {
