@@ -1,982 +1,164 @@
 @charset "UTF-8";
-/* PUTRA UTAMA GROUP - ENTERPRISE RENT CAR STYLESHEET
-   Architecture: Block Element Modifier (BEM) + Utility-First Hybrid*/
-
-/* --------------------------------------------------------------------------
-   1. ROOT VARIABLES & DESIGN TOKENS
-   -------------------------------------------------------------------------- */
-:root {
-    /* Brand Colors - Light Mode */
-    --color-brand-primary: #d97706;
-    --color-brand-secondary: #f59e0b;
-    --color-brand-accent: #dc2626;
-    --color-brand-success: #25D366;
-    --color-brand-dark: #0a0a0c;
-    --color-brand-light: #ffffff;
-    
-    /* Surface Colors - Light Mode */
-    --color-surface-base: #f8fafc;
-    --color-surface-100: #f1f5f9;
-    --color-surface-200: #e2e8f0;
-    --color-surface-300: #cbd5e1;
-    --color-surface-400: #94a3b8;
-    
-    /* Text Colors - Light Mode */
-    --color-text-primary: #0f172a;
-    --color-text-secondary: #334155;
-    --color-text-muted: #64748b;
-    --color-text-inverse: #ffffff;
-
-    /* Border Colors - Light Mode */
-    --color-border-subtle: rgba(0, 0, 0, 0.05);
-    --color-border-base: #e2e8f0;
-    --color-border-strong: #cbd5e1;
-
-    /* Shadows - Light Mode */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-neon: 0 0 20px rgba(245, 158, 11, 0.3);
-    --shadow-neon-hover: 0 0 35px rgba(245, 158, 11, 0.6);
-    --shadow-green: 0 0 20px rgba(37, 211, 102, 0.3);
-    --shadow-green-hover: 0 0 35px rgba(37, 211, 102, 0.6);
-
-    /* Typography */
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-heading: 'Outfit', var(--font-sans);
-    
-    /* Transitions & Animations */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
-    /* Layout & Spacing */
-    --header-height: 80px;
-    --header-height-md: 96px;
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-2xl: 1.5rem;
-    --radius-3xl: 2rem;
-    --radius-full: 9999px;
-    
-    /* Z-Index Hierarchy */
-    --z-negative: -1;
-    --z-elevate: 10;
-    --z-dropdown: 40;
-    --z-sticky: 50;
-    --z-fixed: 60;
-    --z-modal-backdrop: 90;
-    --z-modal: 100;
-    --z-toast: 110;
-}
-
-/* --------------------------------------------------------------------------
-   2. DARK MODE TOKENS (Overrides)
-   -------------------------------------------------------------------------- */
-.dark {
-    /* Brand Colors - Dark Mode */
-    --color-brand-primary: #f59e0b;
-    --color-brand-secondary: #d97706;
-    
-    /* Surface Colors - Dark Mode */
-    --color-surface-base: #0a0a0c;
-    --color-surface-100: #121214;
-    --color-surface-200: #18181b;
-    --color-surface-300: #27272a;
-    --color-surface-400: #3f3f46;
-    
-    /* Text Colors - Dark Mode */
-    --color-text-primary: #f8fafc;
-    --color-text-secondary: #cbd5e1;
-    --color-text-muted: #94a3b8;
-    --color-text-inverse: #0f172a;
-
-    /* Border Colors - Dark Mode */
-    --color-border-subtle: rgba(255, 255, 255, 0.05);
-    --color-border-base: rgba(255, 255, 255, 0.1);
-    --color-border-strong: rgba(255, 255, 255, 0.2);
-
-    /* Shadows - Dark Mode */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
-}
-
-/* --------------------------------------------------------------------------
-   3. CSS RESET & NORMALIZE
-   -------------------------------------------------------------------------- */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border-color: var(--color-border-base);
-}
-
-html {
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-    -moz-tab-size: 4;
-    tab-size: 4;
-    font-family: var(--font-sans);
-    scroll-behavior: smooth;
-    scroll-padding-top: var(--header-height-md);
-    background-color: var(--color-surface-base);
-    color: var(--color-text-primary);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
-
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto;
-    display: block;
-}
-
-hr {
-    height: 0;
-    color: inherit;
-    border-top-width: 1px;
-    border-style: solid;
-    margin: 2rem 0;
-}
-
-abbr[title] {
-    text-decoration: underline dotted;
-}
-
-b, strong {
-    font-weight: 700;
-}
-
-code, kbd, samp, pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 1em;
-}
-
-small {
-    font-size: 80%;
-}
-
-sub, sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sub { bottom: -0.25em; }
-sup { top: -0.5em; }
-
-table {
-    text-indent: 0;
-    border-color: inherit;
-    border-collapse: collapse;
-}
-
-button, input, optgroup, select, textarea {
-    font-family: inherit;
-    font-size: 100%;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
-    margin: 0;
-    padding: 0;
-}
-
-button, select {
-    text-transform: none;
-}
-
-button, [type='button'], [type='reset'], [type='submit'] {
-    -webkit-appearance: button;
-    background-color: transparent;
-    background-image: none;
-}
-
-:-moz-focusring {
-    outline: auto;
-}
-
-:-moz-ui-invalid {
-    box-shadow: none;
-}
-
-progress {
-    vertical-align: baseline;
-}
-
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-    height: auto;
-}
-
-[type='search'] {
-    -webkit-appearance: textfield;
-    outline-offset: -2px;
-}
-
-::-webkit-search-decoration {
-    -webkit-appearance: none;
-}
-
-::-webkit-file-upload-button {
-    -webkit-appearance: button;
-    font: inherit;
-}
-
-summary {
-    display: list-item;
-}
-
-blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
-    margin: 0;
-}
-
-fieldset {
-    margin: 0;
-    padding: 0;
-}
-
-legend {
-    padding: 0;
-}
-
-ol, ul, menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-textarea {
-    resize: vertical;
-}
-
-input::placeholder, textarea::placeholder {
-    opacity: 1;
-    color: var(--color-text-muted);
-}
-
-button, [role="button"] {
-    cursor: pointer;
-}
-
-:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* --------------------------------------------------------------------------
-   4. SCROLLBARS & SELECTION
-   -------------------------------------------------------------------------- */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--color-surface-100);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--color-surface-300);
-    border-radius: var(--radius-full);
-    border: 3px solid var(--color-surface-100);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-brand-primary);
-}
-
-/* Firefox Scrollbar */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-surface-300) var(--color-surface-100);
-}
-
-::selection {
-    background-color: var(--color-brand-primary);
-    color: var(--color-text-inverse);
-    text-shadow: none;
-}
-
-/* Prevent tap highlight on mobile */
-a, button, input, select, textarea, [tabindex] {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* --------------------------------------------------------------------------
-   5. TYPOGRAPHY UTILITIES
-   -------------------------------------------------------------------------- */
-.font-sans { font-family: var(--font-sans); }
-.font-heading { font-family: var(--font-heading); }
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--color-text-primary);
-    line-height: 1.2;
-    margin-bottom: 0.5em;
-}
-
-.text-fluid-h1 { font-size: clamp(2.5rem, 5vw + 1rem, 5rem); }
-.text-fluid-h2 { font-size: clamp(2rem, 4vw + 1rem, 4rem); }
-.text-fluid-h3 { font-size: clamp(1.5rem, 3vw + 1rem, 2.5rem); }
-.text-fluid-p { font-size: clamp(1rem, 1vw + 0.5rem, 1.125rem); }
-
-/* --------------------------------------------------------------------------
-   6. GLASSMORPHISM & NEUMORPHISM MODULES
-   -------------------------------------------------------------------------- */
-.glass-nav {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid var(--color-border-subtle);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark .glass-nav {
-    background-color: rgba(10, 10, 12, 0.85);
-    border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.glass-panel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-lg);
-}
-
-.dark .glass-panel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.dark .glass-card {
-    background: rgba(24, 24, 27, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* --------------------------------------------------------------------------
-   7. CUSTOM SHADOWS & GLOWS
-   -------------------------------------------------------------------------- */
-.shadow-neon { box-shadow: var(--shadow-neon); }
-.shadow-neon:hover { box-shadow: var(--shadow-neon-hover); }
-.shadow-green { box-shadow: var(--shadow-green); }
-.shadow-green:hover { box-shadow: var(--shadow-green-hover); }
-
-/* Text Glow */
-.text-glow {
-    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
-}
-
-/* --------------------------------------------------------------------------
-   8. FORM ELEMENTS EXTENSION
-   -------------------------------------------------------------------------- */
-/* Input Normalization */
-input[type="text"], input[type="email"], input[type="number"], input[type="date"], input[type="time"], select, textarea {
-    width: 100%;
-    font-family: var(--font-sans);
-    transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
-}
-
-/* Remove default arrows from select */
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.25em 1.25em;
-    padding-right: 2.5rem;
-}
-
-.dark select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-}
-
-/* Remove spinners from number inputs */
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-}
-input[type="number"] { -moz-appearance: textfield; }
-
-/* Custom Date/Time Icons */
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity var(--transition-base), filter var(--transition-base);
-    padding: 5px;
-    border-radius: var(--radius-sm);
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator:hover,
-input[type="time"]::-webkit-calendar-picker-indicator:hover {
-    opacity: 1;
-    background-color: var(--color-surface-200);
-}
-
-.dark input[type="date"]::-webkit-calendar-picker-indicator,
-.dark input[type="time"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) brightness(0.8);
-    opacity: 0.5;
-}
-
-.dark input[type="date"]::-webkit-calendar-picker-indicator:hover,
-.dark input[type="time"]::-webkit-calendar-picker-indicator:hover {
-    opacity: 0.9;
-    background-color: var(--color-surface-300);
-}
-
-/* Custom Radio Buttons / Checkboxes via Peer class (Tailwind handles logic, CSS handles transitions) */
-.custom-radio-label {
-    transition: all var(--transition-fast);
-}
-.peer:checked ~ .custom-radio-label {
-    transform: scale(0.98);
-}
-
-/* --------------------------------------------------------------------------
-   9. COMPONENTS: FLEET CARDS & OVERLAYS
-   -------------------------------------------------------------------------- */
-.fleet-item {
-    transition: opacity var(--transition-slow), transform var(--transition-slow), box-shadow var(--transition-base), border-color var(--transition-base);
-    will-change: opacity, transform;
-    transform: translateZ(0); /* Hardware acceleration */
-}
-
-.fleet-item.hidden {
-    display: none;
-    opacity: 0;
-    transform: scale(0.95) translateY(20px);
-}
-
-/* Image Gradient Overlay for readability */
-.card-img-overlay {
-    position: relative;
-    overflow: hidden;
-}
-
-.card-img-overlay::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
-    pointer-events: none;
-    z-index: 5;
-    transition: background var(--transition-base), height var(--transition-base);
-}
-
-.dark .card-img-overlay::after {
-    background: linear-gradient(to top, rgba(18,18,20,0.9) 0%, rgba(18,18,20,0) 100%);
-}
-
-.fleet-item:hover .card-img-overlay::after {
-    height: 70%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-}
-
-.dark .fleet-item:hover .card-img-overlay::after {
-    background: linear-gradient(to top, rgba(10,10,12,1) 0%, rgba(10,10,12,0) 100%);
-}
-
-/* Card Image Scale on Hover */
-.card-img-overlay img {
-    transition: transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-}
-
-.fleet-item:hover .card-img-overlay img {
-    transform: scale(1.12) rotate(1deg);
-}
-
-/* --------------------------------------------------------------------------
-   10. COMPONENTS: ACCORDION (FAQ / POLICIES)
-   -------------------------------------------------------------------------- */
-details {
-    transition: background-color var(--transition-base), border-color var(--transition-base);
-}
-
-details > summary {
-    list-style: none;
-    user-select: none;
-}
-
-details > summary::-webkit-details-marker,
-details > summary::marker {
-    display: none;
-}
-
-/* Smooth Accordion Expansion */
-details[open] summary ~ * {
-    animation: accordionSlideDown 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    transform-origin: top;
-}
-
-@keyframes accordionSlideDown {
-    0% { 
-        opacity: 0; 
-        transform: translateY(-15px) scaleY(0.95); 
-    }
-    100% { 
-        opacity: 1; 
-        transform: translateY(0) scaleY(1); 
-    }
-}
-
-/* Icon Rotation */
-details summary svg {
-    transition: transform var(--transition-bounce);
-}
-
-details[open] summary svg {
-    transform: rotate(180deg);
-}
-
-/* --------------------------------------------------------------------------
-   11. COMPONENTS: MODAL & OVERLAYS
-   -------------------------------------------------------------------------- */
-#booking-modal {
-    transition: opacity var(--transition-base), visibility var(--transition-base);
-}
-
-#booking-modal.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-#booking-modal.flex {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-#modal-content {
-    transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity var(--transition-base);
-    will-change: transform, opacity;
-}
-
-#booking-modal.hidden #modal-content {
-    transform: scale(0.95) translateY(20px);
-    opacity: 0;
-}
-
-#booking-modal.flex #modal-content {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-}
-
-/* --------------------------------------------------------------------------
-   12. KEYFRAME ANIMATIONS & EFFECTS
-   -------------------------------------------------------------------------- */
-
-/* Float Animation */
-@keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-10px) rotate(1deg); }
-    50% { transform: translateY(-20px) rotate(0deg); }
-    75% { transform: translateY(-10px) rotate(-1deg); }
-}
-
-.animate-float {
-    animation: float 8s ease-in-out infinite;
-}
-
-.animate-float-fast {
-    animation: float 4s ease-in-out infinite;
-}
-
-/* Pulse Glow (For Hero Orbs) */
-@keyframes pulse-glow {
-    0%, 100% { 
-        opacity: 0.3; 
-        transform: scale(1) translate(0, 0); 
-    }
-    33% { 
-        opacity: 0.6; 
-        transform: scale(1.1) translate(2%, 2%); 
-    }
-    66% { 
-        opacity: 0.4; 
-        transform: scale(0.95) translate(-2%, -2%); 
-    }
-}
-
-.animate-pulse-glow {
-    animation: pulse-glow 10s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
-}
-
-/* Slide Up Fade In */
-@keyframes slideUpFade {
-    0% { 
-        opacity: 0; 
-        transform: translateY(40px); 
-    }
-    100% { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-.animate-slide-up {
-    opacity: 0; /* Initial state before animation */
-    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Staggered animation delays */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-
-/* Spin Slow (For Decorative SVG) */
-@keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
-    transform-origin: center center;
-}
-
-/* Shimmer Effect (Loading/Highlights) */
-@keyframes shimmer {
-    0% { background-position: -1000px 0; }
-    100% { background-position: 1000px 0; }
-}
-
-.animate-shimmer {
-    background: linear-gradient(to right, rgba(255,255,255,0) 4%, rgba(255,255,255,0.25) 25%, rgba(255,255,255,0) 36%);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite linear forwards;
-}
-
-.dark .animate-shimmer {
-    background: linear-gradient(to right, rgba(255,255,255,0) 4%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0) 36%);
-    background-size: 1000px 100%;
-}
-
-/* Ping Ping Ping (For Status Indicators) */
-@keyframes ping-soft {
-    75%, 100% {
-        transform: scale(2);
-        opacity: 0;
-    }
-}
-.animate-ping-soft {
-    animation: ping-soft 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-/* --------------------------------------------------------------------------
-   13. CUSTOM UTILITY CLASSES
-   -------------------------------------------------------------------------- */
-/* Aspect Ratios */
-.aspect-w-16 { position: relative; padding-bottom: 56.25%; }
-.aspect-w-4 { position: relative; padding-bottom: 75%; }
-.aspect-w-1 { position: relative; padding-bottom: 100%; }
-.aspect-content { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; }
-
-/* Text Gradients */
-.text-gradient-gold {
-    background: linear-gradient(to right, var(--color-brand-secondary), var(--color-brand-primary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-}
-
-/* Layout Utilities */
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Hardware Acceleration Helpers */
-.hardware-accel {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-/* Hide Scrollbar but keep functionality */
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-/* --------------------------------------------------------------------------
-   14. RESPONSIVE / MEDIA QUERIES EXTENSIONS
-   -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-    :root {
-        --header-height: 64px;
-    }
-    
-    .card-img-overlay::after {
-        height: 50%;
-    }
-    
-    details[open] summary ~ * {
-        animation: accordionSlideDown 300ms ease-out forwards;
-    }
-    
-    /* Ensure inputs don't zoom on iOS */
-    input[type="text"], input[type="date"], input[type="time"], input[type="number"], select {
-        font-size: 16px !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    /* Hover effects only on devices that support hover */
-    @media (hover: hover) {
-        .fleet-item:hover {
-            transform: translateY(-8px);
-        }
-        
-        .filter-btn:hover:not(.active-filter) {
-            transform: translateY(-2px);
-            border-color: var(--color-brand-secondary);
-        }
-    }
-}
-
-/* --------------------------------------------------------------------------
-   15. PRINT STYLES
-   -------------------------------------------------------------------------- */
-@media print {
-    body {
-        background: #fff !important;
-        color: #000 !important;
-    }
-    
-    header, footer, .fixed, .floating-widget, button {
-        display: none !important;
-    }
-    
-    section {
-        page-break-inside: avoid;
-        padding: 20px 0 !important;
-    }
-    
-    a {
-        text-decoration: underline;
-        color: #000;
-    }
-    
-    .shadow-neon, .shadow-lg, .shadow-2xl {
-        box-shadow: none !important;
-        border: 1px solid #ccc !important;
-    }
-}
-
-/* --------------------------------------------------------------------------
-   16. ACCESSIBILITY (A11Y)
-   -------------------------------------------------------------------------- */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-.focus-ring {
-    outline: none;
-}
-
-.focus-ring:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-surface-base), 0 0 0 4px var(--color-brand-primary);
-}
-
-.dark .focus-ring:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-brand-dark), 0 0 0 4px var(--color-brand-primary);
-}
-
-/* High Contrast Adjustments */
-@media (prefers-contrast: high) {
-    .glass-nav, .glass-panel, .glass-card {
-        background: var(--color-surface-base);
-        border: 2px solid var(--color-text-primary);
-    }
-    
-    .text-gradient-gold {
-        background: none;
-        -webkit-text-fill-color: currentcolor;
-        color: currentcolor;
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    
-    .fleet-item:hover .card-img-overlay img {
-        transform: none;
-    }
-
-   /* Premium Capsule Navigation */
-.premium-nav-capsule {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-    padding: 0.35rem;
-    border: 1px solid rgba(217, 119, 6, 0.55);
-    border-radius: 9999px;
-    background:
-        linear-gradient(135deg, rgba(35, 35, 35, 0.82), rgba(5, 5, 5, 0.72)),
-        radial-gradient(circle at 20% 0%, rgba(251, 191, 36, 0.12), transparent 42%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 12px 35px rgba(0, 0, 0, 0.25),
-        0 0 22px rgba(217, 119, 6, 0.1);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    backdrop-filter: blur(24px) saturate(150%);
-}
-
-.premium-nav-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.6rem;
-    padding: 0.65rem 0.9rem;
-    border-radius: 9999px;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-    transition: color 180ms ease, background-color 180ms ease, text-shadow 180ms ease;
-}
-
-.premium-nav-link:hover,
-.premium-nav-link:focus-visible,
-.premium-nav-link.is-active {
-    color: #fbbf24;
-    background: rgba(217, 119, 6, 0.14);
-    text-shadow: 0 0 12px rgba(251, 191, 36, 0.58);
-}
-
-.premium-icon-button,
-.premium-contact-button {
-    border: 1px solid rgba(217, 119, 6, 0.55);
-    background: linear-gradient(135deg, rgba(35, 35, 35, 0.88), rgba(8, 8, 8, 0.78));
-    color: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22), 0 0 16px rgba(217, 119, 6, 0.08);
-    -webkit-backdrop-filter: blur(22px) saturate(145%);
-    backdrop-filter: blur(22px) saturate(145%);
-    transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-.premium-icon-button {
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    place-items: center;
-    border-radius: 9999px;
-}
-
-.premium-contact-button {
-    display: inline-flex;
-    min-height: 2.75rem;
-    align-items: center;
-    gap: 0.55rem;
-    border-radius: 9999px;
-    padding: 0.7rem 1rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.premium-icon-button:hover,
-.premium-contact-button:hover,
-.premium-icon-button:focus-visible,
-.premium-contact-button:focus-visible {
-    border-color: #fbbf24;
-    color: #fbbf24;
-    box-shadow: 0 0 24px rgba(217, 119, 6, 0.24);
-    transform: translateY(-1px);
-}
-
-.premium-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    border-radius: 0.75rem;
-    padding: 0.7rem 0.85rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    transition: background-color 180ms ease, padding-left 180ms ease;
-}
-
-.premium-contact-item:hover {
-    padding-left: 1rem;
-}
-
-.dark .premium-nav-capsule,
-.dark .premium-icon-button,
-.dark .premium-contact-button {
-    border-color: rgba(251, 191, 36, 0.62);
-    background:
-        linear-gradient(135deg, rgba(7, 7, 7, 0.95), rgba(25, 18, 8, 0.9)),
-        radial-gradient(circle at 20% 0%, rgba(251, 191, 36, 0.14), transparent 42%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 14px 38px rgba(0, 0, 0, 0.52),
-        0 0 26px rgba(245, 158, 11, 0.14);
-}
-    
-    html {
-        scroll-behavior: auto;
-    }
+/* PUTRA UTAMA GROUP - KOMPONEN PREMIUM (glass, emas, animasi)
+   Dimuat SETELAH themes.css. Selector memakai ID/html body agar menang atas utility Tailwind CDN. */
+
+/* ---------- Kaca: permukaan bersama ---------- */
+html body #harga .md\:grid-cols-2>div,
+html body #keuntungan-all-in article,
+html body #kebijakan details,
+html body #carousel-mobil>*,
+html body #beranda .grid-cols-3{
+  position:relative;background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border:1px solid var(--line);box-shadow:var(--hi),var(--sh-1);
+  transition:transform .6s var(--ease),box-shadow .5s var(--ease),border-color .4s,background-color .4s}
+html body #harga .md\:grid-cols-2>div,html body #keuntungan-all-in article,html body #carousel-mobil>*{border-radius:1.5rem;overflow:visible}
+html body #carousel-mobil>*{overflow:hidden}
+/* Sorot cahaya mengikuti kursor (var --mx/--my diisi premium.js) */
+html body #harga .md\:grid-cols-2>div::before,html body #keuntungan-all-in article::before,html body #kebijakan details::before,html body #carousel-mobil>*::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;z-index:1;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(251,191,36,.16),transparent 55%)}
+@media(hover:hover){
+ html body #harga .md\:grid-cols-2>div:hover,html body #keuntungan-all-in article:hover,html body #carousel-mobil>*:hover{transform:translateY(-6px);box-shadow:var(--hi),var(--sh-2);border-color:rgba(245,158,11,.5)}
+ html body #harga .md\:grid-cols-2>div:hover::before,html body #keuntungan-all-in article:hover::before,html body #kebijakan details:hover::before,html body #carousel-mobil>*:hover::before{opacity:1}
+ html body #carousel-mobil>* img{transition:transform 1s var(--ease)}
+ html body #carousel-mobil>*:hover img{transform:scale(1.07)}
+}
+/* Paket All-In (unggulan): bingkai emas bercahaya */
+html body #harga .md\:grid-cols-2>div.border-amber-500{border:1px solid rgba(245,158,11,.7);box-shadow:var(--hi),var(--glow)}
+html body #harga .md\:grid-cols-2>div.border-amber-500>div.absolute{background:var(--gold-grad);color:#1a1204;box-shadow:0 6px 18px -4px rgba(217,119,6,.6)}
+html body #kebijakan details{border-radius:1rem}
+html body #kebijakan details[open]{border-color:rgba(245,158,11,.5);box-shadow:var(--hi),var(--sh-2)}
+html body #kebijakan summary{transition:color .3s}
+html body #kebijakan summary:hover{color:var(--gold-600)}
+.dark body #kebijakan summary:hover,html.dark body #kebijakan summary:hover{color:var(--gold-400)}
+
+/* ---------- Navbar: kapsul kaca melayang ---------- */
+html body #navbar{top:var(--nav-inset);left:var(--nav-inset);right:var(--nav-inset);width:auto;border:1px solid var(--line);border-radius:1.25rem;
+  background:var(--glass);-webkit-backdrop-filter:var(--blur-lg);backdrop-filter:var(--blur-lg);box-shadow:var(--hi),var(--sh-1);
+  transition:background-color .4s,box-shadow .5s var(--ease),border-color .4s,top .5s var(--ease);animation:navIn .9s var(--ease) both}
+html body #navbar.is-scrolled{background:var(--glass-strong);box-shadow:var(--hi),var(--sh-2);top:.4rem}
+html body #navbar img{transition:height .5s var(--ease),width .5s var(--ease)}
+@media(min-width:1024px){html body #navbar.is-scrolled img{height:3rem;width:3rem}}
+@keyframes navIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+html body #navbar nav>a{position:relative;padding:.4rem .1rem}
+html body #navbar nav>a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:var(--gold-grad);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+html body #navbar nav>a:hover::after,html body #navbar nav>a.is-active::after{transform:scaleX(1)}
+html body #navbar nav>a.is-active{color:var(--gold-600)}
+html.dark body #navbar nav>a.is-active{color:var(--gold-400)}
+html body #desktopContactMenu,html body #mobile-menu{background:var(--glass-strong);border-color:var(--line);box-shadow:var(--hi),var(--sh-2)}
+html body #desktopContactMenu{border-radius:1.25rem}
+html body #mobile-menu{border-radius:0 0 1.25rem 1.25rem}
+html body #mobile-menu:not(.hidden){animation:menuIn .5s var(--ease) both;transform-origin:top}
+@keyframes menuIn{from{opacity:0;transform:translateY(-10px) scaleY(.96)}to{opacity:1;transform:none}}
+html body #navbar button#theme-toggle,html body #navbar button#mobile-theme-toggle{background:var(--glass);border:1px solid var(--line);transition:transform .5s var(--ease),box-shadow .4s}
+html body #navbar button#theme-toggle:hover,html body #navbar button#mobile-theme-toggle:hover{transform:rotate(18deg) scale(1.08);box-shadow:var(--glow)}
+
+/* ---------- Tombol emas (shimmer saat hover) ---------- */
+html body #beranda a[href="#armada"],html body #navbar #desktopContactToggle,html body #harga a.bg-amber-500,
+html body #keuntungan-all-in a[href="#reservasi"],html body #formReservasi button[type=submit],html body #contactToggle,html body #detail-mobil-pilih{
+  position:relative;overflow:hidden;isolation:isolate;background:var(--gold-grad);color:#fff;border:0;
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 12px 28px -10px rgba(217,119,6,.6);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),filter .3s}
+html.dark body #beranda a[href="#armada"],html.dark body #navbar #desktopContactToggle,html.dark body #harga a.bg-amber-500,
+html.dark body #keuntungan-all-in a[href="#reservasi"],html.dark body #formReservasi button[type=submit],html.dark body #contactToggle,html.dark body #detail-mobil-pilih{color:#1a1204}
+html body #harga a.bg-amber-500,html body #keuntungan-all-in a[href="#reservasi"],html body #formReservasi button[type=submit]{color:#1a1204}
+html body #beranda a[href="#armada"]::after,html body #navbar #desktopContactToggle::after,html body #harga a.bg-amber-500::after,
+html body #keuntungan-all-in a[href="#reservasi"]::after,html body #formReservasi button[type=submit]::after,html body #contactToggle::after,html body #detail-mobil-pilih::after{
+  content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+@media(hover:hover){
+ html body #beranda a[href="#armada"]:hover,html body #navbar #desktopContactToggle:hover,html body #harga a.bg-amber-500:hover,
+ html body #keuntungan-all-in a[href="#reservasi"]:hover,html body #formReservasi button[type=submit]:hover,html body #contactToggle:hover,html body #detail-mobil-pilih:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 18px 38px -10px rgba(217,119,6,.75)}
+ html body #beranda a[href="#armada"]:hover::after,html body #navbar #desktopContactToggle:hover::after,html body #harga a.bg-amber-500:hover::after,
+ html body #keuntungan-all-in a[href="#reservasi"]:hover::after,html body #formReservasi button[type=submit]:hover::after,html body #contactToggle:hover::after,html body #detail-mobil-pilih:hover::after{transform:translateX(120%)}
+}
+/* Tombol sekunder (outline kaca) */
+html body #beranda a[href="#reservasi"],html body #harga a.bg-gray-900,html body #mobil-sebelumnya,html body #mobil-berikutnya{
+  background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--hi);
+  transition:transform .5s var(--ease),border-color .3s,box-shadow .4s,color .3s}
+html body #harga a.bg-gray-900{color:var(--ink)}
+@media(hover:hover){html body #beranda a[href="#reservasi"]:hover,html body #harga a.bg-gray-900:hover,html body #mobil-sebelumnya:hover,html body #mobil-berikutnya:hover{transform:translateY(-2px);border-color:var(--gold-500);box-shadow:var(--hi),var(--glow);color:var(--gold-600)}}
+html body #mobil-sebelumnya:active,html body #mobil-berikutnya:active{transform:scale(.92)}
+
+/* ---------- Hero: momen utama (satu urutan masuk + emblem velg) ---------- */
+html body #beranda{isolation:isolate}
+html body #beranda .max-w-3xl>*{animation:rise 1.1s var(--ease) both}
+html body #beranda .max-w-3xl>*:nth-child(1){animation-delay:.15s}
+html body #beranda .max-w-3xl>*:nth-child(2){animation-delay:.3s}
+html body #beranda .max-w-3xl>*:nth-child(3){animation-delay:.45s}
+html body #beranda .max-w-3xl>*:nth-child(4){animation-delay:.6s}
+html body #beranda .max-w-3xl>*:nth-child(5){animation-delay:.75s}
+@keyframes rise{from{opacity:0;transform:translateY(26px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+html body #beranda h1 span{background:var(--gold-text);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sheen 6s ease-in-out 1.6s infinite alternate}
+@keyframes sheen{from{background-position:0 0}to{background-position:100% 0}}
+html body #beranda>div.absolute{background:radial-gradient(circle,var(--amb-a),transparent 70%);filter:blur(10px)}
+html body #beranda span.rounded-full{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-color:var(--line);box-shadow:var(--hi)}
+html body #beranda .grid-cols-3{padding:1.1rem 1.25rem;border-radius:1.25rem;border-top-width:1px}
+/* Emblem velg: cincin tipis + jari-jari konik, berputar sangat pelan */
+@media(min-width:1024px){
+ html body #beranda::before,html body #beranda::after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;width:40rem;height:40rem;right:-9rem;top:50%;margin-top:-20rem}
+ html body #beranda::before{background:repeating-radial-gradient(circle,transparent 0 34px,rgba(217,119,6,.22) 35px 36px);
+  -webkit-mask:radial-gradient(circle,#000 30%,transparent 68%);mask:radial-gradient(circle,#000 30%,transparent 68%);opacity:.9;animation:fadeIn 2.4s var(--ease) .4s both}
+ html body #beranda::after{background:repeating-conic-gradient(from 0deg,rgba(245,158,11,.30) 0 .6deg,transparent .6deg 22.5deg);
+  -webkit-mask:radial-gradient(circle,transparent 16%,#000 17% 50%,transparent 62%);mask:radial-gradient(circle,transparent 16%,#000 17% 50%,transparent 62%);
+  animation:fadeIn 2.4s var(--ease) .6s both,spin 90s linear infinite}
+}
+@keyframes fadeIn{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- Heading & detail kecil ---------- */
+html body #armada h2,html body #tentang h2,html body #harga h2,html body #keuntungan-all-in h2,html body #kebijakan h2,html body #kontak h2{letter-spacing:-.03em}
+html body #keuntungan-all-in h2 span{background:var(--gold-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html body #keuntungan-all-in article>div:first-child{transition:transform .6s var(--ease),background-color .3s,color .3s;border:1px solid var(--line)}
+@media(hover:hover){html body #keuntungan-all-in article:hover>div:first-child{transform:rotate(-6deg) scale(1.08);background:var(--gold-grad);color:#1a1204}}
+html body #keuntungan-all-in .rounded-3xl.bg-gray-950{background:linear-gradient(135deg,rgba(15,15,17,.92),rgba(40,28,10,.88));-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-color:rgba(251,191,36,.35);box-shadow:var(--hi),var(--sh-2)}
+
+/* ---------- Reservasi: ruang VIP gelap di kedua tema ---------- */
+html body #reservasi{position:relative;background:linear-gradient(180deg,#0b0b0d,#020617 70%);overflow:hidden}
+html body #reservasi::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(48rem 26rem at 85% 0%,rgba(245,158,11,.14),transparent 60%),radial-gradient(40rem 26rem at 0% 100%,rgba(217,119,6,.10),transparent 60%)}
+html body #reservasi>div{position:relative}
+html body #reservasi .bg-slate-900{background:rgba(24,24,28,.55);-webkit-backdrop-filter:var(--blur-lg);backdrop-filter:var(--blur-lg);border:1px solid rgba(251,191,36,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 60px -28px rgba(0,0,0,.9)}
+html body #reservasi input,html body #reservasi select,html body #reservasi textarea{background:rgba(2,6,23,.55);border:1px solid rgba(148,163,184,.22);transition:border-color .3s,box-shadow .4s var(--ease),background-color .3s}
+html body #reservasi input:focus,html body #reservasi select:focus,html body #reservasi textarea:focus{border-color:var(--gold-400);box-shadow:0 0 0 4px rgba(251,191,36,.14);background:rgba(2,6,23,.75)}
+html body #reservasi select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fbbf24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:1.1em;padding-right:2.5rem}
+html body #totalHarga{background:var(--gold-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:transform .4s var(--ease)}
+html body #kirimWhatsApp:not(:disabled){box-shadow:0 14px 34px -12px rgba(37,211,102,.6);transition:transform .5s var(--ease),box-shadow .4s}
+html body #kirimWhatsApp:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(37,211,102,.75)}
+
+/* ---------- Modal detail mobil ---------- */
+html body #modal-detail-mobil{background:rgba(2,6,23,.55);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%)}
+html body #modal-detail-mobil:not(.hidden){animation:fadeOnly .35s ease both}
+html body #modal-detail-mobil>div{background:var(--glass-strong);-webkit-backdrop-filter:var(--blur-lg);backdrop-filter:var(--blur-lg);border:1px solid var(--line);box-shadow:var(--hi),0 40px 80px -30px rgba(0,0,0,.7);animation:modalIn .6s var(--ease) both}
+@keyframes fadeOnly{from{opacity:0}}
+@keyframes modalIn{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+
+/* ---------- Kontak, footer, tombol melayang ---------- */
+html body #kontak a.h-11{background:var(--glass);border-color:var(--line);transition:transform .5s var(--ease),box-shadow .4s}
+html body #kontak a.h-11:hover{transform:translateY(-3px);box-shadow:var(--glow)}
+html body #kontak .overflow-hidden.rounded-2xl{border:1px solid var(--line);box-shadow:var(--hi),var(--sh-2);border-radius:1.5rem}
+html body footer{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-top:1px solid var(--line)}
+html body #contactMenu{background:var(--glass-strong);-webkit-backdrop-filter:var(--blur-lg);backdrop-filter:var(--blur-lg);border:1px solid var(--line);box-shadow:var(--hi),var(--sh-2);border-radius:1.25rem}
+html body #contactToggle{animation:float 5s ease-in-out infinite}
+@keyframes float{50%{translate:0 -4px}}
+
+/* ---------- Efek scroll tanpa JS (browser yang mendukung scroll-driven animation) ---------- */
+@supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
+ html body #navbar{animation:navIn .9s var(--ease) both,navScroll linear both;animation-timeline:auto,scroll(root block);animation-range:normal,0px 90px}
+ html body #armada .mb-6,html body #tentang .max-w-3xl,html body #harga .max-w-3xl,html body #harga .md\:grid-cols-2>div,
+ html body #keuntungan-all-in .max-w-3xl,html body #keuntungan-all-in article,html body #keuntungan-all-in .bg-gray-950,
+ html body #reservasi .text-center,html body #reservasi .lg\:col-span-2,html body #kebijakan .text-center,html body #kebijakan details,html body #kontak .grid>div{
+  animation:revealIn linear backwards;animation-timeline:view();animation-range:entry 0% entry 60%}
+}}
+@keyframes navScroll{to{background:var(--glass-strong);box-shadow:var(--hi),var(--sh-2);top:.4rem}}
+@keyframes revealIn{from{opacity:0;transform:translateY(24px);filter:blur(6px)}}
+/* Tombol "Pilih Armada" pada kartu dari data.js */
+html body #carousel-mobil a[data-car]{background:var(--gold-grad);color:#1a1204;border:0;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 10px 24px -10px rgba(217,119,6,.6);transition:transform .5s var(--ease),box-shadow .4s}
+html.dark body #carousel-mobil a[data-car]{color:#1a1204}
+@media(hover:hover){html body #carousel-mobil a[data-car]:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 16px 32px -10px rgba(217,119,6,.75)}}
+
+/* ---------- Preferensi sistem ---------- */
+@media(prefers-contrast:more){html body #navbar,html body #harga .md\:grid-cols-2>div,html body #keuntungan-all-in article,html body #kebijakan details{background:var(--glass-strong);-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media(prefers-reduced-motion:reduce){
+ *,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ body::after{display:none}
 }
