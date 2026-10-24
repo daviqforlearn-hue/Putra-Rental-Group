@@ -297,4 +297,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateNavbar();
     });
-
+});
