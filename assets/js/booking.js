@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
+        penjemputan: $("bagianPenjemputan")
     };
 
     if (Object.values(sumber).some(el => !el)) {
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             durasi: "durasi",
             satuanDurasi: "satuanDurasi",
             tujuan: "tujuan",
+            lokasiPenjemputan: "penjemputan",
             infoSupir: "infoSupir",
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
@@ -276,6 +278,16 @@ if (paketValue === "vip") {
 } else {
     tujuan.classList.add("hidden");
 }
+             // Lokasi penjemputan: hanya Tour Sabang & Bandara SIM
+    const penjemputan = grup.penjemputan;
+    const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
+
+    penjemputan.classList.toggle("hidden", !layananKhusus);
+    penjemputanInput.required = layananKhusus;
+
+    if (!layananKhusus) {
+      penjemputanInput.value = "";
+    }
 
 
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
@@ -386,6 +398,7 @@ if (paketValue === "vip") {
     : khusus(paket)
         ? "Konfirmasi Admin"
         : ambil("tujuan").value.trim(),
+        penjemputan: ambil("penjemputan").value.trim(),
 supir: paket === "vip"
     ? "Termasuk paket All-In"
     : memakaiSupir
@@ -531,6 +544,7 @@ catatan: $("catatan").value.trim()
                 `Jam: ${d.jam}`,
                 `Durasi: ${khusus(d.paket) ? "Konfirmasi Admin" : `${d.durasi} ${d.satuan} (${d.hari} hari)`}`,
                 `Tujuan: ${d.tujuan || (khusus(d.paket) ? "Konfirmasi Admin" : "-")}`,
+                 ...(khusus(d.paket) ? [`Lokasi Penjemputan: ${d.penjemputan || "-"}`] : []),
                 `Pilihan Supir: ${d.supir}`,
                 `Biaya Supir: ${d.hargaSupir ? formatRp(d.hargaSupir) + "/hari" : "Rp0"}`,
                 `Tarif Unit: ${d.harga === null ? "Konfirmasi Admin" : formatRp(d.harga) + "/hari"}`,
