@@ -182,8 +182,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const hapus = document.createElement("button");
             hapus.type = "button";
             hapus.className =
-                "absolute top-4 right-4 text-xs text-red-400 hover:text-red-300";
-            hapus.textContent = "Hapus Unit";
+            hapus.className =
+                "inline-flex items-center justify-center gap-2 rounded-lg " +
+                "border border-red-500/40 bg-red-500/10 px-4 py-2.5 " +
+                "text-sm font-semibold text-red-400 transition " +
+                "hover:bg-red-500 hover:text-white";
+
+            hapus.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="18" height="18"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         aria-hidden="true">
+        <path d="M3 6h18"/>
+        <path d="M8 6V4h8v2"/>
+        <path d="m19 6-1 14H6L5 6"/>
+        <path d="M10 11v5"/>
+        <path d="M14 11v5"/>
+    </svg>
+    <span>Hapus Unit</span>
+`;
 
             hapus.addEventListener("click", () => {
                 kotak.remove();
