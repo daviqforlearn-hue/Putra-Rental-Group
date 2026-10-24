@@ -1,3 +1,5 @@
+/* PUTRA UTAMA GROUP - KALKULATOR RESERVASI (multi unit)
+   File: assets/js/booking.js */
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
@@ -10,27 +12,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const tombolWA = $("kirimWhatsApp");
     const tombolHitung = form.querySelector('button[type="submit"]');
 
+    /* ==========================================================
+       DATA HARGA (disamakan dengan data.js dan halaman utama)
+       ========================================================== */
     const daftarMobil = {
         vip: [
             { id: "alphard", nama: "Toyota Alphard VIP", harga: null },
-            { id: "fortuner", nama: "Toyota Fortuner 2.8 GR Sport", harga: 1600000 },
-            { id: "pajero", nama: "Mitsubishi Pajero Sport Dakar", harga: 1600000 },
-            { id: "zenix", nama: "Toyota Innova Zenix Q HEV", harga: 1500000 },
-            { id: "hiace", nama: "Toyota HiAce Premio", harga: 1400000 },
-            { id: "reborn", nama: "Toyota Innova Reborn", harga: 850000 },
-            { id: "avanza", nama: "Toyota New Avanza / Veloz", harga: 750000 },
-            { id: "avanza-lama", nama: "Toyota Avanza Old", harga: null },
-            { id: "hilux", nama: "Toyota Hilux 4x4", harga: 1600000 },
-            { id: "brio", nama: "Honda Brio", harga: 600000 },
-            { id: "agya", nama: "Toyota Agya", harga: 550000 }
+            { id: "fortuner", nama: "Toyota Fortuner 2.8 GR Sport", harga: 1700000 },
+            { id: "pajero", nama: "Mitsubishi Pajero Sport Dakar", harga: 1700000 },
+            { id: "zenix", nama: "Toyota Innova Zenix Q HEV", harga: 1600000 },
+            { id: "hiace", nama: "Toyota HiAce Premio", harga: 1600000 },
+            { id: "hiace-commuter", nama: "Toyota HiAce Commuter", harga: 1500000 },
+            { id: "zenix-g", nama: "Toyota Innova Zenix Tipe G", harga: 1100000 },
+            { id: "reborn-matic", nama: "Toyota Innova Reborn Matic", harga: 900000 },
+            { id: "reborn-manual", nama: "Toyota Innova Reborn Manual", harga: 900000 },
+            { id: "avanza-veloz", nama: "Toyota Avanza Veloz", harga: 800000 },
+            { id: "avanza", nama: "Toyota New Avanza", harga: 750000 },
+            { id: "avanza-lama", nama: "Toyota Avanza Old", harga: 700000 },
+            { id: "hilux", nama: "Toyota Hilux 4x4", harga: null },
+            { id: "brio", nama: "Honda Brio", harga: 700000 },
+            { id: "agya", nama: "Toyota Agya", harga: 700000 }
         ],
         lepas: [
+            { id: "zenix-g", nama: "Toyota Innova Zenix Tipe G", harga: 650000 },
             { id: "reborn-matic", nama: "Toyota Innova Reborn Matic", harga: 550000 },
             { id: "reborn-manual", nama: "Toyota Innova Reborn Manual", harga: 500000 },
-            { id: "avanza-veloz", nama: "Toyota New Avanza / Veloz", harga: 400000 },
+            { id: "avanza-veloz", nama: "Toyota Avanza Veloz", harga: 450000 },
+            { id: "avanza", nama: "Toyota New Avanza", harga: 400000 },
             { id: "avanza-lama", nama: "Toyota Avanza Old", harga: 350000 },
             { id: "brio", nama: "Honda Brio", harga: 350000 },
-            { id: "agya", nama: "Toyota Agya", harga: 300000 }
+            { id: "agya", nama: "Toyota Agya", harga: 350000 }
         ]
     };
 
@@ -49,20 +60,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const khusus = paket => ["sabang", "bandara"].includes(paket);
 
+    /* ==========================================================
+       KOLOM LOKASI PENJEMPUTAN
+       Dibuat otomatis jika belum ada di HTML.
+       ========================================================== */
+    if (!$("bagianPenjemputan") && $("bagianTujuan")) {
+        const blok = document.createElement("div");
+        blok.id = "bagianPenjemputan";
+        blok.className = "hidden";
+        blok.innerHTML = `
+            <label for="lokasiPenjemputan" class="block text-sm text-slate-300 mb-2">
+                Lokasi Penjemputan
+            </label>
+            <input type="text" id="lokasiPenjemputan"
+                placeholder="Contoh: nama hotel, alamat, atau titik jemput"
+                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+        `;
+        $("bagianTujuan").after(blok);
+    }
+
+    /* ==========================================================
+       ELEMEN SUMBER (diambil dari HTML, lalu dijadikan template unit)
+       ========================================================== */
     const sumber = {
-        paket: $("jenisPaket").closest("div"),
-        mobil: $("mobil").closest("div"),
+        paket: $("jenisPaket")?.closest("div"),
+        mobil: $("mobil")?.closest("div"),
         supir: $("pilihanSupirLepas"),
         infoSupir: $("infoSupir"),
-        tanggalJam: $("tanggal").closest(".grid"),
+        tanggalJam: $("tanggal")?.closest(".grid"),
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
-        tujuan: $("bagianTujuan")
+        tujuan: $("bagianTujuan"),
         penjemputan: $("bagianPenjemputan")
     };
 
     if (Object.values(sumber).some(el => !el)) {
-        console.error("Struktur HTML reservasi tidak lengkap.");
+        console.error("Struktur HTML reservasi tidak lengkap.", sumber);
         return;
     }
 
@@ -73,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const grupPemesanan = $("nama").closest(".grid");
-    const grupCatatan = $("catatan").closest("div");
 
     // Wadah unit ditempatkan sebelum data pemesan.
     const wadah = document.createElement("div");
@@ -82,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.insertBefore(wadah, grupPemesanan);
 
-    // Buat tombol tambah unit tepat sebelum tombol hitung.
+    // Tombol tambah unit tepat sebelum tombol hitung.
     const tombolTambah = document.createElement("button");
     tombolTambah.type = "button";
     tombolTambah.id = "tambahUnit";
@@ -131,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         kotak.querySelectorAll("[id]").forEach(el => {
             const idLama = el.id;
+
             if (pemetaan[idLama]) {
                 el.dataset.field = pemetaan[idLama];
             }
@@ -139,16 +172,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         kotak.querySelectorAll("label[for]").forEach(label => {
-            const forLama = label.htmlFor;
-            label.htmlFor = `${forLama}-unit-${nomor}`;
+            label.htmlFor = `${label.htmlFor}-unit-${nomor}`;
         });
 
+        // Required diatur ulang oleh isiMobil() sesuai paket yang dipilih.
         kotak.querySelectorAll("select, input, textarea").forEach(el => {
-            // Lepaskan required dari field yang disembunyikan.
             el.required = false;
         });
     }
 
+    /* ==========================================================
+       MEMBUAT SATU UNIT RESERVASI
+       ========================================================== */
     function buatUnit(pertama = false) {
         nomorUnit++;
 
@@ -177,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tandaiDanUnikkanID(kotak, nomorUnit);
 
-        // Setiap unit memiliki ID unik, data mobil, dan pilihan sendiri.
         wadah.appendChild(kotak);
 
         if (!pertama) {
@@ -189,24 +223,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 "text-sm font-semibold text-red-400 transition " +
                 "hover:bg-red-500 hover:text-white";
 
-hapus.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="18" height="18"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round"
-         aria-hidden="true">
-        <path d="M3 6h18"/>
-        <path d="M8 6V4h8v2"/>
-        <path d="m19 6-1 14H6L5 6"/>
-        <path d="M10 11v5"/>
-        <path d="M14 11v5"/>
-    </svg>
-    <span>Hapus Unit</span>
-`;
+            hapus.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="18" height="18"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M3 6h18"/>
+                    <path d="M8 6V4h8v2"/>
+                    <path d="m19 6-1 14H6L5 6"/>
+                    <path d="M10 11v5"/>
+                    <path d="M14 11v5"/>
+                </svg>
+                <span>Hapus Unit</span>
+            `;
 
             hapus.addEventListener("click", () => {
                 kotak.remove();
@@ -225,6 +259,7 @@ hapus.innerHTML = `
             const paketValue = paket.value;
             const layananKhusus = khusus(paketValue);
 
+            /* ---- Daftar mobil ---- */
             mobil.innerHTML = "";
 
             if (layananKhusus) {
@@ -249,46 +284,52 @@ hapus.innerHTML = `
                 });
             }
 
-            const bagianSupir = grup.supir;
-            const bagianInfoSupir = grup.infoSupir;
-            const bagianDurasi = grup.durasi;
-            const infoLayanan = grup.infoKhusus;
-            const tujuan = grup.tujuan;
-
-            bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
-            bagianInfoSupir.classList.add("hidden");
+            /* ---- Tampil / sembunyi bagian form ---- */
+            grup.supir.classList.toggle("hidden", paketValue !== "lepas");
+            grup.infoSupir.classList.add("hidden");
 
             wilayah.classList.toggle("hidden", paketValue !== "vip");
-            bagianDurasi.classList.toggle("hidden", layananKhusus);
-            infoLayanan.classList.toggle("hidden", !layananKhusus);
-            tujuan.classList.toggle("hidden", layananKhusus);
-            
-const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
+            grup.durasi.classList.toggle("hidden", layananKhusus);
+            grup.infoKhusus.classList.toggle("hidden", !layananKhusus);
 
-if (paketValue === "vip") {
-    if (wilayahSelect.value === "dalam") {
-        tujuanInput.value = "Banda Aceh dan sekitarnya";
-        tujuan.classList.add("hidden");
-    } else {
-        tujuanInput.value = "";
-        tujuan.classList.remove("hidden");
-    }
-} else if (paketValue === "lepas") {
-    tujuan.classList.remove("hidden");
-} else {
-    tujuan.classList.add("hidden");
-}
-             // Lokasi penjemputan: hanya Tour Sabang & Bandara SIM
-    const penjemputan = grup.penjemputan;
-    const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
+            /* ---- Tujuan perjalanan ----
+               All-In dalam kota : disembunyikan
+               All-In luar kota  : tampil
+               Lepas Kunci       : tampil
+               Sabang / Bandara  : disembunyikan */
+            const tujuan = grup.tujuan;
+            const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
 
-    penjemputan.classList.toggle("hidden", !layananKhusus);
-    penjemputanInput.required = layananKhusus;
+            if (paketValue === "vip") {
+                if (wilayahSelect.value === "dalam") {
+                    tujuanInput.value = "Banda Aceh dan sekitarnya";
+                    tujuan.classList.add("hidden");
+                } else {
+                    tujuanInput.value = "";
+                    tujuan.classList.remove("hidden");
+                }
+            } else if (paketValue === "lepas") {
+                tujuan.classList.remove("hidden");
+            } else {
+                tujuan.classList.add("hidden");
+            }
 
-    if (!layananKhusus) {
-      penjemputanInput.value = "";
-    }
+            /* ---- Lokasi penjemputan ----
+               Hanya Tour Sabang & Antar Jemput Bandara SIM.
+               Paket lain: disembunyikan dan nilainya dikosongkan. */
+            const penjemputan = grup.penjemputan;
+            const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
 
+            penjemputan.classList.toggle("hidden", !layananKhusus);
+            penjemputanInput.required = layananKhusus;
+
+            if (!layananKhusus) {
+                penjemputanInput.value = "";
+            }
+
+            /* ---- Field wajib ---- */
+            kotak.querySelector('[data-field="tanggal"]').required = true;
+            kotak.querySelector('[data-field="jam"]').required = true;
 
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
             const satuan = kotak.querySelector('[data-field="satuanDurasi"]');
@@ -332,24 +373,30 @@ if (paketValue === "vip") {
             el.addEventListener("change", perbaruiSemua);
         });
 
+        // Unit tambahan dimulai dari kondisi bersih.
         if (!pertama) {
-    kotak.querySelectorAll("input, select, textarea").forEach(el => {
-        if (el.tagName === "SELECT") {
-            el.selectedIndex = 0;
-        } else {
-            el.value = "";
-        }
+            kotak.querySelectorAll("input, select, textarea").forEach(el => {
+                if (el.tagName === "SELECT") {
+                    el.selectedIndex = 0;
+                } else {
+                    el.value = "";
+                }
 
-        if (el.type === "checkbox" || el.type === "radio") {
-            el.checked = false;
+                if (el.type === "checkbox" || el.type === "radio") {
+                    el.checked = false;
+                }
+            });
+
+            kotak.querySelector('[data-field="durasi"]').value = "1";
         }
-    });
-}
 
         isiMobil();
         return kotak;
     }
 
+    /* ==========================================================
+       MEMBACA DATA SATU UNIT
+       ========================================================== */
     function dataUnit(kotak) {
         const ambil = field => kotak.querySelector(`[data-field="${field}"]`);
 
@@ -376,7 +423,7 @@ if (paketValue === "vip") {
             harga = null;
         }
 
-        let total = harga === null ? null : (harga + hargaSupir) * hari;
+        const total = harga === null ? null : (harga + hargaSupir) * hari;
 
         return {
             paket,
@@ -392,24 +439,27 @@ if (paketValue === "vip") {
             tanggal: ambil("tanggal").value,
             jam: ambil("jam").value,
             tujuan: paket === "vip"
-    ? (wilayah === "dalam"
-        ? "Banda Aceh dan sekitarnya"
-        : "Konfirmasi Admin")
-    : khusus(paket)
-        ? "Konfirmasi Admin"
-        : ambil("tujuan").value.trim(),
-        penjemputan: ambil("penjemputan").value.trim(),
-supir: paket === "vip"
-    ? "Termasuk paket All-In"
-    : memakaiSupir
-        ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
-        : "Tanpa supir",
-hargaSupir,
-total,
-catatan: $("catatan").value.trim()
+                ? (wilayah === "dalam"
+                    ? "Banda Aceh dan sekitarnya"
+                    : ambil("tujuan").value.trim() || "Konfirmasi Admin")
+                : khusus(paket)
+                    ? "Konfirmasi Admin"
+                    : ambil("tujuan").value.trim(),
+            penjemputan: ambil("penjemputan").value.trim(),
+            supir: paket === "vip"
+                ? "Termasuk paket All-In"
+                : memakaiSupir
+                    ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
+                    : "Tanpa supir",
+            hargaSupir,
+            total,
+            catatan: $("catatan").value.trim()
         };
     }
 
+    /* ==========================================================
+       RINGKASAN
+       ========================================================== */
     function perbaruiSemua() {
         const kotakUnit = [...wadah.querySelectorAll(".unit-box")];
         const data = kotakUnit.map(dataUnit);
@@ -459,7 +509,9 @@ catatan: $("catatan").value.trim()
         tombolWA.dataset.siapan = "false";
     }
 
-    // Validasi tanggal minimal untuk setiap unit.
+    /* ==========================================================
+       INISIALISASI
+       ========================================================== */
     const sekarang = new Date();
     const tanggalHariIni = [
         sekarang.getFullYear(),
@@ -467,7 +519,7 @@ catatan: $("catatan").value.trim()
         String(sekarang.getDate()).padStart(2, "0")
     ].join("-");
 
-    // Buat unit pertama menggunakan elemen HTML yang sudah ada.
+    // Unit pertama memakai elemen HTML yang sudah ada.
     buatUnit(true);
 
     tombolTambah.addEventListener("click", () => {
@@ -489,6 +541,9 @@ catatan: $("catatan").value.trim()
         el.min = tanggalHariIni;
     });
 
+    /* ==========================================================
+       SUBMIT & WHATSAPP
+       ========================================================== */
     form.addEventListener("submit", event => {
         event.preventDefault();
 
@@ -544,7 +599,7 @@ catatan: $("catatan").value.trim()
                 `Jam: ${d.jam}`,
                 `Durasi: ${khusus(d.paket) ? "Konfirmasi Admin" : `${d.durasi} ${d.satuan} (${d.hari} hari)`}`,
                 `Tujuan: ${d.tujuan || (khusus(d.paket) ? "Konfirmasi Admin" : "-")}`,
-                 ...(khusus(d.paket) ? [`Lokasi Penjemputan: ${d.penjemputan || "-"}`] : []),
+                ...(khusus(d.paket) ? [`Lokasi Penjemputan: ${d.penjemputan || "-"}`] : []),
                 `Pilihan Supir: ${d.supir}`,
                 `Biaya Supir: ${d.hargaSupir ? formatRp(d.hargaSupir) + "/hari" : "Rp0"}`,
                 `Tarif Unit: ${d.harga === null ? "Konfirmasi Admin" : formatRp(d.harga) + "/hari"}`,
@@ -564,6 +619,9 @@ catatan: $("catatan").value.trim()
         );
     });
 
+    /* ==========================================================
+       INTEGRASI KARTU PAKET & KATALOG
+       ========================================================== */
     // Klik kartu paket di bagian atas akan mengubah paket Unit 1.
     document.querySelectorAll(".paket-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -577,21 +635,27 @@ catatan: $("catatan").value.trim()
         });
     });
 
-    // Pilih mobil dari katalog kendaraan.
+    // Nama pada atribut data-car (dari data.js) -> id mobil di form.
     const pemetaanKatalog = {
-        "Toyota Zenix Q HEV": "zenix",
-        "Toyota Alphard VIP": "alphard",
-        "Toyota Fortuner 2.8 GR Sport": "fortuner",
-        "Toyota Innova Reborn": "reborn",
-        "Toyota HiAce Premio": "hiace",
-        "Toyota Hilux 4x4": "hilux",
-        "Toyota All New Avanza": "avanza",
-        "Toyota New Avanza / Veloz": "avanza",
-        "Toyota Avanza Old": "avanza-lama",
-        "Honda Brio Satya": "brio",
+        "New Agya": "agya",
         "Honda Brio": "brio",
+        "Avanza": "avanza-lama",
+        "New Avanza": "avanza",
+        "Avanza Veloz": "avanza-veloz",
+        "Innova Reborn Manual": "reborn-manual",
+        "Innova Reborn Matic": "reborn-matic",
+        "Innova Zenix Tipe G": "zenix-g",
+        "Hiace Commuter": "hiace-commuter",
+        "Toyota Zenix Q HEV": "zenix",
+        "Toyota HiAce Premio": "hiace",
+        "Toyota Fortuner 2.8 GR Sport": "fortuner",
+        "Mitsubishi Pajero Sport Dakar": "pajero",
+        "Toyota Alphard VIP": "alphard",
+        "Toyota Hilux 4x4": "hilux",
+        // Nama lama (tetap didukung)
         "Toyota Agya": "agya",
-        "Mitsubishi Pajero Sport Dakar": "pajero"
+        "Toyota Avanza Old": "avanza-lama",
+        "Honda Brio Satya": "brio"
     };
 
     document.addEventListener("click", event => {
@@ -603,13 +667,15 @@ catatan: $("catatan").value.trim()
         const idMobil = pemetaanKatalog[nama];
 
         const unitPertama = wadah.querySelector(".unit-box");
+
         if (idMobil && unitPertama) {
             const paket = unitPertama.querySelector('[data-field="paket"]');
             const mobil = unitPertama.querySelector('[data-field="mobil"]');
 
-            // Pemetaan katalog hanya mengubah pilihan ketika paket cocok.
+            // Hanya mengubah pilihan ketika paket cocok.
             if (paket.value === "vip" || paket.value === "lepas") {
                 const opsi = [...mobil.options].find(o => o.value === idMobil);
+
                 if (opsi) {
                     mobil.value = idMobil;
                     perbaruiSemua();
