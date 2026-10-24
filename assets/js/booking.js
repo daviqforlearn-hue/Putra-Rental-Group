@@ -182,13 +182,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const hapus = document.createElement("button");
             hapus.type = "button";
             hapus.className =
-            hapus.className =
                 "inline-flex items-center justify-center gap-2 rounded-lg " +
                 "border border-red-500/40 bg-red-500/10 px-4 py-2.5 " +
                 "text-sm font-semibold text-red-400 transition " +
                 "hover:bg-red-500 hover:text-white";
 
-            hapus.innerHTML = `
+hapus.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg"
          width="18" height="18"
          viewBox="0 0 24 24"
