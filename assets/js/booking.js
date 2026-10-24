@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
+        penjemputanKhusus: $("bagianPenjemputanKhusus")
     };
 
     if (Object.values(sumber).some(el => !el)) {
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             durasi: "durasi",
             satuanDurasi: "satuanDurasi",
             tujuan: "tujuan",
+            penjemputanKhusus: "penjemputan",
             infoSupir: "infoSupir",
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
@@ -248,34 +250,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            const bagianSupir = grup.supir;
-            const bagianInfoSupir = grup.infoSupir;
-            const bagianDurasi = grup.durasi;
-            const infoLayanan = grup.infoKhusus;
-            const tujuan = grup.tujuan;
+const bagianSupir = grup.supir;
+const bagianInfoSupir = grup.infoSupir;
+const bagianDurasi = grup.durasi;
+const infoLayanan = grup.infoKhusus;
+const tujuan = grup.tujuan;
+const penjemputan = grup.penjemputanKhusus;
 
-            bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
-            bagianInfoSupir.classList.add("hidden");
-
-            wilayah.classList.toggle("hidden", paketValue !== "vip");
-            bagianDurasi.classList.toggle("hidden", layananKhusus);
-            infoLayanan.classList.toggle("hidden", !layananKhusus);
-            tujuan.classList.toggle("hidden", layananKhusus);
-            
 const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
+const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
 
-if (paketValue === "vip") {
-    if (wilayahSelect.value === "dalam") {
-        tujuanInput.value = "Banda Aceh dan sekitarnya";
-        tujuan.classList.add("hidden");
-    } else {
-        tujuanInput.value = "";
-        tujuan.classList.remove("hidden");
-    }
-} else if (paketValue === "lepas") {
-    tujuan.classList.remove("hidden");
-} else {
-    tujuan.classList.add("hidden");
+bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
+bagianInfoSupir.classList.add("hidden");
+
+wilayah.classList.toggle("hidden", paketValue !== "vip");
+bagianDurasi.classList.toggle("hidden", layananKhusus);
+infoLayanan.classList.toggle("hidden", !layananKhusus);
+
+const perluTujuan =
+    paketValue === "lepas" ||
+    (paketValue === "vip" && wilayahSelect.value === "luar");
+
+tujuan.classList.toggle("hidden", !perluTujuan);
+tujuanInput.required = perluTujuan;
+
+if (!perluTujuan) {
+    tujuanInput.value = "";
+}
+
+penjemputan.classList.toggle("hidden", !layananKhusus);
+penjemputanInput.required = layananKhusus;
+
+if (!layananKhusus) {
+    penjemputanInput.value = "";
 }
 
 
@@ -380,10 +387,16 @@ if (paketValue === "vip") {
             hari,
             tanggal: ambil("tanggal").value,
             jam: ambil("jam").value,
-            tujuan: paket === "vip"
-    ? (wilayah === "dalam"
-        ? "Banda Aceh dan sekitarnya"
-        : "Konfirmasi Admin")
+            tujuan:
+    paket === "lepas" ||
+    (paket === "vip" && wilayah === "luar")
+        ? ambil("tujuan").value.trim()
+        : "",
+
+penjemputan: khusus(paket)
+    ? ambil("penjemputan").value.trim()
+    : "",
+            
     : khusus(paket)
         ? "Konfirmasi Admin"
         : ambil("tujuan").value.trim(),
@@ -531,7 +544,13 @@ catatan: $("catatan").value.trim()
                 `Tanggal: ${d.tanggal}`,
                 `Jam: ${d.jam}`,
                 `Durasi: ${khusus(d.paket) ? "Konfirmasi Admin" : `${d.durasi} ${d.satuan} (${d.hari} hari)`}`,
-                `Tujuan: ${d.tujuan || (khusus(d.paket) ? "Konfirmasi Admin" : "-")}`,
+                ...(d.tujuan
+    ? [`Tujuan Perjalanan: ${d.tujuan}`]
+    : []),
+
+...(d.penjemputan
+    ? [`Lokasi Penjemputan: ${d.penjemputan}`]
+    : []),
                 `Pilihan Supir: ${d.supir}`,
                 `Biaya Supir: ${d.hargaSupir ? formatRp(d.hargaSupir) + "/hari" : "Rp0"}`,
                 `Tarif Unit: ${d.harga === null ? "Konfirmasi Admin" : formatRp(d.harga) + "/hari"}`,
