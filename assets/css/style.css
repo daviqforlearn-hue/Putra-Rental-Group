@@ -1,6 +1,5 @@
 @charset "UTF-8";
-/* PUTRA UTAMA GROUP - KOMPONEN PREMIUM (glass, emas, animasi)
-   Dimuat SETELAH themes.css. Selector memakai ID/html body agar menang atas utility Tailwind CDN. */
+/* PUTRA UTAMA GROUP - KOMPONEN PREMIUM */
 
 /* ---------- Kaca: permukaan bersama ---------- */
 html body #harga .md\:grid-cols-2>div,
@@ -162,3 +161,37 @@ html.dark body #carousel-mobil a[data-car]{color:#1a1204}
  *,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  body::after{display:none}
 }
+
+/* ===== RESERVASI - MODE TERANG ===== */
+html:not(.dark) body #reservasi{background:linear-gradient(180deg,rgba(217,119,6,.06),transparent 75%);color:var(--ink)}
+html:not(.dark) body #reservasi::before{background:radial-gradient(48rem 26rem at 85% 0%,rgba(245,158,11,.14),transparent 60%),radial-gradient(40rem 26rem at 0% 100%,rgba(251,191,36,.12),transparent 60%)}
+
+/* Teks */
+html:not(.dark) body #reservasi .text-slate-300{color:#334155}
+html:not(.dark) body #reservasi .text-slate-400,
+html:not(.dark) body #reservasi .text-slate-500{color:#64748b}
+html:not(.dark) body #reservasi .text-amber-400{color:#b45309}
+html:not(.dark) body #reservasi .text-red-400{color:#dc2626}
+
+/* Kartu form & ringkasan */
+html:not(.dark) body #reservasi .bg-slate-900{background:var(--glass);border:1px solid var(--line);box-shadow:var(--hi),var(--sh-2)}
+html:not(.dark) body #reservasi .bg-slate-950{background:rgba(255,255,255,.7)}
+html:not(.dark) body #reservasi .border-slate-700,
+html:not(.dark) body #reservasi .border-slate-800{border-color:#cbd5e1}
+html:not(.dark) body #reservasi .unit-box{background:rgba(255,255,255,.55);border-color:var(--line)}
+html:not(.dark) body #reservasi .border-amber-400{border-color:#d97706}
+
+/* Kolom isian */
+html:not(.dark) body #reservasi input,
+html:not(.dark) body #reservasi select,
+html:not(.dark) body #reservasi textarea{background-color:rgba(255,255,255,.85);border-color:#cbd5e1;color:var(--ink)}
+html:not(.dark) body #reservasi input:focus,
+html:not(.dark) body #reservasi select:focus,
+html:not(.dark) body #reservasi textarea:focus{background-color:#fff;border-color:#d97706;box-shadow:0 0 0 4px rgba(217,119,6,.16)}
+html:not(.dark) body #reservasi ::placeholder{color:#94a3b8}
+html:not(.dark) body #reservasi select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23b45309'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")}
+html:not(.dark) body #reservasi input[type=date]::-webkit-calendar-picker-indicator,
+html:not(.dark) body #reservasi input[type=time]::-webkit-calendar-picker-indicator{filter:none;opacity:.7}
+
+/* Tombol WhatsApp saat nonaktif */
+html:not(.dark) body #reservasi #kirimWhatsApp:disabled{background:#cbd5e1;color:#64748b;box-shadow:none}
