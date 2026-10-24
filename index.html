@@ -1127,9 +1127,20 @@ document.addEventListener("DOMContentLoaded", function () {
                             Tujuan Perjalanan
                         </label>
                         <input type="text" id="tujuan"
-                            placeholder="Contoh: Bireuen, Lhokseumawe, dst"
+                            placeholder="Contoh: Bireuen, Langsa, dst"
                             class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
                     </div>
+                    
+                    <!-- LOKASI PENJEMPUTAN KHUSUS -->
+<div id="bagianPenjemputanKhusus" class="hidden">
+    <label for="penjemputanKhusus"
+        class="block text-sm text-slate-300 mb-2">
+        Lokasi Penjemputan
+    </label>
+    <input type="text" id="penjemputanKhusus"
+        placeholder="Contoh: Bandara SIM, hotel, atau alamat rumah"
+        class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none">
+</div>
 
                     <!-- DATA PEMESAN -->
                     <div class="grid sm:grid-cols-2 gap-5">
