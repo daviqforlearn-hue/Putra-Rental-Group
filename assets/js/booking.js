@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
+        penjemputanKhusus: $("bagianPenjemputanKhusus")
     };
 
     if (Object.values(sumber).some(el => !el)) {
@@ -125,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
             teksPaketKhusus: "teksKhusus"
+            penjemputanKhusus: "penjemputan"
         };
 
         kotak.querySelectorAll("[id]").forEach(el => {
@@ -181,10 +183,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!pertama) {
             const hapus = document.createElement("button");
             hapus.type = "button";
-            hapus.className =
-                "absolute top-4 right-4 text-xs text-red-400 hover:text-red-300";
-            hapus.textContent = "Hapus Unit";
+         hapusUnit.className =
+    "inline-flex items-center justify-center gap-2 rounded-lg " +
+    "border border-red-500/40 bg-red-500/10 px-4 py-2.5 " +
+    "text-sm font-semibold text-red-400 transition " +
+    "hover:bg-red-500 hover:text-white";
 
+hapusUnit.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="18" height="18"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         aria-hidden="true">
+        <path d="M3 6h18"/>
+        <path d="M8 6V4h8v2"/>
+        <path d="m19 6-1 14H6L5 6"/>
+        <path d="M10 11v5"/>
+        <path d="M14 11v5"/>
+    </svg>
+    <span>Hapus Unit</span>
+`;
             hapus.addEventListener("click", () => {
                 kotak.remove();
                 perbaruiSemua();
@@ -226,48 +248,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            const bagianSupir = grup.supir;
-            const bagianInfoSupir = grup.infoSupir;
-            const bagianDurasi = grup.durasi;
-            const infoLayanan = grup.infoKhusus;
-            const tujuan = grup.tujuan;
+const bagianSupir = grup.supir;
+const bagianInfoSupir = grup.infoSupir;
+const bagianDurasi = grup.durasi;
+const infoLayanan = grup.infoKhusus;
+const tujuan = grup.tujuan;
+const penjemputan = grup.penjemputanKhusus;
 
-            bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
-            bagianInfoSupir.classList.add("hidden");
-
-            wilayah.classList.toggle("hidden", paketValue !== "vip");
-            bagianDurasi.classList.toggle("hidden", layananKhusus);
-            infoLayanan.classList.toggle("hidden", !layananKhusus);
-            tujuan.classList.toggle("hidden", layananKhusus);
-            
 const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
+const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
 
-if (paketValue === "vip") {
-    if (wilayahSelect.value === "dalam") {
-        tujuanInput.value = "Banda Aceh dan sekitarnya";
-        tujuan.classList.add("hidden");
-    } else {
-        tujuanInput.value = "";
-        tujuan.classList.remove("hidden");
-    }
-} else if (paketValue === "lepas") {
-    tujuan.classList.remove("hidden");
-} else {
-    tujuan.classList.add("hidden");
+bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
+bagianInfoSupir.classList.add("hidden");
+
+wilayah.classList.toggle("hidden", paketValue !== "vip");
+bagianDurasi.classList.toggle("hidden", layananKhusus);
+infoLayanan.classList.toggle("hidden", !layananKhusus);
+
+const perluTujuan =
+    paketValue === "lepas" ||
+    (paketValue === "vip" && wilayahSelect.value === "luar");
+
+tujuan.classList.toggle("hidden", !perluTujuan);
+tujuanInput.required = perluTujuan;
+
+if (!perluTujuan) {
+    tujuanInput.value = "";
 }
 
+penjemputan.classList.toggle("hidden", !layananKhusus);
+penjemputanInput.required = layananKhusus;
 
+if (!layananKhusus) {
+    penjemputanInput.value = "";
+}
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
             const satuan = kotak.querySelector('[data-field="satuanDurasi"]');
 
             inputDurasi.required = !layananKhusus;
             satuan.required = !layananKhusus;
 
-            if (layananKhusus) {
-                const teks = kotak.querySelector('[data-field="teksKhusus"]');
-                teks.textContent = paketValue === "sabang"
-                    ? "Tour Sabang: harga dan durasi dikonfirmasi admin."
-                    : "Antar Jemput Bandara SIM: harga dan durasi dikonfirmasi admin.";
             }
 
             perbaruiSupir();
@@ -370,6 +390,9 @@ supir: paket === "vip"
     : memakaiSupir
         ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
         : "Tanpa supir",
+            penjemputan: khusus(paket)
+    ? ambil("penjemputan").value.trim()
+    : "",
 hargaSupir,
 total,
 catatan: $("catatan").value.trim()
