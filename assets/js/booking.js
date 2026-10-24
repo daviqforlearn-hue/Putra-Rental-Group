@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         durasi: $("bagianDurasi"),
         infoKhusus: $("infoPaketKhusus"),
         tujuan: $("bagianTujuan")
-        penjemputanKhusus: $("bagianPenjemputanKhusus")
     };
 
     if (Object.values(sumber).some(el => !el)) {
@@ -126,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
             teksBiayaSupir: "teksBiayaSupir",
             infoPaketKhusus: "infoKhusus",
             teksPaketKhusus: "teksKhusus"
-            penjemputanKhusus: "penjemputan"
         };
 
         kotak.querySelectorAll("[id]").forEach(el => {
@@ -184,10 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const hapus = document.createElement("button");
             hapus.type = "button";
             hapus.className =
-                 "inline-flex items-center justify-center gap-2 rounded-lg " +
-                 "border border-red-500/40 bg-red-500/10 px-4 py-2.5 " +
-                 "text-sm font-semibold text-red-400 transition " +
-                 "hover:bg-red-500 hover:text-white";
+                "absolute top-4 right-4 text-xs text-red-400 hover:text-red-300";
             hapus.textContent = "Hapus Unit";
 
             hapus.addEventListener("click", () => {
@@ -231,46 +226,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-const bagianSupir = grup.supir;
-const bagianInfoSupir = grup.infoSupir;
-const bagianDurasi = grup.durasi;
-const infoLayanan = grup.infoKhusus;
-const tujuan = grup.tujuan;
-const penjemputan = grup.penjemputanKhusus;
+            const bagianSupir = grup.supir;
+            const bagianInfoSupir = grup.infoSupir;
+            const bagianDurasi = grup.durasi;
+            const infoLayanan = grup.infoKhusus;
+            const tujuan = grup.tujuan;
 
+            bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
+            bagianInfoSupir.classList.add("hidden");
+
+            wilayah.classList.toggle("hidden", paketValue !== "vip");
+            bagianDurasi.classList.toggle("hidden", layananKhusus);
+            infoLayanan.classList.toggle("hidden", !layananKhusus);
+            tujuan.classList.toggle("hidden", layananKhusus);
+            
 const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
-const penjemputanInput = kotak.querySelector('[data-field="penjemputan"]');
 
-bagianSupir.classList.toggle("hidden", paketValue !== "lepas");
-bagianInfoSupir.classList.add("hidden");
-
-wilayah.classList.toggle("hidden", paketValue !== "vip");
-bagianDurasi.classList.toggle("hidden", layananKhusus);
-infoLayanan.classList.toggle("hidden", !layananKhusus);
-
-const perluTujuan =
-    paketValue === "lepas" ||
-    (paketValue === "vip" && wilayahSelect.value === "luar");
-
-tujuan.classList.toggle("hidden", !perluTujuan);
-tujuanInput.required = perluTujuan;
-
-if (!perluTujuan) {
-    tujuanInput.value = "";
+if (paketValue === "vip") {
+    if (wilayahSelect.value === "dalam") {
+        tujuanInput.value = "Banda Aceh dan sekitarnya";
+        tujuan.classList.add("hidden");
+    } else {
+        tujuanInput.value = "";
+        tujuan.classList.remove("hidden");
+    }
+} else if (paketValue === "lepas") {
+    tujuan.classList.remove("hidden");
+} else {
+    tujuan.classList.add("hidden");
 }
 
-penjemputan.classList.toggle("hidden", !layananKhusus);
-penjemputanInput.required = layananKhusus;
 
-if (!layananKhusus) {
-    penjemputanInput.value = "";
-}
             const inputDurasi = kotak.querySelector('[data-field="durasi"]');
             const satuan = kotak.querySelector('[data-field="satuanDurasi"]');
 
             inputDurasi.required = !layananKhusus;
             satuan.required = !layananKhusus;
 
+            if (layananKhusus) {
+                const teks = kotak.querySelector('[data-field="teksKhusus"]');
+                teks.textContent = paketValue === "sabang"
+                    ? "Tour Sabang: harga dan durasi dikonfirmasi admin."
+                    : "Antar Jemput Bandara SIM: harga dan durasi dikonfirmasi admin.";
             }
 
             perbaruiSupir();
@@ -373,9 +370,6 @@ supir: paket === "vip"
     : memakaiSupir
         ? opsiSupir === "dalam" ? "Supir dalam kota" : "Supir luar kota"
         : "Tanpa supir",
-            penjemputan: khusus(paket)
-    ? ambil("penjemputan").value.trim()
-    : "",
 hargaSupir,
 total,
 catatan: $("catatan").value.trim()
