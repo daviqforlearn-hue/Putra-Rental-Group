@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tombolHitung = form.querySelector('button[type="submit"]');
 
     /* ==========================================================
-       DATA HARGA (disamakan dengan data.js dan halaman utama)
+       DATA HARGA 
        ========================================================== */
     const daftarMobil = {
         vip: [
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ==========================================================
        KOLOM LOKASI PENJEMPUTAN
-       Dibuat otomatis jika belum ada di HTML.
+       
        ========================================================== */
     if (!$("bagianPenjemputan") && $("bagianTujuan")) {
         const blok = document.createElement("div");
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ==========================================================
-       ELEMEN SUMBER (diambil dari HTML, lalu dijadikan template unit)
+       ELEMEN SUMBER 
        ========================================================== */
     const sumber = {
         paket: $("jenisPaket")?.closest("div"),
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ==========================================================
-       MEMBUAT SATU UNIT RESERVASI
+        SATU UNIT RESERVASI
        ========================================================== */
     function buatUnit(pertama = false) {
         nomorUnit++;
