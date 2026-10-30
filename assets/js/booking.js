@@ -297,22 +297,27 @@ document.addEventListener("DOMContentLoaded", () => {
                All-In luar kota  : tampil
                Lepas Kunci       : tampil
                Sabang / Bandara  : disembunyikan */
-            const tujuan = grup.tujuan;
-            const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
+const tujuan = grup.tujuan;
+const tujuanInput = kotak.querySelector('[data-field="tujuan"]');
 
-            if (paketValue === "vip") {
-                if (wilayahSelect.value === "dalam") {
-                    tujuanInput.value = "Banda Aceh dan sekitarnya";
-                    tujuan.classList.add("hidden");
-                } else {
-                    tujuanInput.value = "";
-                    tujuan.classList.remove("hidden");
-                }
-            } else if (paketValue === "lepas") {
-                tujuan.classList.remove("hidden");
-            } else {
-                tujuan.classList.add("hidden");
-            }
+if (paketValue === "vip" && wilayahSelect.value === "dalam") {
+    tujuanInput.value = "";
+    tujuan.classList.add("hidden");
+
+} else if (
+    paketValue === "vip" && wilayahSelect.value === "luar"
+) {
+    tujuanInput.value = "";
+    tujuan.classList.remove("hidden");
+
+} else if (paketValue === "lepas") {
+    tujuanInput.value = "";
+    tujuan.classList.remove("hidden");
+
+} else {
+    tujuanInput.value = "";
+    tujuan.classList.add("hidden");
+}
 
             /* ---- Lokasi penjemputan ----
                Hanya Tour Sabang & Antar Jemput Bandara SIM.
